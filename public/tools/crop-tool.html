@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IvyIn — Photo crop tool</title>
+<style>
+  :root { --green:#114230; --line:#dfe5e1; --muted:#5d6963; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 15px/1.5 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color:#1d2420; background:#f6f8f7; }
+  header { background:#fff; border-bottom:1px solid var(--line); padding:14px 20px; }
+  header h1 { margin:0; font: 700 18px Georgia, serif; color:var(--green); }
+  main { max-width: 980px; margin: 24px auto; padding: 0 20px; display:grid; gap:20px; grid-template-columns: 1fr 280px; }
+  @media (max-width: 760px) { main { grid-template-columns: 1fr; } }
+  .stage { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; min-height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  canvas { max-width:100%; touch-action:none; cursor:default; display:none; border-radius:4px; }
+  .empty { color:var(--muted); text-align:center; }
+  .panel { background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; display:flex; flex-direction:column; gap:14px; }
+  .panel h2 { margin:0; font-size:15px; color:var(--green); }
+  button, input[type=file] { font: inherit; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; }
+  .presets button { border:1px solid var(--line); background:#fff; padding:6px 12px; border-radius:999px; cursor:pointer; }
+  .presets button.on { background:var(--green); color:#fff; border-color:var(--green); }
+  .primary { background:var(--green); color:#fff; border:0; padding:12px; border-radius:999px; cursor:pointer; font-weight:600; }
+  .primary:disabled { opacity:.4; cursor:not-allowed; }
+  .readout { font-size:13px; color:var(--muted); }
+  .error { color:#9b1c1c; font-size:13px; min-height:1em; }
+  textarea { width:100%; height:110px; font: 12px ui-monospace, Menlo, Consolas, monospace; border:1px solid var(--line); border-radius:8px; padding:8px; }
+</style>
+</head>
+<body>
+<header><h1>IvyIn · Photo crop</h1></header>
+
+<main>
+  <section class="stage" id="stage">
+    <div class="empty" id="empty">
+      <p><strong>Choose a photo to start.</strong></p>
+      <p>JPG, PNG, or WebP, up to 50 MB.</p>
+      <input type="file" id="file" accept="image/jpeg,image/png,image/webp">
+    </div>
+    <canvas id="cv"></canvas>
+  </section>
+
+  <aside class="panel">
+    <h2>1. Shape</h2>
+    <div class="presets" id="presets">
+      <button data-r="free" class="on">Free</button>
+      <button data-r="1">1:1</button>
+      <button data-r="0.8">4:5</button>
+      <button data-r="1.3333333">4:3</button>
+      <button data-r="1.7777778">16:9</button>
+      <button data-r="0.6666667">2:3</button>
+    </div>
+
+    <h2>2. Adjust</h2>
+    <p class="readout">Drag the box to move it. Drag a corner to resize.</p>
+
+    <h2>3. Save</h2>
+    <div class="readout" id="size">No crop yet.</div>
+    <button class="primary" id="save" disabled>Download cropped photo</button>
+    <div class="error" id="error"></div>
+
+    <h2>Crop settings (store with the photo)</h2>
+    <textarea id="json" readonly placeholder="Crop settings appear here"></textarea>
+  </aside>
+</main>
+
+<script>
+(function () {
+  const MAX_BYTES = 50 * 1024 * 1024;
+  const MAX_DISPLAY_W = 800;
+  const MAX_EXPORT_SIDE = 1600;
+  const HANDLE = 14;
+  const MIN_PX = 20;
+
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const fileInput = document.getElementById('file');
+  const saveBtn = document.getElementById('save');
+  const errorEl = document.getElementById('error');
+  const sizeEl = document.getElementById('size');
+  const jsonEl = document.getElementById('json');
+
+  let img = null;          // loaded HTMLImageElement
+  let imgUrl = null;
+  let dispW = 0, dispH = 0; // canvas size in CSS-independent pixels
+  let crop = null;          // {x,y,w,h} in display pixels
+  let ratio = null;         // width / height, or null for free
+  let drag = null;          // {mode, handle, start, startCrop}
+
+  function setError(msg) { errorEl.textContent = msg || ''; }
+
+  // ---------- Loading ----------
+  fileInput.addEventListener('change', () => {
+    const f = fileInput.files[0];
+    if (!f) return;
+    setError('');
+    if (!/^image\/(jpeg|png|webp)$/.test(f.type)) {
+      setError('That file type is not supported. Use JPG, PNG, or WebP.');
+      return;
+    }
+    if (f.size > MAX_BYTES) {
+      setError('That file is larger than 50 MB. Please choose a smaller photo.');
+      return;
+    }
+    if (imgUrl) URL.revokeObjectURL(imgUrl);
+    imgUrl = URL.createObjectURL(f);
+    const i = new Image();
+    i.onload = () => { img = i; document.getElementById('empty').style.display = 'none'; cv.style.display = 'block'; layout(true); };
+    i.onerror = () => setError('Could not read that image.');
+    i.src = imgUrl;
+  });
+
+  // ---------- Layout ----------
+  // Sizes the canvas to the photo. `reset` centres a default crop; otherwise the
+  // existing crop is scaled so it survives a window resize.
+  function layout(reset) {
+    const oldW = dispW;
+    const stageW = document.getElementById('stage').clientWidth - 40;
+    dispW = Math.max(200, Math.min(MAX_DISPLAY_W, stageW, img.naturalWidth));
+    dispH = Math.round(dispW * img.naturalHeight / img.naturalWidth);
+    cv.width = dispW;
+    cv.height = dispH;
+    if (reset || !crop || !oldW) {
+      applyPreset(ratio, true);
+    } else {
+      const k = dispW / oldW;
+      crop = { x: crop.x * k, y: crop.y * k, w: crop.w * k, h: crop.h * k };
+    }
+    draw();
+  }
+
+  // ---------- Presets ----------
+  document.getElementById('presets').addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b || !img) return;
+    document.querySelectorAll('#presets button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    applyPreset(b.dataset.r === 'free' ? null : parseFloat(b.dataset.r), true);
+    draw();
+  });
+
+  // Centred crop covering 80% of the photo, with the chosen shape.
+  function applyPreset(r, centre) {
+    ratio = r;
+    const maxW = dispW * 0.8, maxH = dispH * 0.8;
+    if (!r) {
+      crop = { x: dispW * 0.1, y: dispH * 0.1, w: maxW, h: maxH };
+      return;
+    }
+    let w = maxW, h = w / r;
+    if (h > maxH) { h = maxH; w = h * r; }
+    crop = { x: (dispW - w) / 2, y: (dispH - h) / 2, w, h };
+  }
+
+  // ---------- Drawing ----------
+  function draw() {
+    if (!img) return;
+    ctx.clearRect(0, 0, dispW, dispH);
+    ctx.drawImage(img, 0, 0, dispW, dispH);
+    if (!crop) return;
+    // Dim everything outside the crop.
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(0, 0, dispW, dispH);
+    // Restore the photo inside the crop.
+    const k = img.naturalWidth / dispW;
+    ctx.drawImage(img, crop.x * k, crop.y * k, crop.w * k, crop.h * k, crop.x, crop.y, crop.w, crop.h);
+    // Border and corner handles.
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(crop.x, crop.y, crop.w, crop.h);
+    ctx.fillStyle = '#ffffff';
+    corners().forEach(c => ctx.fillRect(c.x - HANDLE / 2, c.y - HANDLE / 2, HANDLE, HANDLE));
+    updateReadout();
+  }
+
+  function corners() {
+    return [
+      { name: 'tl', x: crop.x, y: crop.y },
+      { name: 'tr', x: crop.x + crop.w, y: crop.y },
+      { name: 'bl', x: crop.x, y: crop.y + crop.h },
+      { name: 'br', x: crop.x + crop.w, y: crop.y + crop.h },
+    ];
+  }
+
+  function updateReadout() {
+    const k = img.naturalWidth / dispW;
+    const pw = Math.round(crop.w * k), ph = Math.round(crop.h * k);
+    sizeEl.textContent = `Crop: ${pw} × ${ph} px from a ${img.naturalWidth} × ${img.naturalHeight} photo.`;
+    saveBtn.disabled = false;
+    jsonEl.value = JSON.stringify(settings(), null, 2);
+  }
+
+  // Crop settings in original-photo pixels, so they stay valid at any display size.
+  function settings() {
+    const k = img.naturalWidth / dispW;
+    return {
+      source_width: img.naturalWidth,
+      source_height: img.naturalHeight,
+      x: Math.round(crop.x * k),
+      y: Math.round(crop.y * k),
+      width: Math.round(crop.w * k),
+      height: Math.round(crop.h * k),
+      aspect: ratio ? Number(ratio.toFixed(4)) : null,
+    };
+  }
+
+  // ---------- Pointer interaction ----------
+  function pos(e) {
+    const r = cv.getBoundingClientRect();
+    return {
+      x: (e.clientX - r.left) * (cv.width / r.width),
+      y: (e.clientY - r.top) * (cv.height / r.height),
+    };
+  }
+
+  cv.addEventListener('pointerdown', (e) => {
+    if (!img) return;
+    const p = pos(e);
+    const hit = corners().find(c => Math.abs(c.x - p.x) <= HANDLE && Math.abs(c.y - p.y) <= HANDLE);
+    if (hit) {
+      drag = { mode: 'resize', handle: hit.name, startCrop: { ...crop } };
+    } else if (p.x >= crop.x && p.x <= crop.x + crop.w && p.y >= crop.y && p.y <= crop.y + crop.h) {
+      drag = { mode: 'move', start: p, startCrop: { ...crop } };
+    } else {
+      return;
+    }
+    cv.setPointerCapture(e.pointerId);
+    e.preventDefault();
+  });
+
+  cv.addEventListener('pointermove', (e) => {
+    if (!drag) {
+      cv.style.cursor = cornerAt(pos(e)) ? 'nwse-nesw-resize' : 'move';
+      return;
+    }
+    const p = pos(e);
+    if (drag.mode === 'move') {
+      const s = drag.startCrop;
+      const dx = p.x - drag.start.x, dy = p.y - drag.start.y;
+      crop.x = clamp(s.x + dx, 0, dispW - s.w);
+      crop.y = clamp(s.y + dy, 0, dispH - s.h);
+    } else {
+      resize(p);
+    }
+    draw();
+  });
+
+  function cornerAt(p) {
+    return corners().find(c => Math.abs(c.x - p.x) <= HANDLE && Math.abs(c.y - p.y) <= HANDLE);
+  }
+
+  // Resize from the corner opposite the one being dragged, keeping the chosen shape.
+  function resize(p) {
+    const s = drag.startCrop;
+    const left = drag.handle.includes('l');
+    const top = drag.handle.includes('t');
+    const ax = left ? s.x + s.w : s.x;   // anchor (opposite corner)
+    const ay = top ? s.y + s.h : s.y;
+    const dirX = p.x >= ax ? 1 : -1;      // which side of the anchor the pointer is on
+    const dirY = p.y >= ay ? 1 : -1;
+    // Room available on each side of the anchor.
+    const maxW = dirX > 0 ? dispW - ax : ax;
+    const maxH = dirY > 0 ? dispH - ay : ay;
+    let w = Math.abs(p.x - ax), h = Math.abs(p.y - ay);
+    if (ratio) {
+      w = Math.min(w, maxW, maxH * ratio);
+      w = Math.max(w, MIN_PX);
+      h = w / ratio;
+    } else {
+      w = Math.min(Math.max(w, MIN_PX), maxW);
+      h = Math.min(Math.max(h, MIN_PX), maxH);
+    }
+    crop = {
+      x: dirX > 0 ? ax : ax - w,
+      y: dirY > 0 ? ay : ay - h,
+      w, h,
+    };
+  }
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  function endDrag() { drag = null; }
+  cv.addEventListener('pointerup', endDrag);
+  cv.addEventListener('pointercancel', endDrag);
+
+  // Keep the crop when the window is resized.
+  window.addEventListener('resize', () => { if (img) layout(false); });
+
+  // ---------- Export ----------
+  saveBtn.addEventListener('click', () => {
+    if (!img || !crop) return;
+    const s = settings();
+    const longest = Math.max(s.width, s.height);
+    const k = Math.min(1, MAX_EXPORT_SIDE / longest);
+    const out = document.createElement('canvas');
+    out.width = Math.round(s.width * k);
+    out.height = Math.round(s.height * k);
+    out.getContext('2d').drawImage(img, s.x, s.y, s.width, s.height, 0, 0, out.width, out.height);
+    out.toBlob((blob) => {
+      if (!blob) { setError('Could not create the cropped photo.'); return; }
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'cropped-photo.jpg';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }, 'image/jpeg', 0.9);
+  });
+})();
+</script>
+</body>
+</html>

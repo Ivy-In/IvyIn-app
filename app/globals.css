@@ -1,0 +1,104 @@
+:root {
+  --green: #114230;
+  --green-soft: #e8efe9;
+  --ink: #1d2420;
+  --muted: #5d6963;
+  --line: #dfe5e1;
+  --danger: #9b1c1c;
+  --flag: #fff4c2;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 16px/1.55 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #f6f8f7;
+}
+h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--green); margin: 0 0 .5em; }
+a { color: var(--green); }
+.wrap { max-width: 960px; margin: 0 auto; padding: 24px; }
+header.top {
+  background: #fff; border-bottom: 1px solid var(--line);
+}
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+header.top nav a { margin-left: 16px; text-decoration: none; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+.btn {
+  display: inline-block; background: var(--green); color: #fff; border: 0;
+  padding: 10px 18px; border-radius: 999px; font-weight: 600; cursor: pointer; text-decoration: none;
+}
+.btn.ghost { background: transparent; color: var(--green); border: 2px solid var(--green); }
+label { display: block; font-weight: 600; margin: 12px 0 4px; }
+input, textarea, select {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; font: inherit; background: #fff;
+}
+textarea { min-height: 90px; }
+.error { color: var(--danger); margin: 8px 0; }
+.muted { color: var(--muted); font-size: 14px; }
+.badge {
+  display: inline-block; background: var(--green-soft); color: var(--green);
+  padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600;
+}
+.badge.draft { background: var(--flag); color: #6b5a00; }
+.msg { padding: 10px 14px; border-radius: 10px; margin: 8px 0; background: var(--green-soft); }
+.msg.me { background: #fff; border: 1px solid var(--line); }
+.msg .meta { font-size: 12px; color: var(--muted); }
+table { width: 100%; border-collapse: collapse; }
+td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--line); }
+.grid2 { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+
+/* ---- Marketing site (scoped under .mk so the portal styles are unaffected) ---- */
+.mk { font-family: Georgia, "Times New Roman", serif; color: var(--ink); background: #fff; line-height: 1.6; }
+.mk * { box-sizing: border-box; }
+.mk h1, .mk h2, .mk h3 { font-family: Georgia, "Times New Roman", serif; color: var(--green); line-height: 1.2; margin: 0 0 .5em; }
+.mk h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+.mk h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+.mk h3 { font-size: 1.2rem; }
+.mk p { margin: 0 0 1em; }
+.mk a { color: var(--green); }
+.mk-wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.mk-narrow { max-width: 640px; }
+.mk-nav { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 5; }
+.mk-nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 12px 20px; }
+.mk-brand img { height: 40px; display: block; }
+.mk-links { display: flex; gap: 16px; flex-wrap: wrap; font: 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-links a { text-decoration: none; color: var(--ink); }
+.mk-links a:hover { color: var(--green); }
+.mk-auth { display: flex; gap: 12px; align-items: center; font: 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-auth a { text-decoration: none; color: var(--ink); }
+.mk-btn { display: inline-block; padding: 12px 22px; border-radius: 999px; text-decoration: none; font: 600 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; border: 2px solid var(--green); cursor: pointer; background: transparent; color: var(--green); }
+.mk-btn-primary { background: var(--green); color: #fff; }
+.mk-btn-ghost { background: transparent; color: var(--green); }
+.mk-btn-light { background: #fff; color: var(--green); border-color: #fff; }
+.mk-hero { padding: 88px 0 72px; background: linear-gradient(180deg, #fff, var(--green-soft)); }
+.mk-eyebrow { font: 700 13px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+.mk-lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; margin-bottom: 2em; }
+.mk-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.mk-alt { padding: 72px 0; background: var(--green-soft); }
+.mk-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.mk-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
+.mk-card p { color: var(--muted); margin: 0; }
+.mk-band { background: var(--green); color: #fff; text-align: center; padding: 64px 0; }
+.mk-band h2 { color: #fff; }
+.mk-band p { color: #d6e6dc; }
+.mk-faq { padding: 56px 0; }
+.mk-faq details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+.mk-faq summary { cursor: pointer; font-weight: 700; color: var(--green); }
+.mk-faq details p { margin: 12px 0 0; color: var(--muted); }
+.mk-muted { color: var(--muted); }
+.mk-form label { display: block; font: 600 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; margin: 14px 0 6px; }
+.mk-form input, .mk-form textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; font: 16px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-form textarea { min-height: 130px; }
+.mk-form p { margin-top: 18px; }
+.mk-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.mk-ok { background: var(--green-soft); color: var(--green); padding: 12px 14px; border-radius: 10px; font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-err { background: #fbeaea; color: var(--danger); padding: 12px 14px; border-radius: 10px; font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-footer { border-top: 1px solid var(--line); padding: 32px 0; font: 14px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--muted); }
+.mk-footer-grid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.mk-footer .mk-links a { color: var(--muted); }
+@media (max-width: 640px) {
+  .mk-hero { padding: 56px 0 48px; }
+  .mk-alt { padding: 52px 0; }
+  .mk-auth { width: 100%; justify-content: flex-end; }
+}
