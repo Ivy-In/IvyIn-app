@@ -24,9 +24,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <>
       <header className="top">
         <div className="wrap">
-          <strong style={{ fontFamily: "var(--font-serif)", color: "var(--green)" }}>
-            IvyIn <span className="badge">admin</span>
-          </strong>
+          <Link href="/" className="mk-brand" aria-label="IvyIn home">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/logo-header.jpg" alt="IvyIn" width={1550} height={540} />
+          </Link>
+          <span className="badge">admin</span>
           <nav style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             <Link href="/portal/activity">Activity<Bubble n={unread.total} /></Link>
             {LINKS.map(([href, label, n]) => (

@@ -18,14 +18,13 @@ export default async function PortalLayout({ children }: { children: React.React
     <>
       <header className="top">
         <div className="wrap">
-          <Link href="/portal" className="mk-brand" aria-label="IvyIn home">
+          <Link href="/" className="mk-brand" aria-label="IvyIn home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/logo-header.jpg" alt="IvyIn" width={1550} height={540} />
           </Link>
           {ctx.isStaff && <span className="badge">{ctx.role}</span>}
           <nav className="portal-nav">
             <Link href="/portal">Home</Link>
-            <Link href="/events">Events</Link>
             {ctx.isStaff && <Link href="/portal/activity">Activity<Bubble n={unread?.total ?? 0} /></Link>}
             <Link href="/portal/messages">Messages{unread && <Bubble n={unread.counts.message} />}</Link>
             <Link href="/portal/files">Files{unread && <Bubble n={unread.counts.file} />}</Link>
