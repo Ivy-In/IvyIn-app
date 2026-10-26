@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
+import { getContext } from "@/lib/auth";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -12,7 +13,9 @@ const NAV = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function Header() {
+export async function Header() {
+  // Signed-in visitors see a way back into the portal, and a log out button, instead of log in / sign up.
+  const ctx = await getContext();
   return (
     <header className="mk-nav">
       <div className="mk-wrap mk-nav-inner">
@@ -26,8 +29,19 @@ export function Header() {
           ))}
         </nav>
         <div className="mk-auth">
-          <Link href="/login">Log in</Link>
-          <Link className="mk-btn mk-btn-primary" href="/signup">Sign up</Link>
+          {ctx ? (
+            <>
+              <Link href="/portal">My portal</Link>
+              <form action="/logout" method="post" style={{ display: "inline" }}>
+                <button className="mk-btn mk-btn-primary" type="submit">Log out</button>
+              </form>
+            </>
+          ) : (
+            <>
+              <Link href="/login">Log in</Link>
+              <Link className="mk-btn mk-btn-primary" href="/signup">Sign up</Link>
+            </>
+          )}
         </div>
       </div>
     </header>

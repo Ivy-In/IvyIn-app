@@ -189,3 +189,17 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-locked { border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 8px; background: #fbfcfb; }
 .mk-locked-blur { filter: blur(5px); user-select: none; color: var(--muted); font-size: 15px; line-height: 1.6; }
 .mk .mk-locked-note { margin: 10px 0 0; font-weight: 700; color: var(--green); }
+
+/* ---- Signed-in header: same dots as the public site nav ---- */
+.portal-nav a { display: inline-flex; align-items: center; gap: 6px; }
+.portal-nav a::before { content: "•"; font-size: 1.3em; line-height: 1; color: var(--dot, var(--green)); }
+.portal-nav a:nth-child(1) { --dot: #114230; }
+.portal-nav a:nth-child(2) { --dot: #5f9a7d; }
+.portal-nav a:nth-child(3) { --dot: #8fbfa5; }
+.portal-nav a:nth-child(4) { --dot: #3f7a5e; }
+.portal-nav a:nth-child(5) { --dot: #a9cdb8; }
+.portal-nav a:nth-child(6) { --dot: #6b9a82; }
+.portal-nav a:nth-child(7) { --dot: #114230; }
+.portal-nav a:nth-child(8) { --dot: #5f9a7d; }
+.portal-nav a:nth-child(9) { --dot: #8fbfa5; }
+.portal-nav a:nth-child(10) { --dot: #3f7a5e; }
