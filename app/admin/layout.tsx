@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <>
       <header className="top">
         <div className="wrap">
-          <strong style={{ fontFamily: "Georgia, serif", color: "var(--green)" }}>
+          <strong style={{ fontFamily: "var(--font-serif)", color: "var(--green)" }}>
             IvyIn <span className="badge">admin</span>
           </strong>
           <nav style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>

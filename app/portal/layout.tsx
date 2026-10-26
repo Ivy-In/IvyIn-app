@@ -18,7 +18,7 @@ export default async function PortalLayout({ children }: { children: React.React
     <>
       <header className="top">
         <div className="wrap">
-          <strong style={{ fontFamily: "Georgia, serif", color: "var(--green)" }}>
+          <strong style={{ fontFamily: "var(--font-serif)", color: "var(--green)" }}>
             IvyIn {ctx.isStaff && <span className="badge">{ctx.role}</span>}
           </strong>
           <nav>
