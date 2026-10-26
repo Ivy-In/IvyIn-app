@@ -54,7 +54,15 @@ function ctaLink(c: { label: string; href: string }, className: string) {
 }
 
 // Renders CMS-driven page content. children appear after the cards and before the closing band.
-export function PageBody({ content, children }: { content: PageContent; children?: ReactNode }) {
+export function PageBody({
+  content,
+  children,
+  pills,
+}: {
+  content: PageContent;
+  children?: ReactNode;
+  pills?: { lead: string; items: string[]; tail: string };
+}) {
   return (
     <>
       <section className="mk-hero">
@@ -62,6 +70,15 @@ export function PageBody({ content, children }: { content: PageContent; children
           {content.eyebrow && <div className="mk-eyebrow">{content.eyebrow}</div>}
           <h1>{content.headline}</h1>
           {content.lede && <p className="mk-lede">{content.lede}</p>}
+          {pills && (
+            <p className="mk-pills">
+              <span>{pills.lead}</span>
+              {pills.items.map((item, i) => (
+                <span key={item} className={`mk-pill p${(i % 4) + 1}`}>{item}</span>
+              ))}
+              <span>{pills.tail}</span>
+            </p>
+          )}
           {(content.primary || content.secondary) && (
             <div className="mk-actions">
               {content.primary && ctaLink(content.primary, "mk-btn mk-btn-primary")}

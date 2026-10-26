@@ -8,5 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  return <PageBody content={await getPage("home")} />;
+  return (
+    <PageBody
+      content={await getPage("home")}
+      pills={{
+        lead: "All your",
+        items: ["essays", "applications", "testing", "activities", "deadlines"],
+        tail: "in one private place.",
+      }}
+    />
+  );
 }
