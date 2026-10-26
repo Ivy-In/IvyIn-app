@@ -9,7 +9,12 @@ export default async function StudentList() {
   if (ctx.aal !== "aal2") redirect("/mfa");
 
   const [{ data: clients }, { data: profiles }] = await Promise.all([
-    ctx.supabase.from("profiles").select("id, full_name, email").eq("role", "user").order("full_name"),
+    ctx.supabase
+      .from("profiles")
+      .select("id, full_name, email")
+      .eq("role", "user")
+      .is("archived_at", null)
+      .order("full_name"),
     ctx.supabase.from("student_profiles").select("client_id, current_grade, school, gpa_unweighted"),
   ]);
 

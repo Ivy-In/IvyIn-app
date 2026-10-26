@@ -31,7 +31,13 @@ export default async function StudentDashboardEditor({
   const sp = await searchParams;
 
   const [{ data: person }, data] = await Promise.all([
-    ctx.supabase.from("profiles").select("full_name, email").eq("id", client).eq("role", "user").maybeSingle(),
+    ctx.supabase
+      .from("profiles")
+      .select("full_name, email")
+      .eq("id", client)
+      .eq("role", "user")
+      .is("archived_at", null)
+      .maybeSingle(),
     loadDashboard(ctx.supabase, client),
   ]);
   if (!person) notFound();
