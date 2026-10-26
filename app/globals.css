@@ -66,7 +66,7 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-narrow { max-width: 640px; }
 .mk-nav { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 5; }
 .mk-nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 12px 20px; }
-.mk-brand img { height: 40px; display: block; }
+.mk-brand img { height: 56px; width: auto; display: block; }
 .mk-links { display: flex; gap: 16px; flex-wrap: wrap; font: 15px var(--font-sans); }
 .mk-links a { text-decoration: none; color: var(--ink); }
 .mk-links a:hover { color: var(--green); }

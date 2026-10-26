@@ -17,7 +17,7 @@ export function Header() {
       <div className="mk-wrap mk-nav-inner">
         <Link href="/" className="mk-brand" aria-label="IvyIn home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo-wordmark.jpg" alt="IvyIn" />
+          <img src="/brand/logo-header.jpg" alt="IvyIn" width={1550} height={540} />
         </Link>
         <nav className="mk-links" aria-label="Main">
           {NAV.map((n) => (
