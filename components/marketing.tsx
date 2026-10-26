@@ -72,7 +72,7 @@ export function PageBody({
           {content.lede && <p className="mk-lede">{content.lede}</p>}
           {pills && (
             <p className="mk-pills">
-              <span>{pills.lead}</span>
+              <span className="mk-pill p0">{pills.lead}</span>
               {pills.items.map((item, i) => (
                 <span key={item} className={`mk-pill p${(i % 4) + 1}`}>{item}</span>
               ))}

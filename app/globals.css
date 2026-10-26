@@ -49,9 +49,14 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
 
 /* ---- Marketing site (scoped under .mk so the portal styles are unaffected) ---- */
-.mk { font-family: Georgia, "Times New Roman", serif; color: var(--ink); background: #fff; line-height: 1.6; }
+.mk {
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Nunito", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans); color: var(--ink); background: #fff; line-height: 1.6;
+}
+.mk ::selection { background: var(--green-soft); color: var(--green); }
 .mk * { box-sizing: border-box; }
-.mk h1, .mk h2, .mk h3 { font-family: Georgia, "Times New Roman", serif; color: var(--green); line-height: 1.2; margin: 0 0 .5em; }
+.mk h1, .mk h2, .mk h3 { font-family: var(--font-serif); color: var(--green); line-height: 1.2; margin: 0 0 .5em; }
 .mk h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
 .mk h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
 .mk h3 { font-size: 1.2rem; }
@@ -62,16 +67,19 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-nav { border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; z-index: 5; }
 .mk-nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 12px 20px; }
 .mk-brand img { height: 40px; display: block; }
-.mk-links { display: flex; gap: 16px; flex-wrap: wrap; font: 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-links { display: flex; gap: 16px; flex-wrap: wrap; font: 15px var(--font-sans); }
 .mk-links a { text-decoration: none; color: var(--ink); }
 .mk-links a:hover { color: var(--green); }
-.mk-auth { display: flex; gap: 12px; align-items: center; font: 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-auth { display: flex; gap: 12px; align-items: center; font: 15px var(--font-sans); }
 .mk-auth a { text-decoration: none; color: var(--ink); }
 .mk-auth a.mk-btn-primary { color: #fff; }
-.mk-btn { display: inline-block; padding: 12px 22px; border-radius: 999px; text-decoration: none; font: 600 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; border: 2px solid var(--green); cursor: pointer; background: transparent; color: var(--green); }
+.mk-btn { display: inline-block; padding: 12px 22px; border-radius: 999px; text-decoration: none; font: 600 15px var(--font-sans); border: 2px solid var(--green); cursor: pointer; background: transparent; color: var(--green); }
 .mk-btn-primary { background: var(--green); color: #fff; }
 .mk-btn-ghost { background: transparent; color: var(--green); }
 .mk-btn-light { background: #fff; color: var(--green); border-color: #fff; }
+/* Filled buttons need their own text color. ".mk a" would otherwise turn their text green on green. */
+.mk .mk-btn-primary { color: #fff; }
+.mk .mk-btn-light { color: var(--green); }
 /* Hero: large serif headline on a soft green glow, with a white disc behind the text. */
 .mk-hero {
   position: relative; overflow: hidden; text-align: center; padding: 104px 0 96px;
@@ -90,7 +98,7 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
   font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 400; letter-spacing: -.025em;
   line-height: 1.02; max-width: 1000px; margin: 0 auto .35em;
 }
-.mk-eyebrow { font: 700 13px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+.mk-eyebrow { font: 700 13px var(--font-sans); color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
 .mk-lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; margin: 0 auto 2em; }
 .mk-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 .mk-pills {
@@ -100,6 +108,7 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-pill {
   display: inline-block; border: 1.5px solid currentColor; border-radius: 999px; padding: 2px 20px 4px; line-height: 1.35; background: #fff;
 }
+.mk-pill.p0 { color: var(--ink); }
 .mk-pill.p1 { color: var(--green); }
 .mk-pill.p2 { color: #3f7a5e; }
 .mk-pill.p3 { color: #6b9a82; }
@@ -116,14 +125,14 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-faq summary { cursor: pointer; font-weight: 700; color: var(--green); }
 .mk-faq details p { margin: 12px 0 0; color: var(--muted); }
 .mk-muted { color: var(--muted); }
-.mk-form label { display: block; font: 600 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; margin: 14px 0 6px; }
-.mk-form input, .mk-form textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; font: 16px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+.mk-form label { display: block; font: 600 15px var(--font-sans); margin: 14px 0 6px; }
+.mk-form input, .mk-form textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; font: 16px var(--font-sans); }
 .mk-form textarea { min-height: 130px; }
 .mk-form p { margin-top: 18px; }
 .mk-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-.mk-ok { background: var(--green-soft); color: var(--green); padding: 12px 14px; border-radius: 10px; font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
-.mk-err { background: #fbeaea; color: var(--danger); padding: 12px 14px; border-radius: 10px; font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
-.mk-footer { border-top: 1px solid var(--line); padding: 32px 0; font: 14px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--muted); }
+.mk-ok { background: var(--green-soft); color: var(--green); padding: 12px 14px; border-radius: 10px; font-family: var(--font-sans); }
+.mk-err { background: #fbeaea; color: var(--danger); padding: 12px 14px; border-radius: 10px; font-family: var(--font-sans); }
+.mk-footer { border-top: 1px solid var(--line); padding: 32px 0; font: 14px var(--font-sans); color: var(--muted); }
 .mk-footer-grid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .mk-footer .mk-links a { color: var(--muted); }
 .mk-nav .mk-links a { display: inline-flex; align-items: center; gap: 6px; }
