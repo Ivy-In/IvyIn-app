@@ -149,10 +149,14 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-nav .mk-links a:nth-child(4) { --dot: #3f7a5e; }
 .mk-nav .mk-links a:nth-child(5) { --dot: #a9cdb8; }
 .mk-nav .mk-links a:nth-child(6) { --dot: #6b9a82; }
+/* Hero text is centered. ".mk p" would otherwise reset the lede's auto margins and push it to the left edge. */
+.mk .mk-hero { text-align: center; }
+.mk .mk-hero p.mk-lede { margin: 0 auto 2em; text-align: center; }
+.mk .mk-hero p.mk-pills { margin: 0 auto 40px; text-align: center; }
 @media (max-width: 640px) {
   .mk-hero { padding: 64px 0 56px; }
   .mk-hero::before { top: 0; }
-  .mk-pills { margin-bottom: 28px; }
+  .mk .mk-hero p.mk-pills { margin-bottom: 28px; }
   .mk-alt { padding: 52px 0; }
   .mk-auth { width: 100%; justify-content: flex-end; }
 }
