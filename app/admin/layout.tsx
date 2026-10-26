@@ -14,6 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     ["/admin/inquiries", "Inquiries", unread.counts.inquiry],
     ["/admin/cms", "Content", 0],
     ["/admin/announcements", "Announcements", 0],
+    ["/admin/events", "Events", 0],
     ["/admin/sites", "Student sites", 0],
     ["/admin/files", "Files", unread.counts.file],
     ["/admin/assets", "Images", 0],
