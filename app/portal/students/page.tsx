@@ -20,10 +20,23 @@ export default async function StudentList() {
 
   const byId = new Map((profiles ?? []).map((p) => [p.client_id, p]));
 
+  // Today's sign-up code. Give it to a client only after they have paid.
+  const { data: signupCode } = await ctx.supabase.rpc("current_signup_code");
+
   return (
     <>
       <h1>Students</h1>
       <p className="muted">Open a student to edit their dashboard.</p>
+      <div className="card">
+        <h3>Today&apos;s sign-up code</h3>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: 30, fontWeight: 800, letterSpacing: "0.2em", color: "var(--green)", margin: "4px 0 8px" }}>
+          {signupCode ?? "------"}
+        </p>
+        <p className="muted">
+          Give this to a client after they pay. They enter it on the sign-up page to create an account.
+          It changes every day at midnight Eastern time.
+        </p>
+      </div>
       <div className="card">
         {(clients ?? []).length === 0 && <p className="muted">No students yet.</p>}
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>

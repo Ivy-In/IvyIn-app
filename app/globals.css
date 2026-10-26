@@ -184,3 +184,8 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
   .mk .mk-chip { font-size: 0; height: 8px; padding: 0; }
   .mk-more { display: none; }
 }
+
+/* ---- Members-only event info (visitors who are not signed in) ---- */
+.mk-locked { border: 1px dashed var(--line); border-radius: 12px; padding: 14px 16px; margin-top: 8px; background: #fbfcfb; }
+.mk-locked-blur { filter: blur(5px); user-select: none; color: var(--muted); font-size: 15px; line-height: 1.6; }
+.mk .mk-locked-note { margin: 10px 0 0; font-weight: 700; color: var(--green); }

@@ -11,6 +11,7 @@ type EventRow = {
   description: string | null;
   more_info_url: string | null;
   color: EventColor;
+  visibility: "public" | "private";
   published: boolean;
 };
 
@@ -70,6 +71,12 @@ function EventForm({ event, action }: { event?: EventRow; action: (fd: FormData)
         defaultValue={event?.more_info_url ?? ""}
       />
 
+      <label htmlFor={`${prefix}-vis`}>Who can see the more info</label>
+      <select id={`${prefix}-vis`} name="visibility" defaultValue={event?.visibility ?? "public"}>
+        <option value="public">Public: everyone can read it</option>
+        <option value="private">Private: signed-in users only (visitors see it blurred)</option>
+      </select>
+
       <label htmlFor={`${prefix}-desc`}>More info (shown on the event, optional)</label>
       <textarea id={`${prefix}-desc`} name="description" maxLength={5000} defaultValue={event?.description ?? ""} />
 
@@ -93,7 +100,7 @@ export default async function EventsAdminPage() {
   const ctx = await requireAdmin();
   const { data } = await ctx.supabase
     .from("events")
-    .select("id, title, starts_at, ends_at, location, description, more_info_url, color, published")
+    .select("id, title, starts_at, ends_at, location, description, more_info_url, color, visibility, published")
     .order("starts_at", { ascending: false })
     .limit(300);
   const rows = (data ?? []) as EventRow[];
@@ -122,7 +129,10 @@ export default async function EventsAdminPage() {
               />
               <strong>{r.title}</strong>
             </span>
-            {r.published ? <span className="badge">published</span> : <span className="badge draft">hidden</span>}
+            <span style={{ display: "flex", gap: 6 }}>
+              <span className="badge">{r.visibility === "private" ? "members only" : "public info"}</span>
+              {r.published ? <span className="badge">published</span> : <span className="badge draft">hidden</span>}
+            </span>
           </div>
           <p className="muted">{formatWhen(r.starts_at, r.ends_at)}{r.location ? ` · ${r.location}` : ""}</p>
 

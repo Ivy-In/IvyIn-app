@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import {
   EVENT_COLORS,
@@ -21,10 +22,11 @@ type EventRow = {
   starts_at: string;
   ends_at: string | null;
   location: string | null;
-  description: string | null;
-  more_info_url: string | null;
   color: EventColor;
+  visibility: "public" | "private";
 };
+
+type Info = { description: string | null; more_info_url: string | null };
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MAX_CHIPS_PER_DAY = 3;
@@ -48,11 +50,20 @@ export default async function EventsPage({
   const supabase = await createClient();
   const { data } = await supabase
     .from("events")
-    .select("id, title, starts_at, ends_at, location, description, more_info_url, color")
+    .select("id, title, starts_at, ends_at, location, color, visibility")
     .gte("starts_at", from)
     .lt("starts_at", to)
     .order("starts_at", { ascending: true });
   const events = (data ?? []) as EventRow[];
+
+  // Details come from a database function that applies the public/private rule.
+  // Visitors who are not signed in never receive the text of a private event.
+  const { data: infoRows } = await supabase.rpc("event_details", {
+    p_ids: events.map((e) => e.id),
+  });
+  const infoById = new Map<string, Info & { id: string }>(
+    ((infoRows ?? []) as (Info & { id: string })[]).map((r) => [r.id, r]),
+  );
 
   // Group by Eastern calendar day, and keep only events that fall inside the shown month.
   const prefix = monthParam(year, month);
@@ -138,26 +149,42 @@ export default async function EventsPage({
               <article key={e.id} id={`e-${e.id}`} className="mk-event">
                 <i className="mk-dot" style={{ background: EVENT_COLORS[e.color].hex, marginTop: 8 }} aria-hidden="true" />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <h3 style={{ margin: "0 0 4px" }}>{e.title}</h3>
+                  <h3 style={{ margin: "0 0 4px" }}>
+                    {e.title}
+                    {e.visibility === "private" && <span className="badge" style={{ marginLeft: 10 }}>Members</span>}
+                  </h3>
                   <p className="mk-muted" style={{ margin: 0 }}>
                     {formatWhen(e.starts_at, e.ends_at)}
                     {e.location ? ` · ${e.location}` : ""}
                   </p>
-                  <details>
-                    <summary>More info</summary>
-                    {e.description ? (
-                      <p>{e.description}</p>
-                    ) : (
-                      <p>Details are coming soon.</p>
-                    )}
-                    {e.more_info_url && (
-                      e.more_info_url.startsWith("/") ? (
-                        <a href={e.more_info_url}>Learn more</a>
-                      ) : (
-                        <a href={e.more_info_url} target="_blank" rel="noopener noreferrer">Learn more</a>
-                      )
-                    )}
-                  </details>
+                  {(() => {
+                    const info = infoById.get(e.id);
+                    if (!info) {
+                      // Private event, visitor not signed in: a blurred placeholder. No real text was sent.
+                      return (
+                        <div className="mk-locked">
+                          <div className="mk-locked-blur" aria-hidden="true">
+                            Speaker background, agenda and event details for IvyIn members.
+                          </div>
+                          <p className="mk-locked-note">
+                            Members only. <Link href="/login?next=/events">Log in</Link> to see more info.
+                          </p>
+                        </div>
+                      );
+                    }
+                    return (
+                      <details>
+                        <summary>More info</summary>
+                        {info.description ? <p>{info.description}</p> : <p>Details are coming soon.</p>}
+                        {info.more_info_url &&
+                          (info.more_info_url.startsWith("/") ? (
+                            <a href={info.more_info_url}>Learn more</a>
+                          ) : (
+                            <a href={info.more_info_url} target="_blank" rel="noopener noreferrer">Learn more</a>
+                          ))}
+                      </details>
+                    );
+                  })()}
                 </div>
               </article>
             ))}
