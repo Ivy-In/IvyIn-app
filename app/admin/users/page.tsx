@@ -1,5 +1,5 @@
 import { requireAdmin } from "@/lib/admin";
-import { setArchived, setRole } from "./actions";
+import { purgeStudent, setArchived, setRole } from "./actions";
 
 const ERRORS: Record<string, string> = {
   invalid: "Choose a valid role.",
@@ -7,11 +7,15 @@ const ERRORS: Record<string, string> = {
   failed: "The change could not be saved.",
   confirm: "Tick the box to confirm before archiving a student.",
   auth: "The student was archived, but sign-in could not be blocked. Try again.",
+  archive_first: "Archive the student before deleting them permanently.",
+  confirm_email: "The email you typed does not match. Nothing was deleted.",
+  auth_delete: "Their data was deleted, but the sign-in account could not be removed. Try again.",
 };
 const SAVED: Record<string, string> = {
   "1": "Saved.",
   archived: "Student archived. They are hidden from staff and cannot sign in.",
   restored: "Student restored. They can sign in again.",
+  purged: "Student permanently deleted.",
 };
 
 export default async function UsersPage({
@@ -68,6 +72,21 @@ export default async function UsersPage({
                       <input type="hidden" name="target" value={p.id} />
                       <input type="hidden" name="archive" value="no" />
                       <button className="btn ghost" type="submit">Restore</button>
+                    </form>
+                  )}
+                  {p.role === "user" && p.archived_at && (
+                    <form action={purgeStudent} style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap", marginTop: 8 }}>
+                      <input type="hidden" name="target" value={p.id} />
+                      <input
+                        name="confirm_email"
+                        placeholder={`Type ${p.email} to confirm`}
+                        required
+                        style={{ width: "auto", minWidth: 240 }}
+                      />
+                      <button className="btn" type="submit" style={{ background: "var(--danger)", borderColor: "var(--danger)" }}>
+                        Delete permanently
+                      </button>
+                      <span className="muted" style={{ fontSize: 13 }}>Cannot be undone.</span>
                     </form>
                   )}
                   {p.role === "user" && !p.archived_at && (

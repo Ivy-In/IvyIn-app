@@ -52,3 +52,33 @@ export async function setArchived(formData: FormData) {
   revalidatePath("/portal/students");
   redirect(`/admin/users?saved=${archive ? "archived" : "restored"}`);
 }
+
+// Permanent delete. Only for archived students, and only after the admin types the student's email.
+// Removes messages, files, dashboard, site and profile, then the sign-in account.
+export async function purgeStudent(formData: FormData) {
+  const ctx = await requireAdmin();
+  const target = String(formData.get("target") ?? "");
+  if (!UUID.test(target)) redirect("/admin/users?error=invalid");
+
+  const { data: person } = await ctx.supabase
+    .from("profiles")
+    .select("email, archived_at")
+    .eq("id", target)
+    .eq("role", "user")
+    .maybeSingle();
+  if (!person || !person.archived_at) redirect("/admin/users?error=archive_first");
+
+  const typed = String(formData.get("confirm_email") ?? "").trim().toLowerCase();
+  if (typed !== (person.email ?? "").toLowerCase()) redirect("/admin/users?error=confirm_email");
+
+  const { error } = await ctx.supabase.rpc("purge_client", { target });
+  // "no such client" means an earlier attempt already removed the profile, so the sign-in account may remain.
+  if (error && !error.message.includes("no such client")) redirect("/admin/users?error=failed");
+
+  const { error: authError } = await createAdminClient().auth.admin.deleteUser(target);
+  if (authError) redirect("/admin/users?error=auth_delete");
+
+  revalidatePath("/admin/users");
+  revalidatePath("/portal/students");
+  redirect("/admin/users?saved=purged");
+}
