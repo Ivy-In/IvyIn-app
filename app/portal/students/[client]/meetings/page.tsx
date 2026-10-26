@@ -10,6 +10,7 @@ const ERRORS: Record<string, string> = {
   invalid: "Add a title and a start time.",
   save: "That could not be saved. Advisors can only add meetings that are upcoming.",
   confirm: "Tick the box to confirm the cancellation.",
+  own: "Advisors can only edit their own upcoming meetings.",
 };
 
 // Shared by "New meeting" and the edit form on each meeting.
@@ -129,7 +130,7 @@ export default async function StudentMeetings({
       <h1>Meetings with {name}</h1>
       <p className="muted">
         Students and their advisors are emailed when a meeting is added, changed, or cancelled.
-        Advisors can add upcoming meetings. Only admins can change or cancel them.
+        Advisors can add upcoming meetings and edit their own. Only admins can cancel a meeting.
       </p>
 
       {sp.saved && <p className="msg">Saved. The student and advisor have been emailed.</p>}
@@ -152,14 +153,17 @@ export default async function StudentMeetings({
           </p>
           {m.notes && <p style={{ whiteSpace: "pre-wrap", marginTop: 8 }}>{m.notes}</p>}
 
+          {(isAdmin || (m.advisor_id === ctx.user.id && new Date(m.starts_at).getTime() > Date.now())) && (
+            <details style={{ marginTop: 12 }}>
+              <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--green)" }}>Edit meeting</summary>
+              <div style={{ marginTop: 12 }}>
+                <MeetingForm meeting={m} action={updateMeeting} label="Save changes" />
+              </div>
+            </details>
+          )}
+
           {isAdmin && (
             <>
-              <details style={{ marginTop: 12 }}>
-                <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--green)" }}>Edit meeting</summary>
-                <div style={{ marginTop: 12 }}>
-                  <MeetingForm meeting={m} action={updateMeeting} label="Save changes" />
-                </div>
-              </details>
               <form action={deleteMeeting} style={{ marginTop: 12 }}>
                 <input type="hidden" name="id" value={m.id} />
                 <label style={{ display: "inline", fontWeight: 400 }}>

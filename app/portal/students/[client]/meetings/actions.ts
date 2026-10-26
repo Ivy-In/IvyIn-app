@@ -40,22 +40,23 @@ function readForm(fd: FormData) {
   };
 }
 
-// Emails the student and the staff member who made the change.
+// Emails the student, the advisor who owns the meeting, and the staff member who made the change.
 async function notify(
   ctx: Awaited<ReturnType<typeof staff>>,
   clientId: string,
+  advisorId: string | null,
   kind: "scheduled" | "updated" | "cancelled",
   m: Parameters<typeof meetingEmail>[1],
 ) {
-  const { data: person } = await ctx.supabase
+  const ids = [clientId, advisorId].filter((x): x is string => Boolean(x));
+  const { data: people } = await ctx.supabase
     .from("profiles")
-    .select("email")
-    .eq("id", clientId)
-    .maybeSingle();
+    .select("id, email")
+    .in("id", ids);
+  const recipients = new Set<string>();
+  for (const p of people ?? []) if (p.email) recipients.add(p.email);
+  if (ctx.user.email) recipients.add(ctx.user.email);
   const mail = meetingEmail(kind, m);
-  const recipients = new Set(
-    [person?.email, ctx.user.email].filter((x): x is string => Boolean(x)),
-  );
   await Promise.all([...recipients].map((to) => sendEmail({ to, ...mail })));
 }
 
@@ -74,24 +75,24 @@ export async function addMeeting(formData: FormData) {
     .insert({ ...row, client_id: clientId, advisor_id: ctx.user.id });
   if (error) redirect(`${path}?error=save`);
 
-  await notify(ctx, clientId, "scheduled", row);
+  await notify(ctx, clientId, ctx.user.id, "scheduled", row);
   revalidatePath(path);
   redirect(`${path}?saved=1`);
 }
 
-// Admins only.
+// Admins can edit any meeting. An advisor can edit only their own upcoming meetings.
 export async function updateMeeting(formData: FormData) {
   const ctx = await staff();
-  if (ctx.role !== "admin") redirect("/portal/students");
   const id = String(formData.get("id") ?? "");
 
   const { data: old } = await ctx.supabase
     .from("meetings")
-    .select("client_id")
+    .select("client_id, advisor_id")
     .eq("id", id)
     .maybeSingle();
   if (!old) redirect("/portal/students");
   const path = `/portal/students/${old.client_id}/meetings`;
+  if (ctx.role !== "admin" && old.advisor_id !== ctx.user.id) redirect(`${path}?error=own`);
 
   const row = readForm(formData);
   if (!row) redirect(`${path}?error=invalid`);
@@ -102,7 +103,7 @@ export async function updateMeeting(formData: FormData) {
     .eq("id", id);
   if (error) redirect(`${path}?error=save`);
 
-  await notify(ctx, old.client_id, "updated", row);
+  await notify(ctx, old.client_id, old.advisor_id, "updated", row);
   revalidatePath(path);
   redirect(`${path}?saved=1`);
 }
@@ -115,7 +116,7 @@ export async function deleteMeeting(formData: FormData) {
 
   const { data: old } = await ctx.supabase
     .from("meetings")
-    .select("client_id, title, starts_at, ends_at, location, notes, recurrence, recurrence_until")
+    .select("client_id, advisor_id, title, starts_at, ends_at, location, notes, recurrence, recurrence_until")
     .eq("id", id)
     .maybeSingle();
   if (!old) redirect("/portal/students");
@@ -125,7 +126,7 @@ export async function deleteMeeting(formData: FormData) {
   const { error } = await ctx.supabase.from("meetings").delete().eq("id", id);
   if (error) redirect(`${path}?error=save`);
 
-  await notify(ctx, old.client_id, "cancelled", old);
+  await notify(ctx, old.client_id, old.advisor_id, "cancelled", old);
   revalidatePath(path);
   redirect(`${path}?saved=1`);
 }
