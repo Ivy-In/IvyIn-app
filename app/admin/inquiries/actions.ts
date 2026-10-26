@@ -11,3 +11,14 @@ export async function setHandled(formData: FormData) {
   revalidatePath("/admin/inquiries");
   revalidatePath("/admin");
 }
+
+// Permanently removes an inquiry. The admin must tick the confirm box first.
+export async function deleteInquiry(formData: FormData) {
+  const ctx = await requireAdmin();
+  if (formData.get("confirm") !== "on") return;
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+  await ctx.supabase.from("inquiries").delete().eq("id", id);
+  revalidatePath("/admin/inquiries");
+  revalidatePath("/admin");
+}

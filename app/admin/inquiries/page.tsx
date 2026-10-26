@@ -1,5 +1,5 @@
 import { requireAdmin } from "@/lib/admin";
-import { setHandled } from "./actions";
+import { deleteInquiry, setHandled } from "./actions";
 
 export default async function InquiriesPage() {
   const ctx = await requireAdmin();
@@ -27,6 +27,14 @@ export default async function InquiriesPage() {
             <input type="hidden" name="handled" value={r.handled ? "false" : "true"} />
             <button className="btn ghost" type="submit">{r.handled ? "Mark as open" : "Mark as handled"}</button>
             {r.handled && <span className="badge" style={{ marginLeft: 10 }}>handled</span>}
+          </form>
+          <form action={deleteInquiry} style={{ marginTop: 12 }}>
+            <input type="hidden" name="id" value={r.id} />
+            <label style={{ display: "inline", fontWeight: 400 }}>
+              <input type="checkbox" name="confirm" required style={{ width: "auto", marginRight: 8 }} />
+              Delete permanently
+            </label>
+            <button className="btn ghost" type="submit" style={{ marginLeft: 10 }}>Delete</button>
           </form>
         </div>
       ))}
