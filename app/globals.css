@@ -67,14 +67,43 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-links a:hover { color: var(--green); }
 .mk-auth { display: flex; gap: 12px; align-items: center; font: 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
 .mk-auth a { text-decoration: none; color: var(--ink); }
+.mk-auth a.mk-btn-primary { color: #fff; }
 .mk-btn { display: inline-block; padding: 12px 22px; border-radius: 999px; text-decoration: none; font: 600 15px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; border: 2px solid var(--green); cursor: pointer; background: transparent; color: var(--green); }
 .mk-btn-primary { background: var(--green); color: #fff; }
 .mk-btn-ghost { background: transparent; color: var(--green); }
 .mk-btn-light { background: #fff; color: var(--green); border-color: #fff; }
-.mk-hero { padding: 88px 0 72px; background: linear-gradient(180deg, #fff, var(--green-soft)); }
-.mk-eyebrow { font: 700 13px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
-.mk-lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; margin-bottom: 2em; }
-.mk-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+/* Hero: large serif headline on a soft green glow, with a white disc behind the text. */
+.mk-hero {
+  position: relative; overflow: hidden; text-align: center; padding: 104px 0 96px;
+  background:
+    radial-gradient(ellipse at 8% 70%, #bcd6c5 0%, transparent 52%),
+    radial-gradient(ellipse at 92% 30%, #9cc2aa 0%, transparent 50%),
+    linear-gradient(180deg, #f4f8f5, var(--green-soft));
+}
+.mk-hero::before {
+  content: ""; position: absolute; left: 50%; top: 8%; width: min(980px, 150vw); height: 110%;
+  transform: translateX(-50%); border-radius: 50%; background: #fff;
+  box-shadow: 0 0 140px 60px rgba(255, 255, 255, .55);
+}
+.mk-hero > .mk-wrap { position: relative; z-index: 1; }
+.mk-hero h1 {
+  font-size: clamp(2.8rem, 8vw, 6rem); font-weight: 400; letter-spacing: -.025em;
+  line-height: 1.02; max-width: 1000px; margin: 0 auto .35em;
+}
+.mk-eyebrow { font: 700 13px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--green); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+.mk-lede { font-size: 1.2rem; color: var(--muted); max-width: 640px; margin: 0 auto 2em; }
+.mk-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.mk-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 12px;
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem); color: var(--muted); margin: 0 auto 40px; max-width: 980px;
+}
+.mk-pill {
+  display: inline-block; border: 1.5px solid currentColor; border-radius: 999px; padding: 2px 20px 4px; line-height: 1.35; background: #fff;
+}
+.mk-pill.p1 { color: var(--green); }
+.mk-pill.p2 { color: #3f7a5e; }
+.mk-pill.p3 { color: #6b9a82; }
+.mk-pill.p4 { color: #4f8a70; }
 .mk-alt { padding: 72px 0; background: var(--green-soft); }
 .mk-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .mk-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
@@ -97,8 +126,18 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .mk-footer { border-top: 1px solid var(--line); padding: 32px 0; font: 14px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--muted); }
 .mk-footer-grid { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .mk-footer .mk-links a { color: var(--muted); }
+.mk-nav .mk-links a { display: inline-flex; align-items: center; gap: 6px; }
+.mk-nav .mk-links a::before { content: "•"; font-size: 1.3em; line-height: 1; color: var(--dot, var(--green)); }
+.mk-nav .mk-links a:nth-child(1) { --dot: #114230; }
+.mk-nav .mk-links a:nth-child(2) { --dot: #5f9a7d; }
+.mk-nav .mk-links a:nth-child(3) { --dot: #8fbfa5; }
+.mk-nav .mk-links a:nth-child(4) { --dot: #3f7a5e; }
+.mk-nav .mk-links a:nth-child(5) { --dot: #a9cdb8; }
+.mk-nav .mk-links a:nth-child(6) { --dot: #6b9a82; }
 @media (max-width: 640px) {
-  .mk-hero { padding: 56px 0 48px; }
+  .mk-hero { padding: 64px 0 56px; }
+  .mk-hero::before { top: 0; }
+  .mk-pills { margin-bottom: 28px; }
   .mk-alt { padding: 52px 0; }
   .mk-auth { width: 100%; justify-content: flex-end; }
 }
