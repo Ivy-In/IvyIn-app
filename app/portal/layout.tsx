@@ -20,6 +20,7 @@ export default async function PortalLayout({ children }: { children: React.React
             <Link href="/portal">Home</Link>
             <Link href="/portal/messages">Messages</Link>
             <Link href="/portal/files">Files</Link>
+            {ctx.isStaff && <Link href="/portal/students">Students</Link>}
             {ctx.isStaff && <Link href="/portal/sites">Sites</Link>}
             {ctx.role === "admin" && <Link href="/admin">Admin</Link>}
             <form action="/logout" method="post" style={{ display: "inline" }}>

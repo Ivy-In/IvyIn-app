@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { getContext } from "@/lib/auth";
+import { loadDashboard } from "@/lib/dashboard";
+import { StudentDashboard } from "@/components/StudentDashboard";
 
 export default async function PortalHome() {
   const ctx = await getContext();
   if (!ctx) return null; // layout already redirected
+
+  // Students see their own dashboard here. Staff use the Students area instead.
+  const dash = ctx.isStaff ? null : await loadDashboard(ctx.supabase, ctx.user.id);
 
   const { data: site } = await ctx.supabase
     .from("student_sites")
@@ -29,6 +34,12 @@ export default async function PortalHome() {
           {a.body && <p className="muted" style={{ whiteSpace: "pre-wrap" }}>{a.body}</p>}
         </div>
       ))}
+      {dash && (
+        <>
+          <h2>Your dashboard</h2>
+          <StudentDashboard data={dash} clientId={ctx.user.id} canToggle backPath="/portal" />
+        </>
+      )}
       <div className="grid2">
         <div className="card">
           <h3>Messages</h3>
