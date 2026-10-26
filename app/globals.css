@@ -203,3 +203,10 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
 .portal-nav a:nth-child(8) { --dot: #5f9a7d; }
 .portal-nav a:nth-child(9) { --dot: #8fbfa5; }
 .portal-nav a:nth-child(10) { --dot: #3f7a5e; }
+
+/* ---- Dashboard tabs and upcoming list ---- */
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 18px; }
+.tab { padding: 8px 18px; border-radius: 999px; border: 2px solid var(--green); color: var(--green); text-decoration: none; font-weight: 700; }
+.tab.on { background: var(--green); color: #fff; }
+.up-row { padding: 12px 0; border-top: 1px solid var(--line); }
+.up-row:first-of-type { border-top: 0; }

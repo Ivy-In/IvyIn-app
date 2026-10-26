@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { occurrences, type MeetingRow, type Occurrence } from "@/lib/meetings";
 import {
   EVENT_COLORS,
   etDayKey,
@@ -30,6 +31,8 @@ type Info = { description: string | null; more_info_url: string | null };
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MAX_CHIPS_PER_DAY = 3;
+// Meetings use their own color, so they never look like public events.
+const MEETING_HEX = "#b5562b";
 
 export default async function EventsPage({
   searchParams,
@@ -64,6 +67,29 @@ export default async function EventsPage({
   const infoById = new Map<string, Info & { id: string }>(
     ((infoRows ?? []) as (Info & { id: string })[]).map((r) => [r.id, r]),
   );
+
+  // Signed-in users also see their own meetings with their advisor, in a different color.
+  const { data: authData } = await supabase.auth.getUser();
+  const myOccurrences: Occurrence[] = [];
+  if (authData.user) {
+    const { data: mrows } = await supabase
+      .from("meetings")
+      .select("id, client_id, advisor_id, title, starts_at, ends_at, location, notes, recurrence, recurrence_until")
+      .eq("client_id", authData.user.id)
+      .lt("starts_at", to)
+      .order("starts_at", { ascending: true });
+    for (const m of (mrows ?? []) as MeetingRow[]) {
+      myOccurrences.push(...occurrences(m, new Date(from), new Date(to)));
+    }
+  }
+  const meetingsByDay: Record<string, Occurrence[]> = {};
+  const myThisMonth: Occurrence[] = [];
+  for (const occ of myOccurrences) {
+    const key = etDayKey(occ.startsAt);
+    if (!key.startsWith(monthParam(year, month))) continue;
+    (meetingsByDay[key] ??= []).push(occ);
+    myThisMonth.push(occ);
+  }
 
   // Group by Eastern calendar day, and keep only events that fall inside the shown month.
   const prefix = monthParam(year, month);
@@ -107,21 +133,28 @@ export default async function EventsPage({
                 <div key={d} className="mk-cal-dow" role="columnheader">{d}</div>
               ))}
               {cells.map((c) => {
-                const dayEvents = byDay[c.key] ?? [];
-                const shown = dayEvents.slice(0, MAX_CHIPS_PER_DAY);
-                const hidden = dayEvents.length - shown.length;
+                const chips = [
+                  ...(meetingsByDay[c.key] ?? []).map((occ) => ({
+                    key: occ.key,
+                    title: occ.meeting.title,
+                    href: `#m-${occ.key}`,
+                    hex: MEETING_HEX,
+                  })),
+                  ...(byDay[c.key] ?? []).map((e) => ({
+                    key: e.id,
+                    title: e.title,
+                    href: `#e-${e.id}`,
+                    hex: EVENT_COLORS[e.color].hex,
+                  })),
+                ];
+                const shown = chips.slice(0, MAX_CHIPS_PER_DAY);
+                const hidden = chips.length - shown.length;
                 return (
                   <div key={c.key} className={`mk-cal-cell${c.inMonth ? "" : " out"}`} role="gridcell">
                     <span className="mk-cal-day">{c.day}</span>
-                    {shown.map((e) => (
-                      <a
-                        key={e.id}
-                        className="mk-chip"
-                        href={`#e-${e.id}`}
-                        title={e.title}
-                        style={{ background: EVENT_COLORS[e.color].hex }}
-                      >
-                        {e.title}
+                    {shown.map((chip) => (
+                      <a key={chip.key} className="mk-chip" href={chip.href} title={chip.title} style={{ background: chip.hex }}>
+                        {chip.title}
                       </a>
                     ))}
                     {hidden > 0 && <span className="mk-more">+{hidden} more</span>}
@@ -130,7 +163,7 @@ export default async function EventsPage({
               })}
             </div>
 
-            {usedColors.length > 0 && (
+            {(usedColors.length > 0 || myThisMonth.length > 0) && (
               <div className="mk-legend" aria-label="Color key">
                 {usedColors.map((k) => (
                   <span key={k}>
@@ -138,9 +171,37 @@ export default async function EventsPage({
                     {EVENT_COLORS[k].label}
                   </span>
                 ))}
+                {myThisMonth.length > 0 && (
+                  <span>
+                    <i className="mk-dot" style={{ background: MEETING_HEX }} />
+                    My meetings
+                  </span>
+                )}
               </div>
             )}
           </div>
+
+          {myThisMonth.length > 0 && (
+            <div className="mk-card" style={{ marginTop: 22 }}>
+              <h2 style={{ fontSize: "1.5rem" }}>Your meetings</h2>
+              {myThisMonth.map((occ) => (
+                <article key={occ.key} id={`m-${occ.key}`} className="mk-event">
+                  <i className="mk-dot" style={{ background: MEETING_HEX, marginTop: 8 }} aria-hidden="true" />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h3 style={{ margin: "0 0 4px" }}>
+                      {occ.meeting.title}
+                      <span className="badge" style={{ marginLeft: 10 }}>With your advisor</span>
+                    </h3>
+                    <p className="mk-muted" style={{ margin: 0 }}>
+                      {formatWhen(occ.startsAt, occ.endsAt)}
+                      {occ.meeting.location ? ` · ${occ.meeting.location}` : ""}
+                    </p>
+                    {occ.meeting.notes && <p style={{ whiteSpace: "pre-wrap", marginTop: 8 }}>{occ.meeting.notes}</p>}
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
 
           <div className="mk-card" style={{ marginTop: 22 }}>
             <h2 style={{ fontSize: "1.5rem" }}>This month</h2>

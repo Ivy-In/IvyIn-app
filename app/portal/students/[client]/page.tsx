@@ -52,6 +52,9 @@ export default async function StudentDashboardEditor({
         <Link href="/portal/students">← All students</Link>
       </p>
       <h1>{name}</h1>
+      <p style={{ marginTop: -8 }}>
+        <Link href={`/portal/students/${client}/meetings`}>Meetings and recurring schedule →</Link>
+      </p>
       <p className="muted">Edit this dashboard. The student sees the same layout and can tick their own items.</p>
       {sp.saved && <p className="msg">{SAVED[sp.saved] ?? "Saved."}</p>}
       {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
