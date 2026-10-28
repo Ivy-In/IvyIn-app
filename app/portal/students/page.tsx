@@ -29,7 +29,7 @@ export default async function StudentList() {
       <p className="muted">Open a student to edit their dashboard.</p>
       <div className="card">
         <h3>Today&apos;s sign-up code</h3>
-        <p style={{ fontFamily: "var(--font-sans)", fontSize: 30, fontWeight: 800, letterSpacing: "0.2em", color: "var(--green)", margin: "4px 0 8px" }}>
+        <p style={{ fontFamily: "var(--font-sans)", fontSize: 30, fontWeight: 800, letterSpacing: "0.2em", color: "var(--accent)", margin: "4px 0 8px" }}>
           {signupCode ?? "------"}
         </p>
         <p className="muted">
@@ -43,7 +43,7 @@ export default async function StudentList() {
           {(clients ?? []).map((c) => {
             const p = byId.get(c.id);
             return (
-              <li key={c.id} style={{ padding: "10px 0", borderTop: "1px solid #eee", display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+              <li key={c.id} style={{ padding: "10px 0", borderTop: "1px solid var(--line)", display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
                 <div style={{ flex: 1, minWidth: 200 }}>
                   <Link href={`/portal/students/${c.id}`}>{c.full_name ?? c.email ?? "Unnamed student"}</Link>
                   <div className="muted" style={{ fontSize: 13 }}>

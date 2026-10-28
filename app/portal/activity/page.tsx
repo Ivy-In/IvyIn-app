@@ -51,14 +51,14 @@ export default async function ActivityPage() {
                   alignItems: "baseline",
                   flexWrap: "wrap",
                   padding: "10px 0",
-                  borderTop: "1px solid #eee",
+                  borderTop: "1px solid var(--line)",
                   background: isNew ? "var(--green-soft)" : "transparent",
                 }}
               >
                 <span className="badge" style={{ minWidth: 72, textAlign: "center" }}>{KIND_LABEL[kind]}</span>
                 <span style={{ flex: 1, minWidth: 200 }}>
                   {href ? <Link href={href}>{e.summary}</Link> : e.summary}
-                  {isNew && <strong style={{ marginLeft: 8, color: "var(--green)", fontSize: 12 }}>NEW</strong>}
+                  {isNew && <strong style={{ marginLeft: 8, color: "var(--accent)", fontSize: 12 }}>NEW</strong>}
                 </span>
                 <span className="muted" style={{ fontSize: 13 }}>
                   {new Date(e.created_at).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}

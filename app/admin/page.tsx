@@ -34,7 +34,7 @@ export default async function Dashboard() {
           <h3>Storage</h3>
           <p className="muted">{(bytes / GB).toFixed(2)} GB of 50 GB ({files.count ?? 0} files)</p>
           <div style={{ background: "var(--line)", borderRadius: 999, height: 10, overflow: "hidden" }}>
-            <div style={{ width: `${pct}%`, background: level === "ok" ? "var(--green)" : "#c9824a", height: "100%" }} />
+            <div style={{ width: `${pct}%`, background: level === "ok" ? "var(--green-light)" : "#c9824a", height: "100%" }} />
           </div>
           <p className="muted" style={{ marginTop: 10 }}>
             Alerts at 40 GB and 45 GB. Deleted files are removed from storage by the nightly job,

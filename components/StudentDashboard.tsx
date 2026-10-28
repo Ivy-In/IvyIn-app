@@ -76,7 +76,7 @@ export function StudentDashboard({
                 {items.map((item) => (
                   <li
                     key={item.id}
-                    style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "8px 0", borderTop: "1px solid #eee" }}
+                    style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "8px 0", borderTop: "1px solid var(--line)" }}
                   >
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ textDecoration: item.done ? "line-through" : "none", opacity: item.done ? 0.6 : 1 }}>

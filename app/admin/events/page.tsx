@@ -149,7 +149,7 @@ export default async function EventsAdminPage() {
           </div>
 
           <details>
-            <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--green)" }}>Edit event</summary>
+            <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--accent)" }}>Edit event</summary>
             <div style={{ marginTop: 12 }}>
               <EventForm event={r} action={updateEvent} />
             </div>

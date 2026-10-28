@@ -155,7 +155,7 @@ export default async function StudentMeetings({
 
           {(isAdmin || (m.advisor_id === ctx.user.id && new Date(m.starts_at).getTime() > Date.now())) && (
             <details style={{ marginTop: 12 }}>
-              <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--green)" }}>Edit meeting</summary>
+              <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--accent)" }}>Edit meeting</summary>
               <div style={{ marginTop: 12 }}>
                 <MeetingForm meeting={m} action={updateMeeting} label="Save changes" />
               </div>

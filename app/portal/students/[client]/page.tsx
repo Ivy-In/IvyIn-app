@@ -86,7 +86,7 @@ export default async function StudentDashboardEditor({
           {data.goals.length === 0 && <p className="muted">None yet.</p>}
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {data.goals.map((g) => (
-              <li key={g.id} style={{ display: "flex", gap: 8, alignItems: "center", padding: "6px 0", borderTop: "1px solid #eee" }}>
+              <li key={g.id} style={{ display: "flex", gap: 8, alignItems: "center", padding: "6px 0", borderTop: "1px solid var(--line)" }}>
                 <span style={{ flex: 1 }}>
                   {g.school}
                   {g.program && <span className="muted"> · {g.program}</span>}
@@ -150,7 +150,7 @@ export default async function StudentDashboardEditor({
               {items.length === 0 && <p className="muted">Nothing here yet.</p>}
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {items.map((item) => (
-                  <li key={item.id} style={{ display: "flex", gap: 8, alignItems: "flex-start", padding: "6px 0", borderTop: "1px solid #eee" }}>
+                  <li key={item.id} style={{ display: "flex", gap: 8, alignItems: "flex-start", padding: "6px 0", borderTop: "1px solid var(--line)" }}>
                     <div style={{ flex: 1, minWidth: 0, textDecoration: item.done ? "line-through" : "none", opacity: item.done ? 0.6 : 1 }}>
                       {item.title}
                       {item.due_on && <div className="muted" style={{ fontSize: 13 }}>Due {item.due_on}</div>}
