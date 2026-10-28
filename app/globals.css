@@ -402,3 +402,133 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* =====================================================================
+   PUBLIC SITE: "Loud and flat"
+   Flat IvyIn green, very heavy type, square lime buttons, no glass.
+   Scoped to the marketing pages (.mk); the signed-in portal keeps the glass look.
+   ===================================================================== */
+html:has(.mk), body:has(.mk) { background: #114230; }
+body:has(.mk)::before { display: none; }
+
+.mk {
+  --lime: #e8f2a8;
+  --paper: #f3efe6;
+  --deep: #0d3325;
+  --step: #1a5239;
+  --display: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --ink: var(--paper);
+  --muted: rgba(243, 239, 230, .78);
+  --heading: var(--paper);
+  --accent: var(--lime);
+  --line: transparent;
+}
+.mk h1, .mk h2, .mk h3 { font-family: var(--display); font-weight: 400; color: var(--paper); letter-spacing: -.02em; }
+.mk a { color: var(--lime); }
+
+/* Nav: a plain bar, no bubble, no dots. */
+.mk-nav { padding: 0; background: #114230; }
+.mk-nav-inner, .mk-nav .mk-links {
+  background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 0;
+}
+.mk-nav-inner { max-width: none; padding: 20px 28px; }
+.mk-nav .mk-links { padding: 0; }
+.mk-brand img { height: 40px; }
+.mk-links a { border-radius: 0; padding: 6px 12px; font-weight: 700; color: var(--paper); }
+.mk-links a::before { display: none; }
+.mk-links a:hover { background: none; color: var(--lime); }
+.mk-links a[aria-current="page"] { background: none; box-shadow: inset 0 -3px 0 var(--lime); color: var(--paper); }
+.mk-auth a { font-weight: 700; color: var(--paper); }
+.mk-auth a:hover { color: var(--lime); }
+
+/* Buttons: flat, square, lime fill. */
+.mk-btn, .mk .mk-btn { border-radius: 0; box-shadow: none; font-weight: 800; font-size: 17px; padding: 14px 26px; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.mk-btn-primary, .mk .mk-btn-primary { background: var(--lime); color: #114230; border: 0; }
+.mk-btn-primary:hover { background: #f3fbc4; box-shadow: none; transform: translateY(-2px); }
+.mk-btn-ghost, .mk .mk-btn-ghost { background: none; color: var(--paper); border: 2px solid var(--paper); }
+.mk-btn-ghost:hover { background: var(--paper); color: #114230; }
+.mk-btn-light, .mk .mk-btn-light { background: #114230; color: var(--lime); border: 0; }
+.mk-btn-light:hover { background: var(--deep); box-shadow: none; }
+
+/* Hero: the big poster headline, flush left. */
+.mk-hero { text-align: left; padding: 56px 0 72px; }
+.mk-hero::before { display: none; }
+.mk .mk-hero { text-align: left; }
+.mk-hero .mk-wrap { max-width: none; padding: 0 28px; }
+.mk-hero h1 {
+  font-family: var(--display); font-size: clamp(3rem, 12.5vw, 12rem); line-height: .88; letter-spacing: -.04em;
+  max-width: 11ch; margin: 0 0 .3em; background: none; -webkit-text-fill-color: var(--paper); color: var(--paper);
+}
+.mk-eyebrow { background: none; border: 0; padding: 0; margin-bottom: 16px; color: var(--lime); font-size: 14px; letter-spacing: .06em; border-radius: 0; }
+.mk-lede, .mk .mk-hero p.mk-lede { margin: 0 0 1.6em; text-align: left; max-width: 34ch; font-size: 1.5rem; line-height: 1.4; color: var(--paper); }
+.mk .mk-hero p.mk-pills { margin: 0 0 1.6em; text-align: left; justify-content: flex-start; max-width: 30ch; font-size: 1.5rem; color: var(--paper); gap: 8px 10px; }
+.mk-actions { justify-content: flex-start; }
+.mk-pill { border: 0; border-radius: 0; padding: 2px 14px 4px; background: var(--lime); color: #114230 !important; backdrop-filter: none; -webkit-backdrop-filter: none; font-weight: 700; }
+.mk-pill:hover { background: #f3fbc4; transform: none; }
+.mk-pill.p1, .mk-pill.p3 { background: #a9cdb8; }
+.mk-pill.p2 { background: var(--paper); }
+
+/* Tilted cut-out panel with the leaf (home page). */
+.mk-cut { position: absolute; right: 5vw; top: 90px; width: min(30vw, 420px); aspect-ratio: 4 / 5; background: #a9cdb8; transform: rotate(4deg); z-index: 0; }
+.mk-cut svg { position: absolute; inset: 16%; width: 68%; height: 68%; fill: #114230; }
+.mk-cut i { position: absolute; left: 7%; right: -7%; bottom: -3%; height: 11%; background: var(--lime); }
+.mk-hero > .mk-wrap { position: relative; z-index: 1; }
+
+/* Flat cards: a step of tone, no glass, no border. */
+.mk-alt { padding: 40px 0 72px; }
+.mk-alt .mk-wrap, .mk-faq .mk-wrap, .mk-band .mk-wrap { max-width: none; padding: 0 28px; }
+.mk-card, .mk-faq details, .mk-locked {
+  background: var(--step); border: 0; border-radius: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.mk-card { padding: 30px; }
+.mk-grid .mk-card:hover { transform: translateY(-4px); box-shadow: none; border: 0; background: #1f5f43; }
+.mk-card h3 { font-size: 1.5rem; color: var(--lime); }
+.mk-card p { color: var(--paper); }
+.mk-faq details { padding: 20px 26px; margin-bottom: 10px; }
+.mk-faq details:hover, .mk-faq details[open] { border: 0; background: #1f5f43; }
+.mk-faq summary { color: var(--paper); font-size: 1.15rem; }
+
+/* Closing band: a field of lime. */
+.mk-band { max-width: none; margin: 0; border-radius: 0; border: 0; box-shadow: none; background: var(--lime); color: #114230; padding: 80px 0; text-align: left; }
+.mk-band h2 { color: #114230; font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; max-width: 14ch; }
+.mk-band p { color: #114230; font-size: 1.3rem; max-width: 40ch; }
+
+/* Forms */
+.mk-form input, .mk-form textarea { border-radius: 0; background: var(--step); border: 2px solid transparent; color: var(--paper); }
+.mk-form input:focus, .mk-form textarea:focus { border-color: var(--lime); background: var(--step); box-shadow: none; }
+.mk-ok { background: var(--lime); color: #114230; border: 0; border-radius: 0; font-weight: 700; }
+.mk-err { background: #f3c9c4; color: #5a130d; border: 0; border-radius: 0; font-weight: 700; }
+
+/* Events calendar */
+.mk-cal { border: 0; border-radius: 0; background: #114230; gap: 2px; }
+.mk-cal-dow { background: var(--lime); color: #114230; border-radius: 0; }
+.mk-cal-cell { background: var(--step); border-radius: 0; }
+.mk-cal-cell:hover { background: #1f5f43; }
+.mk-cal-cell.out { background: #154a35; }
+.mk-cal-day { color: var(--paper); }
+.mk .mk-chip { border-radius: 0; box-shadow: none; font-weight: 700; }
+.mk-event { border-top: 2px solid #114230; }
+.mk-event summary { color: var(--lime); }
+.mk-locked { border: 2px dashed rgba(243, 239, 230, .4); }
+.mk .mk-locked-note { color: var(--lime); }
+.mk .badge { background: var(--lime); color: #114230; border: 0; border-radius: 0; }
+
+/* Footer */
+.mk-footer { background: var(--deep); border: 0; color: var(--paper); padding: 40px 0; }
+.mk-footer .mk-wrap { max-width: none; padding: 0 28px; }
+.mk-footer .mk-links a { color: var(--paper); }
+.mk-footer .mk-links a:hover { color: var(--lime); }
+
+@media (max-width: 900px) {
+  .mk-cut { display: none; }
+  .mk-nav-inner { padding: 14px 16px; }
+  .mk-hero { padding: 36px 0 48px; }
+  .mk-hero .mk-wrap, .mk-alt .mk-wrap, .mk-band .mk-wrap, .mk-footer .mk-wrap { padding: 0 16px; }
+}
+
+/* Fixes after review */
+.mk .mk-auth a.mk-btn-primary, .mk-auth a.mk-btn-primary:hover { color: #114230; }
+.mk-hero h1 { font-size: clamp(2.6rem, 8.5vw, 8.5rem); max-width: 16ch; }
+.mk-cut ~ .mk-wrap h1 { font-size: clamp(3rem, 12.5vw, 12rem); max-width: 11ch; }
+.mk-footer .mk-links { flex-wrap: wrap; }
+.mk-footer-grid { gap: 12px 20px; }
