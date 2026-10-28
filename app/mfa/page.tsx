@@ -1,5 +1,6 @@
 "use client";
 
+import { AuthBrand } from "@/components/AuthBrand";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/browser";
 
@@ -75,6 +76,7 @@ export default function MfaPage() {
 
   return (
     <main className="wrap" style={{ maxWidth: 460 }}>
+      <AuthBrand />
       <div className="card">
         <h1>Two-step verification</h1>
         <p>{status}</p>

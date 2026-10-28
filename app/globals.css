@@ -532,3 +532,74 @@ body:has(.mk)::before { display: none; }
 .mk-cut ~ .mk-wrap h1 { font-size: clamp(3rem, 12.5vw, 12rem); max-width: 11ch; }
 .mk-footer .mk-links { flex-wrap: wrap; }
 .mk-footer-grid { gap: 12px 20px; }
+
+/* =====================================================================
+   Loud and flat for everything else: portal, admin, log in, sign up, MFA, student sites.
+   ===================================================================== */
+:root {
+  --lime: #e8f2a8; --paper: #f3efe6; --deep: #0d3325; --step: #1a5239;
+  --display: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --ink: var(--paper); --heading: var(--paper); --muted: rgba(243, 239, 230, .78);
+  --accent: var(--lime); --line: rgba(243, 239, 230, .16);
+  --glass-bg: var(--step); --glass-border: transparent; --glass-shadow: none;
+}
+html, body { background: #114230; }
+body::before { display: none; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; color: var(--paper); letter-spacing: -.02em; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: .95; letter-spacing: -.03em; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); line-height: 1; }
+h3 { font-size: 1.35rem; line-height: 1.1; }
+a { color: var(--lime); }
+a:hover { color: #fff; }
+
+/* Signed-in header bar */
+header.top { background: #114230; padding: 0; }
+header.top .wrap {
+  max-width: none; padding: 18px 28px; border: 0; border-radius: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.mk-brand img { height: 40px; }
+.portal-nav { gap: 0; }
+.portal-nav a { border-radius: 0; padding: 6px 12px; font-weight: 700; color: var(--paper); }
+.portal-nav a::before { display: none; }
+.portal-nav a:hover { background: none; color: var(--lime); }
+.portal-nav a[aria-current="page"] { background: none; box-shadow: inset 0 -3px 0 var(--lime); }
+header.top .badge { background: var(--lime); color: #114230; }
+
+/* Cards, tabs, buttons */
+.card {
+  background: var(--step); border: 2px solid transparent; border-radius: 0; box-shadow: none; padding: 26px;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.card:hover { border-color: transparent; }
+main.wrap { max-width: 1100px; }
+.tabs { background: none; border: 0; border-radius: 0; padding: 0; gap: 8px; }
+.tab { border-radius: 0; background: var(--step); color: var(--paper); padding: 10px 22px; }
+.tab:hover { background: #1f5f43; color: var(--paper); }
+.tab.on { background: var(--lime); color: #114230; box-shadow: none; }
+.btn { background: var(--lime); color: #114230; border: 0; border-radius: 0; box-shadow: none; font-weight: 800; padding: 13px 24px; }
+.btn:hover { background: #f3fbc4; color: #114230; box-shadow: none; transform: translateY(-2px); }
+.btn.ghost { background: none; color: var(--paper); border: 2px solid var(--paper); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.btn.ghost:hover { background: var(--paper); color: #114230; }
+
+/* Forms sit a shade darker than the card so fields read clearly. */
+input, textarea, select, .mk-form input, .mk-form textarea {
+  background: var(--deep); border: 2px solid transparent; border-radius: 0; color: var(--paper);
+}
+input:focus, textarea:focus, select:focus, .mk-form input:focus, .mk-form textarea:focus { background: var(--deep); border-color: var(--lime); box-shadow: none; }
+select option { background: var(--deep); }
+.error { color: #ffb3ad; font-weight: 700; }
+.badge { background: var(--lime); color: #114230; border: 0; border-radius: 0; }
+.badge.draft { background: #f3c98a; color: #4a2c00; }
+.msg { background: var(--deep); border: 0; border-radius: 0; }
+.msg.me { background: #114230; border: 2px solid var(--lime); }
+td, th { border-bottom: 1px solid var(--line); }
+.up-row { border-top: 1px solid var(--line); }
+
+/* Log in, sign up and MFA: logo on top, narrow card */
+.auth-brand { margin: 8px 0 28px; padding: 0; }
+.auth-brand img { height: 48px; }
+header.top .wrap { flex-wrap: nowrap; gap: 14px; }
+header.top .portal-nav { margin-left: auto; }
+@media (max-width: 900px) { header.top .wrap { flex-wrap: wrap; padding: 14px 16px; } header.top .portal-nav { margin-left: 0; width: 100%; } }

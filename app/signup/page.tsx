@@ -1,3 +1,4 @@
+import { AuthBrand } from "@/components/AuthBrand";
 import Link from "next/link";
 import { enterCode, signUp } from "./actions";
 import { getSignupPass } from "@/lib/signup-pass";
@@ -12,6 +13,7 @@ export default async function SignupPage({
   if (sp.sent) {
     return (
       <main className="wrap" style={{ maxWidth: 420 }}>
+        <AuthBrand />
         <div className="card">
           <h1>Check your email</h1>
           <p>We sent a confirmation link. Open it to finish creating your account.</p>
@@ -26,6 +28,7 @@ export default async function SignupPage({
   if (!pass) {
     return (
       <main className="wrap" style={{ maxWidth: 420 }}>
+        <AuthBrand />
         <div className="card">
           <h1>Enter your access code</h1>
           <p className="muted">
@@ -68,6 +71,7 @@ export default async function SignupPage({
 
   return (
     <main className="wrap" style={{ maxWidth: 420 }}>
+        <AuthBrand />
       <div className="card">
         <h1>Create your account</h1>
         {sp.error && <p className="error">{messages[sp.error] ?? "Something went wrong. Try again."}</p>}

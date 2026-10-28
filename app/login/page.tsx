@@ -1,3 +1,4 @@
+import { AuthBrand } from "@/components/AuthBrand";
 import Link from "next/link";
 import { signIn } from "./actions";
 import { safeNext } from "@/lib/auth";
@@ -12,6 +13,7 @@ export default async function LoginPage({
 
   return (
     <main className="wrap" style={{ maxWidth: 420 }}>
+        <AuthBrand />
       <div className="card">
         <h1>Log in</h1>
         {sp.error && <p className="error">Email or password is incorrect.</p>}
