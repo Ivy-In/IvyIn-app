@@ -26,7 +26,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="wrap">
           <Link href="/" className="mk-brand" aria-label="IvyIn home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-header.jpg" alt="IvyIn" width={1550} height={540} />
+            <img src="/brand/logo-header-light.png" alt="IvyIn" width={1488} height={458} />
           </Link>
           <span className="badge">admin</span>
           <nav style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
