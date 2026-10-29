@@ -39,18 +39,18 @@ export function ApplyForm() {
 
       <div className="mk-two">
         <div>
-          <label htmlFor="first_name">First name</label>
+          <label htmlFor="first_name">First Name</label>
           <input id="first_name" name="first_name" required maxLength={80} autoComplete="given-name" defaultValue={v.first_name} />
         </div>
         <div>
-          <label htmlFor="last_name">Last name</label>
+          <label htmlFor="last_name">Last Name</label>
           <input id="last_name" name="last_name" required maxLength={80} autoComplete="family-name" defaultValue={v.last_name} />
         </div>
       </div>
 
       <div className="mk-two">
         <div>
-          <label htmlFor="phone">Phone number</label>
+          <label htmlFor="phone">Phone Number</label>
           <input id="phone" name="phone" type="tel" required maxLength={30} autoComplete="tel" placeholder="(555) 123-4567" defaultValue={v.phone} />
         </div>
         <div>
@@ -61,11 +61,11 @@ export function ApplyForm() {
 
       <div className="mk-two">
         <div>
-          <label htmlFor="university">University name</label>
+          <label htmlFor="university">University Name</label>
           <input id="university" name="university" required maxLength={150} defaultValue={v.university} />
         </div>
         <div>
-          <label htmlFor="grad_year">Graduation year</label>
+          <label htmlFor="grad_year">Graduation Year</label>
           <select id="grad_year" name="grad_year" required defaultValue={v.grad_year ?? ""}>
             <option value="" disabled>Select a year</option>
             {GRAD_YEARS.map((y) => (
@@ -75,7 +75,7 @@ export function ApplyForm() {
         </div>
       </div>
 
-      <label htmlFor="major_minor">Major(s) and minor(s)</label>
+      <label htmlFor="major_minor">Major(s) and Minor(s)</label>
       <input id="major_minor" name="major_minor" required maxLength={200} placeholder="Economics major, Spanish minor" defaultValue={v.major_minor} />
 
       <label htmlFor="hometown">Hometown</label>

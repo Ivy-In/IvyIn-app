@@ -39,13 +39,13 @@ export default async function ApplicationDetail({
 
       <div className="app-detail">
         <dl style={{ margin: 0 }}>
-          <Q q="First name">{a.first_name}</Q>
-          <Q q="Last name">{a.last_name}</Q>
-          <Q q="Phone number"><a href={`tel:${a.phone}`}>{a.phone}</a></Q>
+          <Q q="First Name">{a.first_name}</Q>
+          <Q q="Last Name">{a.last_name}</Q>
+          <Q q="Phone Number"><a href={`tel:${a.phone}`}>{a.phone}</a></Q>
           <Q q="Email"><a href={`mailto:${a.email}`}>{a.email}</a></Q>
-          <Q q="University name">{a.university}</Q>
-          <Q q="Graduation year">{a.grad_year}</Q>
-          <Q q="Major(s) and minor(s)">{a.major_minor}</Q>
+          <Q q="University Name">{a.university}</Q>
+          <Q q="Graduation Year">{a.grad_year}</Q>
+          <Q q="Major(s) and Minor(s)">{a.major_minor}</Q>
           <Q q="Hometown">{a.hometown}</Q>
           <Q q={`${LONG_QUESTIONS.experience.label} ${LONG_QUESTIONS.experience.hint}`}>{a.experience}</Q>
           <Q q={LONG_QUESTIONS.why_accepted.label}>{a.why_accepted}</Q>
