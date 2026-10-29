@@ -76,7 +76,7 @@ export function ApplyForm() {
       </div>
 
       <label htmlFor="major_minor">Major(s) and Minor(s)</label>
-      <input id="major_minor" name="major_minor" required maxLength={200} placeholder="Economics major, Spanish minor" defaultValue={v.major_minor} />
+      <input id="major_minor" name="major_minor" required maxLength={200} placeholder="Economics major, Spanish minor, etc." defaultValue={v.major_minor} />
 
       <label htmlFor="hometown">Hometown</label>
       <input id="hometown" name="hometown" required maxLength={120} placeholder="Vancouver, Canada or Los Angeles, California" defaultValue={v.hometown} />
