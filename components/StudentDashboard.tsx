@@ -32,8 +32,8 @@ export function StudentDashboard({
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-          gap: 12,
-          marginBottom: 16,
+          gap: 18,
+          marginBottom: 18,
         }}
       >
         {stats.map(([label, value]) => (

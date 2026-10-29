@@ -611,3 +611,7 @@ input[type="file"]::file-selector-button {
   font: 800 15px var(--font-sans); cursor: pointer; transition: background .2s var(--ease);
 }
 input[type="file"]:hover::file-selector-button { background: #f3fbc4; }
+
+/* Even spacing: every box is 18px from its neighbours, side by side or stacked. */
+.grid2 { gap: 18px; margin-bottom: 18px; }
+.grid2 > .card { margin-bottom: 0; }

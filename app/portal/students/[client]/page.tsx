@@ -110,7 +110,7 @@ export default async function StudentDashboardEditor({
         </div>
       </div>
 
-      <div className="card" style={{ marginTop: 16 }}>
+      <div className="card">
         <h3>Add an item</h3>
         <form action={addItem} style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
           <input type="hidden" name="client_id" value={client} />
