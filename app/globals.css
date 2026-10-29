@@ -729,3 +729,30 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .confirm-row .person-confirm input{width:auto;margin:0}
 .confirm-row .btn.ghost{background:transparent;color:var(--lime);border:2px solid var(--lime)}
 .confirm-row .btn.ghost:hover{background:var(--lime);color:#114230}
+
+/* Consultant application */
+.mk-banner{background:var(--lime);color:#114230;text-align:center;padding:9px 16px;font:700 15px/1.4 var(--font-sans, "Nunito", sans-serif)}
+.mk-banner p{margin:0}
+.mk-banner a{color:#114230;text-decoration:underline;text-underline-offset:3px;font-weight:800;margin-inline-start:6px}
+.mk-banner a:hover{text-decoration-thickness:3px}
+.mk-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+@media (max-width:640px){.mk-two{grid-template-columns:minmax(0,1fr)}}
+.mk-form select{width:100%;padding:11px 44px 11px 14px;border-radius:0;font:16px var(--font-sans);background-color:var(--step);color:var(--paper);border:2px solid #8fb5a3;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23f3efe6' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.mk-form select:focus{border-color:var(--lime)}
+.mk-req{font-weight:400;opacity:.85}
+.mk-hint{margin:0 0 6px;font-size:14px;opacity:.9}
+.mk-count{margin:6px 0 0;font-size:14px}
+.mk-count.over{color:#f3c9c4;font-weight:700}
+.mk-form button:disabled{opacity:.6;cursor:progress}
+
+/* Admin applications */
+.apps{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.app-row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;background:var(--step);padding:20px;color:#f3efe6}
+.app-row strong{font-size:18px;color:var(--lime)}
+.app-row .muted{color:#cfe0d6}
+.app-row .btn{background:var(--lime);color:#114230}
+.app-detail{background:var(--step);padding:24px;color:#f3efe6}
+.app-detail dt{font-weight:700;color:var(--lime);margin-top:18px}
+.app-detail dd{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.app-detail a{color:var(--lime)}
+.app-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}

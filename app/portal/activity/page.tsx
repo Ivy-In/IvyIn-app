@@ -23,7 +23,7 @@ export default async function ActivityPage() {
     <>
       <h1>Activity</h1>
       <p className="muted">
-        Sign-ups, uploads, client messages and contact requests. New items are marked until you next open this page.
+        Sign-ups, uploads, client messages, contact requests and consultant applications. New items are marked until you next open this page.
       </p>
       <MarkSeen />
 
@@ -35,9 +35,11 @@ export default async function ActivityPage() {
             const kind = e.kind as ActivityKind;
             // Contact requests belong to admins. Client events link to that client's editor.
             const href =
-              kind === "inquiry"
+              kind === "inquiry" || kind === "application"
                 ? ctx.role === "admin"
-                  ? "/admin/inquiries"
+                  ? kind === "inquiry"
+                    ? "/admin/inquiries"
+                    : "/admin/applications"
                   : null
                 : e.client_id
                   ? `/portal/students/${e.client_id}`

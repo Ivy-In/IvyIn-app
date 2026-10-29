@@ -2,13 +2,14 @@ import type { createClient } from "@/lib/supabase/server";
 
 type Sb = Awaited<ReturnType<typeof createClient>>;
 
-export type ActivityKind = "signup" | "file" | "message" | "inquiry";
+export type ActivityKind = "signup" | "file" | "message" | "inquiry" | "application";
 
 export const KIND_LABEL: Record<ActivityKind, string> = {
   signup: "Sign-up",
   file: "File",
   message: "Message",
   inquiry: "Contact",
+  application: "Apply",
 };
 
 // Unread counts for one staff member: everything newer than their last visit to /portal/activity.
@@ -23,9 +24,9 @@ export async function getUnread(sb: Sb, userId: string) {
 
   const { data } = await sb.from("activity").select("kind").gt("created_at", since).limit(1000);
 
-  const counts: Record<ActivityKind, number> = { signup: 0, file: 0, message: 0, inquiry: 0 };
+  const counts: Record<ActivityKind, number> = { signup: 0, file: 0, message: 0, inquiry: 0, application: 0 };
   for (const r of data ?? []) counts[r.kind as ActivityKind] += 1;
-  const total = counts.signup + counts.file + counts.message + counts.inquiry;
+  const total = counts.signup + counts.file + counts.message + counts.inquiry + counts.application;
 
   return { since, counts, total };
 }
