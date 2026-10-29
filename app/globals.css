@@ -690,3 +690,24 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 @media (hover: none) {
   .btn:hover, .mk-btn:hover, .mk-pill:hover, .mk-grid .mk-card:hover, .mk .mk-chip:hover, .mk-brand:hover { transform: none; }
 }
+
+/* Users page */
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.people-h{margin:28px 0 12px;font-size:20px}
+.people{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.person{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.4fr);gap:14px 24px;align-items:center;background:#fff;border:2px solid #114230;padding:18px}
+.person.is-archived{background:#f3efe6;border-color:#8fb5a3}
+.person-who{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.person-email{overflow-wrap:anywhere;margin-top:4px}
+.person-role{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.person-role select{width:auto}
+.person-actions{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;padding-top:14px;border-top:1px solid #cfdcd5}
+.person-actions form{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.person-confirm{display:inline-flex;align-items:center;gap:6px;font-weight:400;margin:0}
+.person-confirm input{width:auto;margin:0}
+.person-purge{flex:1 1 320px}
+.person-purge input[name=confirm_email]{width:auto;flex:1 1 220px;min-width:0}
+.person-warn{flex-basis:100%;margin:0;font-size:13px}
+.badge.role-admin{background:#114230;color:#e8f2a8}
+.badge.role-advisor{background:#e8f2a8;color:#114230}
+@media (max-width:760px){.person{grid-template-columns:minmax(0,1fr)}}

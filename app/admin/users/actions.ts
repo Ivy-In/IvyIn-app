@@ -30,7 +30,7 @@ export async function setRole(formData: FormData) {
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-// Archive or restore a student. Archiving hides the student from staff views (database rule)
+// Archive or restore a person (client, advisor or admin). Archiving hides the student from staff views (database rule)
 // and blocks sign-in (auth admin API, service role, server-only). Restoring reverses both.
 export async function setArchived(formData: FormData) {
   const ctx = await requireAdmin();
@@ -40,7 +40,7 @@ export async function setArchived(formData: FormData) {
   if (archive && formData.get("confirm") !== "yes") redirect("/admin/users?error=confirm");
 
   const { error } = await ctx.supabase.rpc("set_client_archived", { target, archive });
-  if (error) redirect(`/admin/users?error=${error.message.includes("cannot archive your own") ? "self" : "failed"}`);
+  if (error) redirect(`/admin/users?error=${error.message.includes("cannot archive your own") ? "self" : error.message.includes("only admin") ? "last_admin" : "failed"}`);
 
   // Database rule is in place; now block or unblock sign-in. Running this again is safe if it fails.
   const { error: authError } = await createAdminClient().auth.admin.updateUserById(target, {
@@ -53,7 +53,7 @@ export async function setArchived(formData: FormData) {
   redirect(`/admin/users?saved=${archive ? "archived" : "restored"}`);
 }
 
-// Permanent delete. Only for archived students, and only after the admin types the student's email.
+// Permanent delete. Only for archived people, and only after the admin types their email.
 // Removes messages, files, dashboard, site and profile, then the sign-in account.
 export async function purgeStudent(formData: FormData) {
   const ctx = await requireAdmin();
@@ -64,7 +64,6 @@ export async function purgeStudent(formData: FormData) {
     .from("profiles")
     .select("email, archived_at")
     .eq("id", target)
-    .eq("role", "user")
     .maybeSingle();
   if (!person || !person.archived_at) redirect("/admin/users?error=archive_first");
 
@@ -73,7 +72,9 @@ export async function purgeStudent(formData: FormData) {
 
   const { error } = await ctx.supabase.rpc("purge_client", { target });
   // "no such client" means an earlier attempt already removed the profile, so the sign-in account may remain.
-  if (error && !error.message.includes("no such client")) redirect("/admin/users?error=failed");
+  if (error && !error.message.includes("no such client")) {
+    redirect(`/admin/users?error=${error.message.includes("your own") ? "self" : error.message.includes("only admin") ? "last_admin" : "failed"}`);
+  }
 
   const { error: authError } = await createAdminClient().auth.admin.deleteUser(target);
   if (authError) redirect("/admin/users?error=auth_delete");
