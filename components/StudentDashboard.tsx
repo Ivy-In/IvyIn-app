@@ -45,7 +45,7 @@ export function StudentDashboard({
       </div>
 
       <div className="card">
-        <h3>College list</h3>
+        <h3>College List</h3>
         <div className="tier-grid">
           {GOAL_TIERS.map((t) => {
             const schools = data.goals.filter((g) => g.tier === t.key);

@@ -82,7 +82,7 @@ export default async function StudentDashboardEditor({
         </div>
 
         <div className="card">
-          <h3>College list</h3>
+          <h3>College List</h3>
           {data.goals.length === 0 && <p className="muted">None yet.</p>}
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {data.goals.map((g) => (
