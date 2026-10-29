@@ -50,7 +50,7 @@ export function ApplyForm() {
 
       <div className="mk-two">
         <div>
-          <label htmlFor="phone">Phone Number</label>
+          <label htmlFor="phone">Phone Number <span className="mk-req">(include area code)</span></label>
           <input id="phone" name="phone" type="tel" required maxLength={30} autoComplete="tel" placeholder="(555) 123-4567" defaultValue={v.phone} />
         </div>
         <div>
