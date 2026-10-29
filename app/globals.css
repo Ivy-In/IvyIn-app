@@ -615,3 +615,11 @@ input[type="file"]:hover::file-selector-button { background: #f3fbc4; }
 /* Even spacing: every box is 18px from its neighbours, side by side or stacked. */
 .grid2 { gap: 18px; margin-bottom: 18px; }
 .grid2 > .card { margin-bottom: 0; }
+
+/* Card rows that should stay on one line: five cards sit in a single row, six in two even rows of three. */
+@media (min-width: 1100px) {
+  .mk-grid:has(> :nth-child(5):last-child) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .mk-grid:has(> :nth-child(5):last-child) .mk-card { padding: 24px 20px; }
+  .mk-grid:has(> :nth-child(5):last-child) .mk-card h3 { font-size: 1.2rem; overflow-wrap: anywhere; }
+  .mk-grid:has(> :nth-child(6):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
