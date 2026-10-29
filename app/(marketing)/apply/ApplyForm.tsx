@@ -87,7 +87,7 @@ export function ApplyForm() {
 
       <div className="mk-two">
         <div>
-          <label htmlFor="expected_pay">What is your expected pay per hour as a consultant?</label>
+          <label htmlFor="expected_pay">What is your expected pay per hour as a consultant? <span className="mk-req">(USD)</span></label>
           <input id="expected_pay" name="expected_pay" required maxLength={100} placeholder="$25" defaultValue={v.expected_pay} />
         </div>
         <div>
