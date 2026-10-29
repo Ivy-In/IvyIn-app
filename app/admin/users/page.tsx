@@ -60,7 +60,7 @@ export default async function UsersPage({
           </select>
           <select name="level" defaultValue={p.admin_level ?? ""} aria-label={`Admin level for ${name}`}>
             <option value="">Admin level</option>
-            <option value="super_admin">Super admin</option>
+            <option value="super_admin">Super Admin</option>
             <option value="editor">Editor</option>
             <option value="support">Support</option>
           </select>
