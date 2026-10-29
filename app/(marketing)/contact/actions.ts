@@ -4,6 +4,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { sendEmail } from "@/lib/mail";
 
+// Personal inboxes that also receive every contact form submission.
+const INQUIRY_RECIPIENTS = ["tommyli8321@gmail.com", "curtislee2026@gmail.com"];
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function sendInquiry(formData: FormData) {
@@ -20,14 +23,13 @@ export async function sendInquiry(formData: FormData) {
   const { error } = await supabase.from("inquiries").insert({ name, email, message });
   if (error) redirect("/contact?error=save");
 
-  // Let the team know. A mail failure never blocks the visitor's confirmation.
-  if (process.env.ALERT_EMAIL) {
-    await sendEmail({
-      to: process.env.ALERT_EMAIL,
-      subject: "New IvyIn inquiry",
-      text: `From: ${name} <${email}>\n\n${message}\n\nReply in the admin Inquiries page.`,
-    });
-  }
+  // Let the team know: every address below gets its own copy. A mail failure never blocks the visitor's confirmation.
+  const recipients = Array.from(
+    new Set([process.env.ALERT_EMAIL, ...INQUIRY_RECIPIENTS].filter((r): r is string => !!r).map((r) => r.toLowerCase())),
+  );
+  const subject = "New IvyIn inquiry";
+  const text = `From: ${name} <${email}>\n\n${message}\n\nReply in the admin Inquiries page.`;
+  await Promise.all(recipients.map((to) => sendEmail({ to, subject, text })));
 
   redirect("/contact?sent=1");
 }
