@@ -711,3 +711,15 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .badge.role-admin{background:#114230;color:#e8f2a8}
 .badge.role-advisor{background:#e8f2a8;color:#114230}
 @media (max-width:760px){.person{grid-template-columns:minmax(0,1fr)}}
+.person{color:#114230}
+.person strong{color:#114230}
+.person .muted,.person .person-warn{color:#3f5f50}
+.person-confirm{color:#114230}
+.person .btn.ghost{background:#fff;color:#114230;border:2px solid #114230}
+.person .btn.ghost:hover{background:#e8f2a8}
+.person.is-archived{color:#114230}
+.person input[name=confirm_email]{background:#fff;color:#114230;border:2px solid #114230}
+.person input[name=confirm_email]::placeholder{color:#5a7a6b}
+.person .badge{background:#e8f2a8;color:#114230}
+.person .badge.draft{background:#e6e0d0;color:#114230}
+.person .badge.role-admin{background:#114230;color:#e8f2a8}
