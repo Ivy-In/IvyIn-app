@@ -756,3 +756,7 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .app-detail dd{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
 .app-detail a{color:var(--lime)}
 .app-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
+
+/* Light outlines on portal and admin boxes, matching the form fields */
+.card, .card:hover, .person, .app-row, .app-detail, .tier-col { border: 2px solid #8fb5a3; }
+.person.is-archived { border-color: #6f9985; }
