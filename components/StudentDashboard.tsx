@@ -1,4 +1,4 @@
-import { CATEGORIES, formatDue, type DashboardData } from "@/lib/dashboard";
+import { CATEGORIES, GOAL_TIERS, formatDue, type DashboardData } from "@/lib/dashboard";
 import { toggleItem } from "@/app/portal/dashboard/actions";
 
 const numberOrDash = (v: number | string | null | undefined) => (v === null || v === undefined ? "—" : String(v));
@@ -47,14 +47,25 @@ export function StudentDashboard({
       <div className="card">
         <h3>Target schools</h3>
         {data.goals.length === 0 && <p className="muted">None added yet.</p>}
-        <ul style={{ margin: 0, paddingLeft: 20 }}>
-          {data.goals.map((g) => (
-            <li key={g.id}>
-              {g.school}
-              {g.program && <span className="muted"> · {g.program}</span>}
-            </li>
-          ))}
-        </ul>
+        <div className="tier-grid">
+          {GOAL_TIERS.map((t) => {
+            const schools = data.goals.filter((g) => g.tier === t.key);
+            return (
+              <div key={t.key} className="tier-col">
+                <h4>{t.label}</h4>
+                {schools.length === 0 && <p className="muted">None</p>}
+                <ul>
+                  {schools.map((g) => (
+                    <li key={g.id}>
+                      {g.school}
+                      {g.program && <span className="muted"> · {g.program}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       <div className="grid2">

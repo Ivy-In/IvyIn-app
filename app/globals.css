@@ -634,3 +634,13 @@ input[type="file"]:hover::file-selector-button { background: #f3fbc4; }
 .mk .mk-auth button.mk-btn-ghost:hover { color: #114230; }
 .mk .mk-auth a.mk-btn-ghost { color: var(--paper); }
 .mk .mk-auth a.mk-btn-ghost:hover { color: #114230; }
+
+/* College list: four columns, high reach to safety. */
+.tier-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 14px; }
+.tier-col { background: var(--deep); padding: 16px 18px; min-height: 90px; }
+.tier-col h4 { margin: 0 0 10px; font: 800 13px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; color: var(--lime); }
+.tier-col ul { margin: 0; padding-left: 18px; }
+.tier-col li { margin-bottom: 6px; }
+.tier-col p { margin: 0; }
+@media (max-width: 900px) { .tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .tier-grid { grid-template-columns: 1fr; } }

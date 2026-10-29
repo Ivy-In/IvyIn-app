@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { getContext } from "@/lib/auth";
-import { DATE, UUID, isCategory, parseOptionalNumber } from "@/lib/dashboard";
+import { DATE, UUID, isCategory, isGoalTier, parseOptionalNumber } from "@/lib/dashboard";
 
 // Only return to in-portal pages. Blocks open redirects.
 function safeBack(value: string) {
@@ -89,12 +89,14 @@ export async function addGoal(formData: FormData) {
 
   const school = String(formData.get("school") ?? "").trim();
   const program = String(formData.get("program") ?? "").trim();
-  if (!school || school.length > 120 || program.length > 120) redirect(withError(back, "invalid"));
+  const tier = String(formData.get("tier") ?? "");
+  if (!school || school.length > 120 || program.length > 120 || !isGoalTier(tier)) redirect(withError(back, "invalid"));
 
   const { error } = await ctx.supabase.from("student_goals").insert({
     client_id: clientId,
     school,
     program: program || null,
+    tier,
   });
   if (error) redirect(withError(back, "save"));
 

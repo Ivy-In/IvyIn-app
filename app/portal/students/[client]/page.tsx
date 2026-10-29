@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getContext } from "@/lib/auth";
-import { CATEGORIES, UUID, loadDashboard } from "@/lib/dashboard";
+import { CATEGORIES, GOAL_TIERS, UUID, loadDashboard } from "@/lib/dashboard";
 import { StudentDashboard } from "@/components/StudentDashboard";
 import { addGoal, addItem, deleteGoal, deleteItem, saveProfile } from "@/app/portal/dashboard/actions";
 
@@ -90,6 +90,7 @@ export default async function StudentDashboardEditor({
                 <span style={{ flex: 1 }}>
                   {g.school}
                   {g.program && <span className="muted"> · {g.program}</span>}
+                  <span className="badge" style={{ marginLeft: 8 }}>{GOAL_TIERS.find((t) => t.key === g.tier)?.label ?? "Target"}</span>
                 </span>
                 <form action={deleteGoal}>
                   <input type="hidden" name="client_id" value={client} />
@@ -105,6 +106,12 @@ export default async function StudentDashboardEditor({
             <input id="school_new" name="school" required maxLength={120} />
             <label htmlFor="program_new">Program (optional)</label>
             <input id="program_new" name="program" maxLength={120} />
+            <label htmlFor="tier_new">Category</label>
+            <select id="tier_new" name="tier" required defaultValue="target">
+              {GOAL_TIERS.map((t) => (
+                <option key={t.key} value={t.key}>{t.label}</option>
+              ))}
+            </select>
             <button className="btn" type="submit">Add target</button>
           </form>
         </div>
