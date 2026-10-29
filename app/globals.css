@@ -632,3 +632,5 @@ input[type="file"]:hover::file-selector-button { background: #f3fbc4; }
 .mk .mk-auth a.mk-btn-primary { color: #114230; }
 .mk .mk-auth button.mk-btn-ghost { color: var(--paper); }
 .mk .mk-auth button.mk-btn-ghost:hover { color: #114230; }
+.mk .mk-auth a.mk-btn-ghost { color: var(--paper); }
+.mk .mk-auth a.mk-btn-ghost:hover { color: #114230; }

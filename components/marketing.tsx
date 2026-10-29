@@ -38,7 +38,7 @@ export async function Header() {
             </>
           ) : (
             <>
-              <Link href="/login">Log in</Link>
+              <Link className="mk-btn mk-btn-ghost" href="/login">Log in</Link>
               <Link className="mk-btn mk-btn-primary" href="/signup">Sign up</Link>
             </>
           )}
