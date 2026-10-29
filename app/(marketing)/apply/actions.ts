@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { sendEmail } from "@/lib/mail";
 import { GRAD_YEARS, LONG_QUESTIONS, countWords, type LongKey } from "@/lib/apply";
 
 export type ApplyState = { error?: string; values?: Record<string, string> };
@@ -67,6 +68,13 @@ export async function submitApplication(_prev: ApplyState, formData: FormData): 
     weekly_hours: hours,
   });
   if (error) return fail("We could not save your application. Your answers are still here. Try again in a moment.");
+
+  // Confirm receipt to the applicant. A mail failure never blocks the thank-you page.
+  await sendEmail({
+    to: values.email,
+    subject: "We received your IvyIn consultant application",
+    text: `Hi ${values.first_name},\n\nThank you for applying to be an IvyIn consultant. We received your application and will review it. We will reach out to you soon.\n\nIvyIn`,
+  });
 
   redirect("/apply/thanks");
 }
