@@ -73,7 +73,8 @@ export async function submitApplication(_prev: ApplyState, formData: FormData): 
   await sendEmail({
     to: values.email,
     subject: "We received your IvyIn consultant application",
-    text: `Hi ${values.first_name},\n\nThank you for applying to be an IvyIn consultant. We received your application and will review it. We will reach out to you soon.\n\nIvyIn`,
+    text: `Hi ${values.first_name},\n\nThank you for applying to be an IvyIn consultant. We received your application and will review it. We will reach out to you soon.`,
+    signoff: "IvyIn Hiring Team",
   });
 
   redirect("/apply/thanks");
