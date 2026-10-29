@@ -623,3 +623,12 @@ input[type="file"]:hover::file-selector-button { background: #f3fbc4; }
   .mk-grid:has(> :nth-child(5):last-child) .mk-card h3 { font-size: 1.2rem; overflow-wrap: anywhere; }
   .mk-grid:has(> :nth-child(6):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* Header buttons: same size and font for My portal, Log out, Log in and Sign up. */
+.mk-auth { gap: 10px; }
+.mk-auth .mk-btn, .mk .mk-auth .mk-btn {
+  font: 800 15px/1.2 var(--font-sans); padding: 11px 20px; white-space: nowrap;
+}
+.mk .mk-auth a.mk-btn-primary { color: #114230; }
+.mk .mk-auth button.mk-btn-ghost { color: var(--paper); }
+.mk .mk-auth button.mk-btn-ghost:hover { color: #114230; }

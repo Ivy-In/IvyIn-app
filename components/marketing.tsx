@@ -31,9 +31,9 @@ export async function Header() {
         <div className="mk-auth">
           {ctx ? (
             <>
-              <Link href="/portal">My portal</Link>
+              <Link className="mk-btn mk-btn-primary" href="/portal">My portal</Link>
               <form action="/logout" method="post" style={{ display: "inline" }}>
-                <button className="mk-btn mk-btn-primary" type="submit">Log out</button>
+                <button className="mk-btn mk-btn-ghost" type="submit">Log out</button>
               </form>
             </>
           ) : (
