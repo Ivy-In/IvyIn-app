@@ -43,10 +43,10 @@ export default async function FilesAdmin({
                   <td>{f.size_bytes ? `${(f.size_bytes / 1024 / 1024).toFixed(1)} MB` : "—"}</td>
                   <td>{new Date(f.created_at).toLocaleDateString()}</td>
                   <td>
-                    <form action={deleteFile} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                    <form action={deleteFile} className="confirm-row">
                       <input type="hidden" name="id" value={f.id} />
-                      <label style={{ display: "inline", fontWeight: 400, margin: 0 }}>
-                        <input type="checkbox" name="confirm" value="yes" style={{ width: "auto" }} /> sure
+                      <label className="person-confirm">
+                        <input type="checkbox" name="confirm" value="yes" /> Confirm
                       </label>
                       <ConfirmButton className="btn ghost" message="Delete this file? It is removed for everyone and cleared from storage on the next nightly run.">Delete</ConfirmButton>
                     </form>

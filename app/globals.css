@@ -695,8 +695,8 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .people-h{margin:28px 0 12px;font-size:20px}
 .people{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.person{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.4fr);gap:14px 24px;align-items:center;background:#fff;border:2px solid #114230;padding:18px}
-.person.is-archived{background:#f3efe6;border-color:#8fb5a3}
+.person{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.4fr);gap:14px 24px;align-items:center;background:var(--step);border:0;padding:22px}
+.person.is-archived{background:#17402f}
 .person-who{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .person-email{overflow-wrap:anywhere;margin-top:4px}
 .person-role{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -711,21 +711,7 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .badge.role-admin{background:#114230;color:#e8f2a8}
 .badge.role-advisor{background:#e8f2a8;color:#114230}
 @media (max-width:760px){.person{grid-template-columns:minmax(0,1fr)}}
-.person{color:#114230}
-.person strong{color:#114230}
-.person .muted,.person .person-warn{color:#3f5f50}
-.person-confirm{color:#114230}
-.person .btn.ghost{background:#fff;color:#114230;border:2px solid #114230}
-.person .btn.ghost:hover{background:#e8f2a8}
-.person.is-archived{color:#114230}
-.person input[name=confirm_email]{background:#fff;color:#114230;border:2px solid #114230}
-.person input[name=confirm_email]::placeholder{color:#5a7a6b}
-.person .badge{background:#e8f2a8;color:#114230}
-.person .badge.draft{background:#e6e0d0;color:#114230}
-.person .badge.role-admin{background:#114230;color:#e8f2a8}
-/* Users page: green cards */
-.person{background:var(--step);border:0;padding:22px;color:#f3efe6}
-.person.is-archived{background:#17402f}
+.person{color:#f3efe6}
 .person strong{color:var(--lime)}
 .person .muted,.person .person-warn{color:#cfe0d6}
 .person-confirm{color:#f3efe6}
@@ -738,3 +724,8 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .person .badge.draft{background:#e6e0d0;color:#114230}
 .person .badge.role-admin{background:#114230;color:var(--lime)}
 .person select{-webkit-appearance:none;appearance:none;padding-right:44px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23f3efe6' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.confirm-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.confirm-row .person-confirm{display:inline-flex;align-items:center;gap:6px;font-weight:400;margin:0;color:#f3efe6}
+.confirm-row .person-confirm input{width:auto;margin:0}
+.confirm-row .btn.ghost{background:transparent;color:var(--lime);border:2px solid var(--lime)}
+.confirm-row .btn.ghost:hover{background:var(--lime);color:#114230}
