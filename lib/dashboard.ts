@@ -20,7 +20,7 @@ export function isCategory(value: string): value is Category {
 
 // Keep in sync with the check constraint in supabase/migrations/0015_goal_tiers.sql.
 export const GOAL_TIERS = [
-  { key: "high_reach", label: "High reach" },
+  { key: "high_reach", label: "High Reach" },
   { key: "reach", label: "Reach" },
   { key: "target", label: "Target" },
   { key: "safety", label: "Safety" },
