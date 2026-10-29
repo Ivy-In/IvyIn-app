@@ -2,7 +2,6 @@
 // and the database stores them in UTC.
 
 export const EVENT_COLORS = {
-  forest: { label: "Forest", hex: "#114230" },
   sage: { label: "Sage", hex: "#3f7a5e" },
   teal: { label: "Teal", hex: "#2f6f73" },
   amber: { label: "Amber", hex: "#8a5a00" },

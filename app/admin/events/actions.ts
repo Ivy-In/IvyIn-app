@@ -22,7 +22,7 @@ function readForm(formData: FormData) {
     location: String(formData.get("location") ?? "").trim().slice(0, 200) || null,
     description: String(formData.get("description") ?? "").trim().slice(0, 5000) || null,
     more_info_url: safeLink(String(formData.get("more_info_url") ?? "").trim()),
-    color: isEventColor(colorRaw) ? colorRaw : "forest",
+    color: isEventColor(colorRaw) ? colorRaw : "sage",
     visibility: formData.get("visibility") === "private" ? "private" : "public",
     published: formData.get("published") === "on",
   };

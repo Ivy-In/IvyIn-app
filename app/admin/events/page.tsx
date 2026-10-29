@@ -53,7 +53,7 @@ function EventForm({ event, action }: { event?: EventRow; action: (fd: FormData)
         </div>
         <div>
           <label htmlFor={`${prefix}-color`}>Calendar color</label>
-          <select id={`${prefix}-color`} name="color" defaultValue={event?.color ?? "forest"}>
+          <select id={`${prefix}-color`} name="color" defaultValue={event?.color ?? "sage"}>
             {(Object.keys(EVENT_COLORS) as EventColor[]).map((key) => (
               <option key={key} value={key}>{EVENT_COLORS[key].label}</option>
             ))}
