@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavLink } from "@/components/NavLink";
 import { redirect } from "next/navigation";
 import { getContext } from "@/lib/auth";
 import { getUnread } from "@/lib/activity";
@@ -16,6 +17,7 @@ export default async function PortalLayout({ children }: { children: React.React
 
   return (
     <>
+      <a className="skip" href="#main">Skip to content</a>
       <header className="top">
         <div className="wrap">
           <Link href="/" className="mk-brand" aria-label="IvyIn home">
@@ -24,20 +26,20 @@ export default async function PortalLayout({ children }: { children: React.React
           </Link>
           {ctx.isStaff && <span className="badge">{ctx.role}</span>}
           <nav className="portal-nav">
-            <Link href="/portal">Home</Link>
-            {ctx.isStaff && <Link href="/portal/activity">Activity<Bubble n={unread?.total ?? 0} /></Link>}
-            <Link href="/portal/messages">Messages{unread && <Bubble n={unread.counts.message} />}</Link>
-            <Link href="/portal/files">Files{unread && <Bubble n={unread.counts.file} />}</Link>
-            {ctx.isStaff && <Link href="/portal/students">Students{unread && <Bubble n={unread.counts.signup} />}</Link>}
-            {ctx.isStaff && <Link href="/portal/sites">Sites</Link>}
-            {ctx.role === "admin" && <Link href="/admin">Admin</Link>}
+            <NavLink href="/portal" exact>Home</NavLink>
+            {ctx.isStaff && <NavLink href="/portal/activity">Activity<Bubble n={unread?.total ?? 0} /></NavLink>}
+            <NavLink href="/portal/messages">Messages{unread && <Bubble n={unread.counts.message} />}</NavLink>
+            <NavLink href="/portal/files">Files{unread && <Bubble n={unread.counts.file} />}</NavLink>
+            {ctx.isStaff && <NavLink href="/portal/students">Students{unread && <Bubble n={unread.counts.signup} />}</NavLink>}
+            {ctx.isStaff && <NavLink href="/portal/sites">Sites</NavLink>}
+            {ctx.role === "admin" && <NavLink href="/admin">Admin</NavLink>}
             <form action="/logout" method="post" style={{ display: "inline" }}>
               <button className="btn ghost" type="submit" style={{ marginLeft: 16 }}>Log out</button>
             </form>
           </nav>
         </div>
       </header>
-      <main className="wrap">{children}</main>
+      <main id="main" tabIndex={-1} className="wrap">{children}</main>
     </>
   );
 }

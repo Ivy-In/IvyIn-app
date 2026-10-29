@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/admin";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import { createAnnouncement, deleteAnnouncement, setPublished } from "./actions";
 
 export default async function AnnouncementsPage() {
@@ -57,7 +58,7 @@ export default async function AnnouncementsPage() {
             </form>
             <form action={deleteAnnouncement}>
               <input type="hidden" name="id" value={r.id} />
-              <button className="btn ghost" type="submit">Delete</button>
+              <ConfirmButton className="btn ghost" message="Delete this announcement? It disappears from every dashboard. This cannot be undone.">Delete</ConfirmButton>
             </form>
           </div>
         </div>

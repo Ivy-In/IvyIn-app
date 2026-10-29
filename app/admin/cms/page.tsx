@@ -20,7 +20,7 @@ export default async function CmsList({ searchParams }: { searchParams: Promise<
         Pages, FAQs and settings shown on the public site. Changes appear on the next visit. Only published entries
         are visible to visitors.
       </p>
-      {sp.saved && <p className="msg">Saved {sp.saved}.</p>}
+      {sp.saved && <p className="msg" role="status">Saved {sp.saved}.</p>}
       <div className="card">
         <table>
           <thead>

@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/admin";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import { deleteFile } from "./actions";
 
 const ERRORS: Record<string, string> = {
@@ -25,8 +26,8 @@ export default async function FilesAdmin({
       <p className="muted">
         Files are kept until someone deletes them here. A deleted file is removed from storage by the nightly job.
       </p>
-      {sp.deleted && <p className="msg">Deleted. Storage is cleared on the next nightly run.</p>}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.deleted && <p className="msg" role="status">Deleted. Storage is cleared on the next nightly run.</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
       <div className="card">
         <table>
           <thead>
@@ -47,7 +48,7 @@ export default async function FilesAdmin({
                       <label style={{ display: "inline", fontWeight: 400, margin: 0 }}>
                         <input type="checkbox" name="confirm" value="yes" style={{ width: "auto" }} /> sure
                       </label>
-                      <button className="btn ghost" type="submit">Delete</button>
+                      <ConfirmButton className="btn ghost" message="Delete this file? It is removed for everyone and cleared from storage on the next nightly run.">Delete</ConfirmButton>
                     </form>
                   </td>
                 </tr>

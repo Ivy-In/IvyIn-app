@@ -33,8 +33,8 @@ export default async function SitesPage({
         Each student gets one private site at <code>ivy-in.com/site/name</code>. Only the student and staff can see it. Suspending a
         site hides it from the student immediately.
       </p>
-      {sp.saved && <p className="msg">Site created.</p>}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.saved && <p className="msg" role="status">Site created.</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
 
       <div className="card">
         <h3>Create a site</h3>

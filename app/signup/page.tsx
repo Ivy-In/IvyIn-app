@@ -35,8 +35,8 @@ export default async function SignupPage({
             IvyIn accounts are for clients who have enrolled. Enter the 6-character code your advisor gave you.
             The code changes every day.
           </p>
-          {sp.error === "code" && <p className="error">That code is not right. Check with your advisor.</p>}
-          {sp.error === "pass" && <p className="error">Your code has expired. Enter today&apos;s code.</p>}
+          {sp.error === "code" && <p className="error" role="alert">That code is not right. Check with your advisor.</p>}
+          {sp.error === "pass" && <p className="error" role="alert">Your code has expired. Enter today&apos;s code.</p>}
           <form action={enterCode}>
             <label htmlFor="code">Access code</label>
             <input
@@ -74,7 +74,7 @@ export default async function SignupPage({
         <AuthBrand />
       <div className="card">
         <h1>Create your account</h1>
-        {sp.error && <p className="error">{messages[sp.error] ?? "Something went wrong. Try again."}</p>}
+        {sp.error && <p className="error" role="alert">{messages[sp.error] ?? "That did not work. Try again in a moment."}</p>}
         <form action={signUp}>
           <label htmlFor="full_name">Full name</label>
           <input id="full_name" name="full_name" required autoComplete="name" />

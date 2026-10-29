@@ -49,8 +49,8 @@ export default async function FilesPage({
       <div className="card">
         <h3>Upload a file</h3>
         <p className="muted">PDF, Word, or image files, up to 50 MB each.</p>
-        {sp.ok && <p className="msg">Uploaded.</p>}
-        {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+        {sp.ok && <p className="msg" role="status">Uploaded.</p>}
+        {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
         <form action={uploadFile}>
           {ctx.isStaff && (
             <>

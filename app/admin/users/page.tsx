@@ -36,8 +36,8 @@ export default async function UsersPage({
       <p className="muted">
         New advisors and admins sign up first, then you set their role here. Admins must also complete MFA.
       </p>
-      {sp.saved && <p className="msg">{SAVED[sp.saved] ?? "Saved."}</p>}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.saved && <p className="msg" role="status">{SAVED[sp.saved] ?? "Saved."}</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
       <div className="card">
         <table>
           <thead>
@@ -83,7 +83,7 @@ export default async function UsersPage({
                         required
                         style={{ width: "auto", minWidth: 240 }}
                       />
-                      <button className="btn" type="submit" style={{ background: "var(--danger)", borderColor: "var(--danger)" }}>
+                      <button className="btn danger" type="submit">
                         Delete permanently
                       </button>
                       <span className="muted" style={{ fontSize: 13 }}>Cannot be undone.</span>

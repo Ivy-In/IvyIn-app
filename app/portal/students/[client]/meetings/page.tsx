@@ -133,8 +133,8 @@ export default async function StudentMeetings({
         Advisors can add upcoming meetings and edit their own. Only admins can cancel a meeting.
       </p>
 
-      {sp.saved && <p className="msg">Saved. The student and advisor have been emailed.</p>}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.saved && <p className="msg" role="status">Saved. The student and advisor have been emailed.</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
 
       <div className="card">
         <h3>New meeting</h3>

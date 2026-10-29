@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavLink } from "@/components/NavLink";
 import { requireAdmin } from "@/lib/admin";
 import { getUnread } from "@/lib/activity";
 import { Bubble } from "@/components/Bubble";
@@ -22,6 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <>
+      <a className="skip" href="#main">Skip to content</a>
       <header className="top">
         <div className="wrap">
           <Link href="/" className="mk-brand" aria-label="IvyIn home">
@@ -29,19 +31,19 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <img src="/brand/logo-header-light.png" alt="IvyIn" width={1488} height={458} />
           </Link>
           <span className="badge">admin</span>
-          <nav style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-            <Link href="/portal/activity">Activity<Bubble n={unread.total} /></Link>
+          <nav className="portal-nav" aria-label="Admin">
+            <NavLink href="/portal/activity">Activity<Bubble n={unread.total} /></NavLink>
             {LINKS.map(([href, label, n]) => (
-              <Link key={href} href={href}>
+              <NavLink key={href} href={href} exact={href === "/admin"}>
                 {label}
                 <Bubble n={n} />
-              </Link>
+              </NavLink>
             ))}
-            <Link href="/portal">Portal</Link>
+            <NavLink href="/portal" exact>Portal</NavLink>
           </nav>
         </div>
       </header>
-      <main className="wrap">{children}</main>
+      <main id="main" tabIndex={-1} className="wrap">{children}</main>
     </>
   );
 }

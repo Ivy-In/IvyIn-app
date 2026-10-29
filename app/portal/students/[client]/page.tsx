@@ -56,8 +56,8 @@ export default async function StudentDashboardEditor({
         <Link href={`/portal/students/${client}/meetings`}>Meetings and recurring schedule →</Link>
       </p>
       <p className="muted">Edit this dashboard. The student sees the same layout and can tick their own items.</p>
-      {sp.saved && <p className="msg">{SAVED[sp.saved] ?? "Saved."}</p>}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.saved && <p className="msg" role="status">{SAVED[sp.saved] ?? "Saved."}</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
 
       <div className="grid2">
         <div className="card">

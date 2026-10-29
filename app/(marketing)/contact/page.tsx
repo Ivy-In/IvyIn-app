@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Contact | IvyIn" };
 
 const ERRORS: Record<string, string> = {
   invalid: "Please enter your name, a valid email, and a message of at least 10 characters.",
-  save: "Something went wrong. Please try again.",
+  save: "That did not work. Try again in a moment.",
 };
 
 export default async function Contact({
@@ -26,8 +26,8 @@ export default async function Contact({
       <section className="mk-alt">
         <div className="mk-wrap mk-narrow">
           <div className="mk-card">
-            {sp.sent && <p className="mk-ok">Thanks. We received your message and will be in touch.</p>}
-            {sp.error && <p className="mk-err">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+            {sp.sent && <p className="mk-ok" role="status">Thanks. We received your message and will be in touch.</p>}
+            {sp.error && <p className="mk-err" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
             <form action={sendInquiry} className="mk-form">
               <label htmlFor="name">Your name</label>
               <input id="name" name="name" required maxLength={120} autoComplete="name" />

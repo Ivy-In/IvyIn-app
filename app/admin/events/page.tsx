@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/admin";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import { EVENT_COLORS, formatWhen, isoToEtLocal, type EventColor } from "@/lib/events";
 import { createEvent, deleteEvent, setPublished, updateEvent } from "./actions";
 
@@ -144,7 +145,7 @@ export default async function EventsAdminPage() {
             </form>
             <form action={deleteEvent}>
               <input type="hidden" name="id" value={r.id} />
-              <button className="btn ghost" type="submit">Delete</button>
+              <ConfirmButton className="btn ghost" message="Delete this event? If it was public, everyone who has an account is emailed that it is cancelled. This cannot be undone.">Delete</ConfirmButton>
             </form>
           </div>
 

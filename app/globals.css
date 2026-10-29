@@ -644,3 +644,49 @@ input[type="file"]:hover::file-selector-button { background: #f3fbc4; }
 .tier-col p { margin: 0; }
 @media (max-width: 900px) { .tier-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .tier-grid { grid-template-columns: 1fr; } }
+
+/* =====================================================================
+   Review fixes: accessibility, contrast, type and press feedback
+   ===================================================================== */
+
+/* A visible ring for keyboard users on every control. */
+:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+.btn:focus-visible, .mk-btn:focus-visible { outline-color: #fff; }
+main:focus { outline: none; }
+
+/* Skip link: hidden until a keyboard user tabs to it. */
+.skip {
+  position: absolute; left: 12px; top: -80px; z-index: 100; background: var(--lime); color: #114230 !important;
+  padding: 12px 20px; font-weight: 800; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* Form fields: a border that reads at 3:1 against the card, and placeholders that read at 4.5:1. */
+input, textarea, select, .mk-form input, .mk-form textarea { border: 2px solid #8fb5a3; }
+input:focus, textarea:focus, select:focus, .mk-form input:focus, .mk-form textarea:focus { border-color: var(--lime); }
+input::placeholder, textarea::placeholder { color: rgba(237, 244, 239, .62); }
+input[type="checkbox"], input[type="radio"] { border: 0; }
+
+/* Out-of-month calendar days, event dots and chips stay readable. */
+.mk-cal-cell.out .mk-cal-day { color: rgba(237, 244, 239, .65); }
+.mk-dot { box-shadow: 0 0 0 2px rgba(243, 239, 230, .75); }
+.mk .mk-chip { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4); }
+
+/* Destructive button: white on a deep red (6.4:1). */
+.btn.danger { background: #b3261e; color: #fff; border: 0; }
+.btn.danger:hover { background: #c9302a; color: #fff; }
+
+/* Type: balanced headings, no stranded last words, display lines that don't collide. */
+h1, h2, h3, .mk-band h2 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+.mk-hero h1, .mk-cut ~ .mk-wrap h1 { line-height: .98; }
+th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
+
+/* Press feedback: 0.96 over 150ms, never on a disabled control. */
+.btn:active:not(:disabled), .mk-btn:active:not(:disabled) { transform: scale(.96); transition-duration: .15s; transition-timing-function: ease-out; }
+
+/* Touch screens have no hover: the lift effects would stick after a tap. */
+@media (hover: none) {
+  .btn:hover, .mk-btn:hover, .mk-pill:hover, .mk-grid .mk-card:hover, .mk .mk-chip:hover, .mk-brand:hover { transform: none; }
+}

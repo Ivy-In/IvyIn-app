@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavLink } from "@/components/NavLink";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
@@ -25,7 +26,7 @@ export async function Header() {
         </Link>
         <nav className="mk-links" aria-label="Main">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href}>{n.label}</Link>
+            <NavLink key={n.href} href={n.href}>{n.label}</NavLink>
           ))}
         </nav>
         <div className="mk-auth">
@@ -55,7 +56,7 @@ export function Footer() {
         <span>© {new Date().getFullYear()} IvyIn</span>
         <nav className="mk-links" aria-label="Footer">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href}>{n.label}</Link>
+            <NavLink key={n.href} href={n.href}>{n.label}</NavLink>
           ))}
           <Link href="/login">Log in</Link>
         </nav>

@@ -16,7 +16,7 @@ export default async function LoginPage({
         <AuthBrand />
       <div className="card">
         <h1>Log in</h1>
-        {sp.error && <p className="error">Email or password is incorrect.</p>}
+        {sp.error && <p className="error" role="alert">Email or password is incorrect.</p>}
         <form action={signIn}>
           <input type="hidden" name="next" value={next} />
           <label htmlFor="email">Email</label>

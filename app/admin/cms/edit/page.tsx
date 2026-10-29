@@ -41,7 +41,7 @@ export default async function EditCms({
         <code>sections</code> (a list of title and body), <code>closing</code>. For FAQs use <code>question</code> and{" "}
         <code>answer</code>.
       </p>
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
       <div className="card">
         <form action={saveCmsEntry}>
           {isExisting ? (

@@ -1,4 +1,5 @@
 import { requireAdmin } from "@/lib/admin";
+import { ConfirmButton } from "@/components/ConfirmButton";
 import { deleteAsset, uploadAsset } from "./actions";
 
 const ERRORS: Record<string, string> = {
@@ -31,7 +32,7 @@ export default async function AssetsPage({
           Uploaded. Link: <code style={{ wordBreak: "break-all" }}>{sp.ok}</code>
         </div>
       )}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
       <div className="card">
         <form action={uploadAsset}>
           <label htmlFor="file">Image (JPG, PNG or WebP, 5 MB max)</label>
@@ -52,7 +53,7 @@ export default async function AssetsPage({
                   <td>
                     <form action={deleteAsset}>
                       <input type="hidden" name="name" value={f.name} />
-                      <button className="btn ghost" type="submit">Delete</button>
+                      <ConfirmButton className="btn ghost" message="Delete this image? Any page using it will show a broken image. This cannot be undone.">Delete</ConfirmButton>
                     </form>
                   </td>
                 </tr>

@@ -44,8 +44,8 @@ export default async function StudentSiteEditor({
       <p className="muted">
         Private to the student and staff. <span className="badge">{site.status}</span>
       </p>
-      {sp.saved && <p className="msg">Saved {sp.saved}.</p>}
-      {sp.error && <p className="error">{ERRORS[sp.error] ?? "Something went wrong."}</p>}
+      {sp.saved && <p className="msg" role="status">Saved {sp.saved}.</p>}
+      {sp.error && <p className="error" role="alert">{ERRORS[sp.error] ?? "That did not work. Try again in a moment."}</p>}
 
       <div className="grid2">
         <div className="card">

@@ -110,7 +110,7 @@ export default function MfaPage() {
             </p>
           </form>
         )}
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error" role="alert">{error}</p>}
       </div>
     </main>
   );
