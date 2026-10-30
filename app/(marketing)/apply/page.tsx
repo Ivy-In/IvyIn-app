@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { ApplyForm } from "./ApplyForm";
 
-export const metadata: Metadata = { title: "Apply to be a consultant | IvyIn" };
+export const metadata: Metadata = {
+  title: "Apply to be a consultant",
+  description: "Apply to become an IvyIn college consultant and help high school students with essays, applications and more.",
+  alternates: { canonical: "/apply" },
+};
 
 export default function Apply() {
   return (

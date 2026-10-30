@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession, type PendingCookie } from "@/lib/supabase/session";
 
 // Student sites live at /site/<name> on the main domain. Each page checks access in the database.
+// Matched as whole path segments, so /sitemap.xml is not mistaken for /site.
 const PROTECTED_PREFIXES = ["/portal", "/admin", "/site"];
 
 function applyCookies(res: NextResponse, cookies: PendingCookie[]) {
@@ -14,7 +15,7 @@ export async function proxy(request: NextRequest) {
   const { user, cookies } = await updateSession(request);
 
   let res: NextResponse;
-  if (!user && PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) {
+  if (!user && PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
     res = NextResponse.redirect(
       new URL(`/login?next=${encodeURIComponent(pathname)}`, request.url)
     );

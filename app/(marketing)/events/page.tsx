@@ -15,7 +15,11 @@ import {
   type EventColor,
 } from "@/lib/events";
 
-export const metadata: Metadata = { title: "Events | IvyIn" };
+export const metadata: Metadata = {
+  title: "Events",
+  description: "Upcoming IvyIn events and workshops for students and families preparing for college applications.",
+  alternates: { canonical: "/events" },
+};
 
 type EventRow = {
   id: string;

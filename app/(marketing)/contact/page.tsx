@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { sendInquiry } from "./actions";
 
-export const metadata: Metadata = { title: "Contact | IvyIn" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Book a free intro call with IvyIn. Send us a few details and we will reply to arrange a time.",
+  alternates: { canonical: "/contact" },
+};
 
 const ERRORS: Record<string, string> = {
   invalid: "Please enter your name, a valid email, and a message of at least 10 characters.",

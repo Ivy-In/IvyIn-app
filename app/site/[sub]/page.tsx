@@ -1,5 +1,8 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getContext } from "@/lib/auth";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 // Reached at /site/<name>. Signed-out visitors are sent to sign in first.
 // A missing site and a site you may not see both return "not found", so the page

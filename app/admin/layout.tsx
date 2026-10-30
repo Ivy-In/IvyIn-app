@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { NavLink } from "@/components/NavLink";
 import { requireAdmin } from "@/lib/admin";
 import { getUnread } from "@/lib/activity";
 import { Bubble } from "@/components/Bubble";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const ctx = await requireAdmin();

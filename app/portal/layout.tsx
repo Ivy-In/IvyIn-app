@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { NavLink } from "@/components/NavLink";
 import { redirect } from "next/navigation";
 import { getContext } from "@/lib/auth";
 import { getUnread } from "@/lib/activity";
 import { Bubble } from "@/components/Bubble";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   const ctx = await getContext();
