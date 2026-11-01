@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function Resources() {
   const [content, faqs] = await Promise.all([getPage("resources"), getFaqs()]);
   return (
-    <PageBody content={content}>
+    <PageBody content={content} art="resources" tilt={1}>
       {faqs.length > 0 && (
         <JsonLd
           data={{

@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  return <PageBody content={await getPage("services")} />;
+  return <PageBody content={await getPage("services")} art="services" tilt={3} />;
 }

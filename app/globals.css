@@ -529,7 +529,7 @@ body:has(.mk)::before { display: none; }
 /* Fixes after review */
 .mk .mk-auth a.mk-btn-primary, .mk-auth a.mk-btn-primary:hover { color: #114230; }
 .mk-hero h1 { font-size: clamp(2.6rem, 8.5vw, 8.5rem); max-width: 16ch; }
-.mk-cut ~ .mk-wrap h1 { font-size: clamp(3rem, 12.5vw, 12rem); max-width: 11ch; }
+.mk-cut:not(.sm) ~ .mk-wrap h1 { font-size: clamp(3rem, 12.5vw, 12rem); max-width: 11ch; }
 .mk-footer .mk-links { flex-wrap: wrap; }
 .mk-footer-grid { gap: 12px 20px; }
 
@@ -680,7 +680,7 @@ input[type="checkbox"], input[type="radio"] { border: 0; }
 /* Type: balanced headings, no stranded last words, display lines that don't collide. */
 h1, h2, h3, .mk-band h2 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
-.mk-hero h1, .mk-cut ~ .mk-wrap h1 { line-height: .98; }
+.mk-hero h1, .mk-cut:not(.sm) ~ .mk-wrap h1 { line-height: .98; }
 th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 
 /* Press feedback: 0.96 over 150ms, never on a disabled control. */
@@ -760,3 +760,18 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 /* Light outlines on portal and admin boxes, matching the form fields */
 .card, .card:hover, .person, .app-row, .app-detail, .tier-col { border: 2px solid #8fb5a3; }
 .person.is-archived { border-color: #6f9985; }
+
+/* Inner-page hero panel: the home page's tilted block, smaller, one glyph per page */
+.mk-cut.sm { width: min(24vw, 340px); top: 48px; right: 6vw; }
+.mk-cut.sm svg { inset: 18%; width: 64%; height: 64%; }
+.mk-cut.sm.t1 { transform: rotate(-3deg); }
+.mk-cut.sm.t2 { transform: rotate(4deg); }
+.mk-cut.sm.t3 { transform: rotate(-5deg); }
+.mk-cut.sm.t3 i { left: -7%; right: 7%; }
+@media (prefers-reduced-motion: no-preference) {
+  .mk-cut.sm { transition: transform .5s cubic-bezier(.2, 0, 0, 1); }
+  @media (hover: hover) { .mk-hero:hover .mk-cut.sm { transform: rotate(0deg); } }
+}
+.mk-cut.sm ~ .mk-wrap h1 { max-width: 13ch; }
+.mk-hero:has(> .mk-cut.sm) { min-height: 460px; }
+@media (max-width: 900px) { .mk-hero:has(> .mk-cut.sm) { min-height: 0; } .mk-cut.sm ~ .mk-wrap h1 { max-width: 16ch; } }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Cut } from "@/components/marketing";
 import { sendInquiry } from "./actions";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default async function Contact({
   return (
     <>
       <section className="mk-hero">
+        <Cut art="contact" tilt={3} />
         <div className="mk-wrap">
           <div className="mk-eyebrow">Contact</div>
           <h1>Book a free intro call</h1>

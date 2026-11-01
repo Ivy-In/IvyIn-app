@@ -65,6 +65,28 @@ export function Footer() {
   );
 }
 
+export type Art = "about" | "steps" | "events" | "services" | "resources" | "contact";
+
+// Page-specific glyphs for the tilted panel. Each is a simple filled shape in IvyIn green.
+const GLYPHS: Record<Art, ReactNode> = {
+  about: (<><circle cx="36" cy="34" r="13" /><circle cx="68" cy="40" r="11" /><path d="M10 84C10 60 62 60 62 84Z" /><path d="M50 86C50 68 90 68 90 86Z" /></>),
+  steps: (<><rect x="12" y="60" width="22" height="26" /><rect x="39" y="42" width="22" height="44" /><rect x="66" y="22" width="22" height="64" /></>),
+  events: (<><path fillRule="evenodd" d="M12 22h76v64H12Z M22 44h56v32H22Z" /><rect x="26" y="10" width="9" height="22" /><rect x="65" y="10" width="9" height="22" /></>),
+  services: (<><rect x="12" y="20" width="16" height="16" /><rect x="36" y="20" width="52" height="16" /><rect x="12" y="42" width="16" height="16" /><rect x="36" y="42" width="52" height="16" /><rect x="12" y="64" width="16" height="16" /><rect x="36" y="64" width="52" height="16" /></>),
+  resources: (<><path d="M8 24C28 16 42 20 50 30V86C42 76 28 72 8 80Z" /><path d="M92 24C72 16 58 20 50 30V86C58 76 72 72 92 80Z" /></>),
+  contact: <path d="M10 16h80v52H50L26 88V68H10Z" />,
+};
+
+// The tilted panel from the home page, smaller, with a glyph that matches the page.
+export function Cut({ art, tilt = 1 }: { art: Art; tilt?: 1 | 2 | 3 }) {
+  return (
+    <div className={`mk-cut sm t${tilt}`} aria-hidden="true">
+      <svg viewBox="0 0 100 100">{GLYPHS[art]}</svg>
+      <i />
+    </div>
+  );
+}
+
 function ctaLink(c: { label: string; href: string }, className: string) {
   return <Link className={className} href={c.href}>{c.label}</Link>;
 }
@@ -74,14 +96,19 @@ export function PageBody({
   content,
   children,
   pills,
+  art,
+  tilt,
 }: {
   content: PageContent;
   children?: ReactNode;
   pills?: { lead: string; items: string[]; tail: string };
+  art?: Art;
+  tilt?: 1 | 2 | 3;
 }) {
   return (
     <>
       <section className="mk-hero">
+        {art && !pills && <Cut art={art} tilt={tilt} />}
         {pills && (
           <div className="mk-cut" aria-hidden="true">
             <svg viewBox="0 0 100 100"><path d="M50 8C70 30 70 55 50 70 30 55 30 30 50 8Z" /><path d="M12 38C38 36 56 52 52 76 26 78 10 62 12 38Z" /><path d="M88 38C62 36 44 52 48 76 74 78 90 62 88 38Z" /></svg>

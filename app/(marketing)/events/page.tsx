@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Cut } from "@/components/marketing";
 import { createClient } from "@/lib/supabase/server";
 import { occurrences, type MeetingRow, type Occurrence } from "@/lib/meetings";
 import {
@@ -116,6 +117,7 @@ export default async function EventsPage({
   return (
     <>
       <section className="mk-hero">
+        <Cut art="events" tilt={2} />
         <div className="mk-wrap">
           <div className="mk-eyebrow">Events</div>
           <h1>Guest speakers, panels and info sessions</h1>
