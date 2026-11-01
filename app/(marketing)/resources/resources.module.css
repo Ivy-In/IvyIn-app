@@ -1,8 +1,3 @@
-.guides { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin: 8px 0 32px; padding: 22px 28px; border: 2px solid #8fb5a3; border-radius: 20px; text-decoration: none; color: var(--heading); background: rgba(232, 242, 168, .06); }
-.text { display: grid; gap: 4px; }
-.text strong { font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; line-height: 1.2; }
-.text span:last-child { color: var(--muted); }
-.kicker { color: #e8f2a8; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.go { background: #e8f2a8; color: #114230; font-weight: 700; padding: 12px 22px; white-space: nowrap; }
-@media (prefers-reduced-motion: no-preference) { .guides, .go { transition: background-color .2s, border-color .2s; } }
-@media (hover: hover) { .guides:hover { border-color: #e8f2a8; background: rgba(232, 242, 168, .12); } }
+.guides { display: flex; align-items: center; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap; margin: 8px 0 32px; padding: 28px; border: 2px solid #8fb5a3; border-radius: 0; background: none; }
+.guides p { margin: 0; color: var(--paper); font-size: 1.15rem; }
+.title { font-family: var(--display); font-weight: 800; font-size: clamp(1.6rem, 3.4vw, 2.4rem); letter-spacing: -.02em; line-height: 1; margin: 0 0 .35em; color: var(--paper); }

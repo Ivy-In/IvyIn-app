@@ -20,14 +20,14 @@ export default async function Resources() {
       tilt={1}
       afterHero={
         <div className="mk-wrap">
-          <Link href="/guides" className={css.guides}>
-            <span className={css.text}>
-              <span className={css.kicker}>New</span>
-              <strong>College admissions guides</strong>
-              <span>How to choose a consultant, a ninth grade checklist, and more.</span>
-            </span>
-            <span className={css.go} aria-hidden="true">Read the guides →</span>
-          </Link>
+          <div className={css.guides}>
+            <div>
+              <div className="mk-eyebrow">New</div>
+              <h2 className={css.title}>College admissions guides</h2>
+              <p>How to choose a consultant, a ninth grade checklist, and more.</p>
+            </div>
+            <Link href="/guides" className="mk-btn mk-btn-primary">Read the guides</Link>
+          </div>
         </div>
       }
     >
