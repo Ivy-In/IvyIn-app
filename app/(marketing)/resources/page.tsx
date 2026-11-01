@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageBody } from "@/components/marketing";
 import { JsonLd } from "@/components/JsonLd";
+import css from "./resources.module.css";
 import { getFaqs, getPage } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -13,7 +14,23 @@ export const metadata: Metadata = {
 export default async function Resources() {
   const [content, faqs] = await Promise.all([getPage("resources"), getFaqs()]);
   return (
-    <PageBody content={content} art="resources" tilt={1}>
+    <PageBody
+      content={content}
+      art="resources"
+      tilt={1}
+      afterHero={
+        <div className="mk-wrap">
+          <Link href="/guides" className={css.guides}>
+            <span className={css.text}>
+              <span className={css.kicker}>New</span>
+              <strong>College admissions guides</strong>
+              <span>How to choose a consultant, a ninth grade checklist, and more.</span>
+            </span>
+            <span className={css.go} aria-hidden="true">Read the guides →</span>
+          </Link>
+        </div>
+      }
+    >
       {faqs.length > 0 && (
         <JsonLd
           data={{
@@ -36,7 +53,6 @@ export default async function Resources() {
               <p>{f.answer}</p>
             </details>
           ))}
-          <p style={{ marginTop: 28 }}>Want more? Read our <Link href="/guides">college admissions guides</Link>.</p>
         </div>
       </section>
     </PageBody>

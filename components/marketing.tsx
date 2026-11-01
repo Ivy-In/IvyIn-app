@@ -98,12 +98,14 @@ export function PageBody({
   pills,
   art,
   tilt,
+  afterHero,
 }: {
   content: PageContent;
   children?: ReactNode;
   pills?: { lead: string; items: string[]; tail: string };
   art?: Art;
   tilt?: 1 | 2 | 3;
+  afterHero?: ReactNode;
 }) {
   return (
     <>
@@ -136,6 +138,8 @@ export function PageBody({
           )}
         </div>
       </section>
+
+      {afterHero}
 
       {content.sections.length > 0 && (
         <section className="mk-alt">
