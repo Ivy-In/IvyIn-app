@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageBody } from "@/components/marketing";
 import { JsonLd } from "@/components/JsonLd";
 import { getFaqs, getPage } from "@/lib/content";
@@ -35,6 +36,7 @@ export default async function Resources() {
               <p>{f.answer}</p>
             </details>
           ))}
+          <p style={{ marginTop: 28 }}>Want more? Read our <Link href="/guides">college admissions guides</Link>.</p>
         </div>
       </section>
     </PageBody>

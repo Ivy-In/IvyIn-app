@@ -1,0 +1,12 @@
+.list { display: grid; gap: 16px; padding: 56px 0; }
+.item { display: block; padding: 22px 26px; border-radius: 20px; text-decoration: none; border: 2px solid rgba(255, 255, 255, .16); }
+.item:hover { border-color: rgba(255, 255, 255, .32); }
+.item h2 { margin: 0 0 .3em; font-size: 1.4rem; }
+.item p { margin: 0; color: var(--muted); }
+.article { max-width: 720px; margin: 0 auto; padding: 48px 20px 72px; line-height: 1.7; }
+.article h2 { font-size: 1.5rem; margin: 1.8em 0 .5em; }
+.article p, .article li { color: var(--muted); font-size: 1.05rem; }
+.article ul { padding-inline-start: 1.2em; margin: 0 0 1em; }
+.meta { color: var(--muted); font-size: 14px; margin-bottom: 2em; }
+.cta { margin-top: 3em; padding: 24px; border-radius: 20px; border: 2px solid rgba(255, 255, 255, .16); }
+.cta p { margin: 0 0 1em; }
