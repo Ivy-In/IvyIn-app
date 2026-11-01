@@ -775,3 +775,7 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .mk-cut.sm ~ .mk-wrap h1 { max-width: 13ch; }
 .mk-hero:has(> .mk-cut.sm) { min-height: 460px; }
 @media (max-width: 900px) { .mk-hero:has(> .mk-cut.sm) { min-height: 0; } .mk-cut.sm ~ .mk-wrap h1 { max-width: 16ch; } }
+@media (prefers-reduced-motion: no-preference) {
+  .mk-cut:not(.sm) { transition: transform .5s cubic-bezier(.2, 0, 0, 1); }
+  @media (hover: hover) { .mk-hero:hover .mk-cut:not(.sm) { transform: rotate(0deg); } }
+}
