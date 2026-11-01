@@ -35,5 +35,13 @@ export async function getContext() {
 // Only allow in-app paths for post-login redirects. Blocks open redirects.
 export function safeNext(value: string | null | undefined, fallback = "/portal") {
   if (!value || !value.startsWith("/") || value.startsWith("//")) return fallback;
+  // Browsers treat "/\\evil.com" and tab or newline tricks as another site, so resolve the value and
+  // accept it only if it still points at this site.
+  if (/[\\\u0000-\u001f]/.test(value)) return fallback;
+  try {
+    if (new URL(value, "https://site.invalid").origin !== "https://site.invalid") return fallback;
+  } catch {
+    return fallback;
+  }
   return value;
 }
