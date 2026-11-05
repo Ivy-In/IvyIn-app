@@ -791,3 +791,13 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .mk-footer::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"); }
 .mk-footer > * { position: relative; }
+
+/* Phones: logo, Log In and Sign Up share one row, with the menu links wrapping underneath. */
+@media (max-width: 640px) {
+  .mk-nav-inner { flex-wrap: wrap; align-items: center; gap: 10px 8px; }
+  .mk-nav-inner .mk-brand { order: 1; padding: 0; margin-inline-end: auto; }
+  .mk-brand img { height: 34px; }
+  .mk-nav-inner .mk-auth { order: 2; width: auto; margin-left: 0; flex: none; gap: 8px; }
+  .mk .mk-auth .mk-btn, .mk-auth .mk-btn { padding: 9px 14px; font-size: 14px; }
+  .mk-nav-inner .mk-links { order: 3; width: 100%; }
+}
