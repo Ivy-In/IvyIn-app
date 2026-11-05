@@ -4,6 +4,7 @@ import { getFaqs } from "@/lib/content";
 import { titleCase } from "@/lib/titlecase";
 import { GUIDES } from "@/lib/guides";
 import { Reveal } from "@/components/home/Reveal";
+import { FaqExplorer } from "./FaqExplorer";
 import { SectionHead } from "./SectionHead";
 import css from "./sections.module.css";
 
@@ -26,17 +27,7 @@ export async function FaqSection() {
           />
         )}
         <SectionHead eyebrow="Resources / FAQ" title="Frequently Asked Questions" lede="Answers to the questions families ask most." />
-        <div className="mk-faq" style={{ padding: 0 }}>
-          {faqs.length === 0 && <p className="mk-muted">Questions are on their way. Reach out in the Contact section below.</p>}
-          {faqs.map((f) => (
-            <Reveal key={f.question}>
-              <details>
-                <summary>{f.question}</summary>
-                <p>{f.answer}</p>
-              </details>
-            </Reveal>
-          ))}
-        </div>
+        <FaqExplorer faqs={faqs} />
 
         <Reveal>
           <h3 className={css.eyebrow} style={{ marginTop: 56 }}>College Admissions Guides</h3>

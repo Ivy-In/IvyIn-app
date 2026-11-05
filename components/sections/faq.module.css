@@ -1,0 +1,52 @@
+.wrap { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+@media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } }
+.side { position: sticky; top: 100px; display: grid; gap: 18px; }
+@media (max-width: 860px) { .side { position: static; } }
+
+.search input { width: 100%; padding: 13px 16px; font: 700 16px var(--font-sans); color: var(--paper); background: rgba(10, 31, 22, .5); border: 2px solid #8fb5a3; border-radius: 0; }
+.search input::placeholder { color: var(--paper); opacity: .6; }
+.search input:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+
+.topics { display: grid; gap: 8px; }
+@media (max-width: 860px) { .topics { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; padding-bottom: 6px; } }
+.topic { display: flex; align-items: center; justify-content: space-between; gap: 14px; text-align: start; padding: 13px 16px; font: 800 16px var(--font-sans); color: var(--paper); background: none; border: 2px solid #8fb5a3; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s; }
+.topic[aria-selected="true"] { background: var(--lime); color: #114230; border-color: var(--lime); }
+@media (hover: hover) { .topic:hover { border-color: var(--lime); } }
+.count { font-size: 13px; min-width: 26px; text-align: center; padding: 2px 8px; background: rgba(255, 255, 255, .14); }
+.topic[aria-selected="true"] .count { background: rgba(17, 66, 48, .15); }
+
+.ask { padding: 20px; border: 2px solid #d6b26a; display: grid; gap: 8px; justify-items: start; }
+.ask strong { font-family: var(--display); font-weight: 800; font-size: 1.3rem; letter-spacing: -.02em; color: var(--paper); }
+.ask p { margin: 0 0 6px; color: var(--paper); }
+
+.list { display: grid; gap: 10px; }
+.found, .empty { margin: 0 0 6px; color: var(--paper); }
+.item { border: 2px solid #8fb5a3; background: linear-gradient(160deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02)); transition: border-color .25s, background-color .25s; }
+.item[data-open="true"] { border-color: var(--lime); background: rgba(232, 242, 168, .07); }
+@media (hover: hover) { .item:hover { border-color: var(--lime); } }
+.item h3 { margin: 0; font-family: var(--font-sans); font-size: 1rem; line-height: 1.4; }
+.item button { all: unset; box-sizing: border-box; display: grid; grid-template-columns: 38px 1fr 24px; align-items: center; gap: 12px; width: 100%; padding: 18px 20px; cursor: pointer; color: var(--paper); }
+.item button:focus-visible { outline: 3px solid var(--lime); outline-offset: -3px; }
+.num { color: #d6b26a; font-weight: 800; font-size: 14px; letter-spacing: .06em; }
+.q { font-weight: 800; font-size: 1.1rem; }
+
+/* Plus that turns into a minus */
+.icon { position: relative; width: 18px; height: 18px; justify-self: end; }
+.icon::before, .icon::after { content: ""; position: absolute; background: var(--lime); }
+.icon::before { left: 0; right: 0; top: 8px; height: 2px; }
+.icon::after { top: 0; bottom: 0; left: 8px; width: 2px; }
+.item[data-open="true"] .icon::after { transform: scaleY(0); }
+@media (prefers-reduced-motion: no-preference) { .icon::after { transition: transform .25s cubic-bezier(.2, 0, 0, 1); } }
+
+/* Height animates by growing a grid row from 0fr to 1fr. */
+.panel { display: grid; grid-template-rows: 0fr; }
+.item[data-open="true"] .panel { grid-template-rows: 1fr; }
+@media (prefers-reduced-motion: no-preference) { .panel { transition: grid-template-rows .35s cubic-bezier(.2, 0, 0, 1); } }
+.inner { overflow: hidden; padding: 0 20px 0 70px; }
+.item[data-open="true"] .inner { padding-bottom: 20px; }
+.inner p { margin: 0; color: var(--paper); font-size: 1.08rem; max-width: 62ch; }
+.tag { display: inline-block; margin-top: 12px; padding: 3px 10px; background: rgba(255, 255, 255, .12); color: var(--paper); font-weight: 700; }
+.item:not([data-open="true"]) .inner { visibility: hidden; }
+
+.askBelow { display: none; margin-top: 8px; }
+@media (max-width: 860px) { .askSide { display: none; } .askBelow { display: grid; } }
