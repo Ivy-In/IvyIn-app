@@ -1,32 +1,7 @@
-import Link from "next/link";
 import { getTestimonials } from "@/lib/content";
 import { Reveal } from "@/components/home/Reveal";
 import css from "@/components/home/spotlight.module.css";
 import sec from "./sections.module.css";
-
-const FEATURES = [
-  ["01", "Matched to Your Field", "Your consultant studies what you want to study, so the advice fits your path."],
-  ["02", "A Weekly One-Hour Meeting", "One-on-one, every week, with the same consultant who knows your story."],
-  ["03", "One Private Place", "Essays, files, messages and deadlines in your own IvyIn portal."],
-  ["04", "Weekly Events", "Guest speakers, panels and info sessions open to every student."],
-  ["05", "Prices Posted Up Front", "$1,950 for six months or $3,250 for a year. No surprises."],
-  ["06", "Mentors Who Just Got In", "Current students at top universities, not someone years removed."],
-];
-
-// "All in one place": what you get with IvyIn, as a grid. Sits inside the Services section.
-export function Features() {
-  return (
-    <div className={css.feat}>
-      {FEATURES.map(([n, t, b], i) => (
-        <Reveal key={n} className={css.fitem} delay={(i % 3) * 110}>
-          <span className={css.fnum}>{n}</span>
-          <h3>{t}</h3>
-          <p>{b}</p>
-        </Reveal>
-      ))}
-    </div>
-  );
-}
 
 // Mentor and family stories written in the admin Content page. With none published, nothing is shown.
 export async function Testimonials() {
@@ -51,21 +26,6 @@ export async function Testimonials() {
           ))}
         </div>
       </div>
-    </section>
-  );
-}
-
-export function ClosingCta() {
-  return (
-    <section className={css.closeBand} aria-labelledby="close-h">
-      <Reveal>
-        <h2 id="close-h" className={css.closeH}>Ready to Meet Your Mentor?</h2>
-        <p>Book a free intro call, or apply to join our team of mentors.</p>
-        <div className={css.closeBtns}>
-          <Link className="mk-btn mk-btn-primary" href="/#contact">Get Started</Link>
-          <Link className="mk-btn mk-btn-ghost" href="/apply">Become a Consultant</Link>
-        </div>
-      </Reveal>
     </section>
   );
 }

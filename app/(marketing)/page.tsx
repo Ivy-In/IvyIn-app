@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { PageBody } from "@/components/marketing";
-import { StatsAndTicker, Universities } from "@/components/home/HomeSections";
+import { StatsAndTicker } from "@/components/home/HomeSections";
 import { Spotlight } from "@/components/home/Spotlight";
 import { MentorCarousel } from "@/components/home/MentorCarousel";
-import { ClosingCta, Features, Testimonials } from "@/components/sections/Extras";
+import { Testimonials } from "@/components/sections/Extras";
 import { CmsSection } from "@/components/sections/CmsSection";
 import { EventsSection } from "@/components/sections/EventsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -65,16 +65,12 @@ export default async function Home({
         <div style={{ marginTop: 48 }}>
           <MentorCarousel />
         </div>
-        <Universities />
       </CmsSection>
       <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
       <EventsSection monthParam={sp.month} />
-      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow">
-        <Features />
-      </CmsSection>
+      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" />
       <Testimonials />
       <FaqSection />
-      <ClosingCta />
       <ContactSection sent={sp.sent} error={sp.error} />
     </>
   );

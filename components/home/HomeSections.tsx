@@ -1,23 +1,9 @@
-import { FIELDS, SCHOOLS, STATS } from "@/lib/mentors";
+import { STATS } from "@/lib/mentors";
 import { Reveal } from "./Reveal";
 import { CountUp } from "./CountUp";
 import css from "./home.module.css";
 
-const MAX = SCHOOLS[0]?.count ?? 1;
-
-function Track({ hidden }: { hidden?: boolean }) {
-  return (
-    <div className={css.track} aria-hidden={hidden || undefined}>
-      {SCHOOLS.map((s) => (
-        <span className={css.chip} key={s.school}>
-          {s.school} <small>{s.count} {s.count === 1 ? "mentor" : "mentors"}</small>
-        </span>
-      ))}
-    </div>
-  );
-}
-
-// Stats band and university ticker, directly under the hero. All numbers come from lib/mentors.ts.
+// Stats band directly under the hero. All numbers come from lib/mentors.ts.
 export function StatsAndTicker() {
   return (
     <>
@@ -48,41 +34,6 @@ export function StatsAndTicker() {
         </div>
       </section>
 
-      <section className={css.marq} aria-label="Universities our mentors attend">
-        <div className={css.row}><Track /><Track hidden /></div>
-        <div className={`${css.row} ${css.alt}`}><Track hidden /><Track hidden /></div>
-      </section>
     </>
-  );
-}
-
-// "Where they study": a card per university and the fields mentors study. Sits inside the About section.
-export function Universities() {
-  return (
-    <div style={{ marginTop: 48 }}>
-          <Reveal>
-            <p className={css.eyebrow}>Where they study</p>
-            <h2 className={css.h2}>Every Mentor Attends a Top 25 University</h2>
-          </Reveal>
-          <div className={css.uni}>
-            {SCHOOLS.map((s, i) => (
-              <Reveal key={s.school} delay={(i % 4) * 90}>
-                <div className={css.uniCard}>
-                  <h3 className={css.uniName}>{s.school}</h3>
-                  <p className={css.uniCount}>{s.count} {s.count === 1 ? "mentor" : "mentors"}</p>
-                  <div className={css.bar} aria-hidden="true">
-                    <div className={css.fill} style={{ transform: `scaleX(${s.count / MAX})`, ["--delay" as string]: `${i * 60}ms` }} />
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={100}>
-            <h3 className={css.eyebrow} style={{ marginTop: 56 }}>What they study</h3>
-            <div className={css.fields}>
-              {FIELDS.map((f) => <span className={css.field} key={f}>{f}</span>)}
-            </div>
-          </Reveal>
-    </div>
   );
 }

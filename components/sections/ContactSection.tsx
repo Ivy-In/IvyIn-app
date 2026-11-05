@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { sendInquiry } from "@/app/(marketing)/contact/actions";
 import { Reveal } from "@/components/home/Reveal";
 import { SectionHead } from "./SectionHead";
@@ -16,13 +15,6 @@ export function ContactSection({ sent, error }: { sent?: string; error?: string 
         <div className={css.contactGrid}>
           <div>
             <SectionHead eyebrow="Contact" title="Book a Free Intro Call" lede="Send us a few details and we will reply to arrange a time." />
-            <Reveal delay={120}>
-              <div className={css.apply}>
-                <h3>Want to Be a Consultant?</h3>
-                <p>Opportunities are open now for students at top universities.</p>
-                <Link className="mk-btn mk-btn-primary" href="/apply">Apply Now</Link>
-              </div>
-            </Reveal>
           </div>
           <Reveal from="right">
             <div className={css.formCard}>

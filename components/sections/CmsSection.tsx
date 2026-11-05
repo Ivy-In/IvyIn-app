@@ -83,17 +83,6 @@ export function CmsView({
 
         {children}
 
-        {c.closing && (
-          <Reveal>
-            <div className={css.closing}>
-              <div>
-                <h3>{titleCase(c.closing.headline)}</h3>
-                <p>{c.closing.body}</p>
-              </div>
-              <Link className="mk-btn mk-btn-light" href={anchorHref(c.closing.cta.href)}>{titleCase(c.closing.cta.label)}</Link>
-            </div>
-          </Reveal>
-        )}
       </div>
     </section>
   );
