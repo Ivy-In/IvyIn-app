@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { NavLinks } from "@/components/NavLinks";
 import { anchorHref } from "@/lib/anchors";
+import { loadSignature } from "@/lib/mail";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
@@ -48,14 +49,49 @@ export async function Header() {
   );
 }
 
-export function Footer() {
+const ICONS = {
+  instagram: <path d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm5 5a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm5.2-2.2a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z" />,
+  linkedin: <path d="M4 9h4v11H4V9Zm2-5a2.2 2.2 0 1 1 0 4.4A2.2 2.2 0 0 1 6 4Zm5 5h3.8v1.6c.6-1.1 2-1.9 3.7-1.9 3.4 0 4 2.2 4 5.2V20h-4v-5.2c0-1.300-.1-2.800-1.900-2.800s-2.100 1.300-2.100 2.700V20h-4V9Z" />,
+  whatsapp: <path d="M12 2.5A9.500 9.500 0 0 0 3.800 16.800L2.500 21.500l4.800-1.300A9.500 9.500 0 1 0 12 2.500Zm5.400 13.500c-.2.700-1.300 1.300-1.900 1.400-.5.100-1.200.1-2-.1a14 14 0 0 1-5.700-4.900c-.8-1-1.400-2.200-1.400-3.400s.7-1.800 1-2.100c.2-.2.500-.3.700-.3h.5c.2 0 .4 0 .6.500l.9 2c.1.200.1.400 0 .6l-.4.600-.4.500c-.1.200-.3.300-.1.600.7 1.200 1.700 2.100 3 2.700.3.100.5.100.6-.1l.8-1c.2-.3.400-.2.600-.1l2 .9c.3.200.5.300.5.500.1.300.1.900-.2 1.600Z" />,
+};
+
+// Multi-column footer: where to go, ways to get involved, and the social links (edited in the admin Content page).
+export async function Footer() {
+  const sig = await loadSignature();
+  const socials = [["Instagram", sig.instagram, ICONS.instagram], ["LinkedIn", sig.linkedin, ICONS.linkedin], ["WhatsApp", sig.whatsapp, ICONS.whatsapp]] as const;
   return (
     <footer className="mk-footer">
-      <div className="mk-wrap mk-footer-grid">
-        <span>© {new Date().getFullYear()} IvyIn</span>
-        <nav className="mk-links" aria-label="Footer">
-          <NavLinks items={NAV} trailing={<Link href="/login">Log in</Link>} />
+      <div className="mk-wrap" style={{ display: "grid", gap: "32px 48px", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", alignItems: "start" }}>
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo-header-light.png" alt="IvyIn" width={160} height={49} style={{ height: "auto", marginBottom: 12 }} />
+          <p style={{ margin: "0 0 16px", maxWidth: "28ch" }}>{sig.tagline}</p>
+          <div style={{ display: "flex", gap: 10 }}>
+            {socials.map(([label, href, icon]) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} style={{ display: "inline-grid", placeItems: "center", width: 40, height: 40, border: "2px solid #8fb5a3", color: "var(--paper)" }}>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">{icon}</svg>
+              </a>
+            ))}
+          </div>
+        </div>
+        <nav aria-label="Explore">
+          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--lime)" }}>Explore</h2>
+          <div style={{ display: "grid", gap: 6 }}>
+            {NAV.map((n) => <Link key={n.href} href={n.href}>{n.label}</Link>)}
+          </div>
         </nav>
+        <nav aria-label="Get involved">
+          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--lime)" }}>Get involved</h2>
+          <div style={{ display: "grid", gap: 6 }}>
+            <Link href="/apply">Become a consultant</Link>
+            <Link href="/guides">Admissions guides</Link>
+            <Link href="/signup">Sign up</Link>
+            <Link href="/login">Log in</Link>
+          </div>
+        </nav>
+      </div>
+      <div className="mk-wrap" style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,.18)" }}>
+        <span>© {new Date().getFullYear()} IvyIn</span>
       </div>
     </footer>
   );

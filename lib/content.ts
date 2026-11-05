@@ -111,3 +111,28 @@ export async function getFaqs(): Promise<Faq[]> {
     return [];
   }
 }
+
+export type Testimonial = { quote: string; name: string; detail?: string };
+
+// Stories are written in the admin Content page (type "testimonial") and appear only once published.
+// Nothing is invented here: with no entries, the section is simply not shown.
+export async function getTestimonials(): Promise<Testimonial[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("cms_entries")
+      .select("data, sort_order")
+      .eq("collection", "testimonial")
+      .order("sort_order");
+    if (error || !data) return [];
+    const out: Testimonial[] = [];
+    for (const row of data) {
+      if (isObj(row.data) && str(row.data.quote) && str(row.data.name)) {
+        out.push({ quote: row.data.quote as string, name: row.data.name as string, detail: str(row.data.detail) });
+      }
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}

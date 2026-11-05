@@ -12,7 +12,7 @@ const PRIMARY = "#114230";
 const SECONDARY = "#55786a";
 const BASE = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ivy-in.com").replace(/\/+$/, "");
 
-type Signature = { tagline: string; website: string; instagram: string; linkedin: string; whatsapp: string };
+export type Signature = { tagline: string; website: string; instagram: string; linkedin: string; whatsapp: string };
 
 const DEFAULTS: Signature = {
   tagline: "America's Premier College Consulting Group",
@@ -31,7 +31,7 @@ function safeUrl(v: unknown, fallback: string): string {
   return typeof v === "string" && /^https:\/\/[^\s"<>]+$/i.test(v.trim()) ? v.trim() : fallback;
 }
 
-async function loadSignature(): Promise<Signature> {
+export async function loadSignature(): Promise<Signature> {
   try {
     const { data } = await createAdminClient()
       .from("cms_entries")
