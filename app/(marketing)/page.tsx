@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { PageBody } from "@/components/marketing";
+import { HomeSections } from "@/components/home/HomeSections";
 import { getPage } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -37,7 +38,9 @@ export default async function Home() {
         items: ["essays", "applications", "testing", "activities", "deadlines"],
         tail: "in one private place.",
       }}
-    />
+    >
+      <HomeSections />
+    </PageBody>
     </>
   );
 }
