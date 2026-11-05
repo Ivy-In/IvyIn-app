@@ -31,7 +31,7 @@ export function eventEmail(
       lines.push("", ev.description);
     }
   }
-  lines.push("", "Events calendar: https://ivy-in.com/events", "", "IvyIn");
+  lines.push("", "Events calendar: https://ivy-in.com/#events", "", "IvyIn");
   return { subject: `Event ${verb}: ${ev.title}`, text: lines.join("\n") };
 }
 

@@ -31,6 +31,7 @@ function readForm(formData: FormData) {
 function refresh() {
   revalidatePath("/admin/events");
   revalidatePath("/events");
+  revalidatePath("/");
 }
 
 export async function createEvent(formData: FormData) {

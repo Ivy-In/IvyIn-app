@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { FIELDS, SCHOOLS, STATS } from "@/lib/mentors";
-import { GUIDES } from "@/lib/guides";
 import { Reveal } from "./Reveal";
 import { CountUp } from "./CountUp";
 import css from "./home.module.css";
@@ -19,8 +17,8 @@ function Track({ hidden }: { hidden?: boolean }) {
   );
 }
 
-// Sections shown on the home page below the editable hero. All numbers come from lib/mentors.ts.
-export function HomeSections() {
+// Stats band and university ticker, directly under the hero. All numbers come from lib/mentors.ts.
+export function StatsAndTicker() {
   return (
     <>
       <section className={css.stats} aria-labelledby="stats-h">
@@ -54,9 +52,14 @@ export function HomeSections() {
         <div className={css.row}><Track /><Track hidden /></div>
         <div className={`${css.row} ${css.alt}`}><Track hidden /><Track hidden /></div>
       </section>
+    </>
+  );
+}
 
-      <section className={css.sec}>
-        <div className={css.wrap}>
+// "Where they study": a card per university and the fields mentors study. Sits inside the About section.
+export function Universities() {
+  return (
+    <div style={{ marginTop: 72 }}>
           <Reveal>
             <p className={css.eyebrow}>Where they study</p>
             <h2 className={css.h2}>Every mentor attends a top 25 university</h2>
@@ -80,78 +83,6 @@ export function HomeSections() {
               {FIELDS.map((f) => <span className={css.field} key={f}>{f}</span>)}
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      <section className={css.sec} style={{ paddingTop: 0 }}>
-        <div className={css.wrap}>
-          <Reveal>
-            <p className={css.eyebrow}>How it works</p>
-            <h2 className={css.h2}>One mentor. One hour. Every week.</h2>
-          </Reveal>
-          <div className={css.steps}>
-            {[
-              ["01", "Get matched", "We pair you with a current student at a top 25 university, matched to your field."],
-              ["02", "Meet every week", "A one-hour one-on-one with the same mentor, so they know your story."],
-              ["03", "Apply with confidence", "Essays, activities, testing and deadlines, all in one private place."],
-            ].map(([n, t, b], i) => (
-              <Reveal className={css.step} key={n} delay={i * 130} from="left">
-                <div className={css.stepNum}>{n}</div>
-                <h3 className={css.stepTitle}>{t}</h3>
-                <p>{b}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={css.sec} style={{ paddingTop: 0 }}>
-        <div className={css.wrap}>
-          <Reveal>
-            <p className={css.eyebrow}>Plans</p>
-            <h2 className={css.h2}>Prices posted, no surprises</h2>
-          </Reveal>
-          <div className={css.two}>
-            <Reveal>
-              <div className={css.plan}>
-                <p>Six months</p>
-                <div className={css.price}>$1,950</div>
-                <p>Weekly one-on-one meetings with your mentor.</p>
-              </div>
-            </Reveal>
-            <Reveal delay={120}>
-              <div className={`${css.plan} ${css.feat}`}>
-                <p>Full year</p>
-                <div className={css.price}>$3,250</div>
-                <p>Weekly one-on-one meetings with your mentor.</p>
-              </div>
-            </Reveal>
-          </div>
-          <div className={css.actions}>
-            <Link className="mk-btn mk-btn-primary" href="/services">See services</Link>
-            <Link className="mk-btn mk-btn-ghost" href="/contact">Talk to us</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className={css.sec} style={{ paddingTop: 0 }}>
-        <div className={css.wrap}>
-          <Reveal>
-            <p className={css.eyebrow}>Guides</p>
-            <h2 className={css.h2}>Start learning today</h2>
-          </Reveal>
-          <div className={css.two} style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
-            {GUIDES.slice(0, 3).map((g, i) => (
-              <Reveal key={g.slug} delay={i * 120}>
-                <Link href={`/guides/${g.slug}`} className={css.guide}>
-                  <strong>{g.title}</strong>
-                  <span>{g.description}</span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+    </div>
   );
 }

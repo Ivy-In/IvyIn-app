@@ -11,17 +11,17 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function sendInquiry(formData: FormData) {
   // Honeypot: a hidden field real visitors never fill in. Bots that do get a fake success.
-  if (String(formData.get("website") ?? "") !== "") redirect("/contact?sent=1");
+  if (String(formData.get("website") ?? "") !== "") redirect("/?sent=1#contact");
 
   const name = String(formData.get("name") ?? "").trim().slice(0, 120);
   const email = String(formData.get("email") ?? "").trim().slice(0, 200);
   const message = String(formData.get("message") ?? "").trim().slice(0, 2000);
 
-  if (!name || !EMAIL.test(email) || message.length < 10) redirect("/contact?error=invalid");
+  if (!name || !EMAIL.test(email) || message.length < 10) redirect("/?error=invalid#contact");
 
   const supabase = await createClient();
   const { error } = await supabase.from("inquiries").insert({ name, email, message });
-  if (error) redirect("/contact?error=save");
+  if (error) redirect("/?error=save#contact");
 
   // Let the team know: every address below gets its own copy. A mail failure never blocks the visitor's confirmation.
   const recipients = Array.from(
@@ -31,5 +31,5 @@ export async function sendInquiry(formData: FormData) {
   const text = `From: ${name} <${email}>\n\n${message}\n\nReply in the admin Inquiries page.`;
   await Promise.all(recipients.map((to) => sendEmail({ to, subject, text })));
 
-  redirect("/contact?sent=1");
+  redirect("/?sent=1#contact");
 }

@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import Link from "next/link";
-import { Cut } from "@/components/marketing";
+import { SectionHead } from "./SectionHead";
+import css from "./sections.module.css";
 import { createClient } from "@/lib/supabase/server";
 import { occurrences, type MeetingRow, type Occurrence } from "@/lib/meetings";
 import {
@@ -15,12 +15,6 @@ import {
   shiftMonth,
   type EventColor,
 } from "@/lib/events";
-
-export const metadata: Metadata = {
-  title: "Events",
-  description: "Upcoming IvyIn events and workshops for students and families preparing for college applications.",
-  alternates: { canonical: "/events" },
-};
 
 type EventRow = {
   id: string;
@@ -39,16 +33,11 @@ const MAX_CHIPS_PER_DAY = 3;
 // Meetings use their own color, so they never look like public events.
 const MEETING_HEX = "#b5562b";
 
-export default async function EventsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ month?: string }>;
-}) {
-  const sp = await searchParams;
+export async function EventsSection({ monthParam: monthQuery }: { monthParam?: string }) {
 
   // Default to the current month in Eastern time, the time zone the calendar is read in.
   const [ny, nm] = etDayKey(new Date()).split("-").map(Number);
-  const { year, month } = parseMonth(sp.month) ?? { year: ny, month: nm };
+  const { year, month } = parseMonth(monthQuery) ?? { year: ny, month: nm };
 
   // Fetch a little past each end of the month so Eastern-time edges are never cut off.
   const from = new Date(Date.UTC(year, month - 1, 1) - 2 * 86400000).toISOString();
@@ -116,22 +105,14 @@ export default async function EventsPage({
 
   return (
     <>
-      <section className="mk-hero">
-        <Cut art="events" tilt={2} />
-        <div className="mk-wrap">
-          <div className="mk-eyebrow">Events</div>
-          <h1>Guest speakers, panels and info sessions</h1>
-          <p className="mk-lede">Upcoming events from IvyIn. Times are Eastern (ET).</p>
-        </div>
-      </section>
-
-      <section className="mk-alt">
-        <div className="mk-wrap">
+      <section id="events" className={`${css.band} ${css.deep}`}>
+        <div className={css.wrap}>
+          <SectionHead eyebrow="Events" title="Guest speakers, panels and info sessions" lede="Upcoming events from IvyIn. Times are Eastern (ET)." />
           <div className="mk-card" style={{ padding: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 14 }}>
-              <a className="mk-btn mk-btn-ghost" href={`/events?month=${monthParam(prev.year, prev.month)}`}>← Previous</a>
-              <h2 style={{ margin: 0, fontSize: "1.6rem" }}>{monthTitle(year, month)}</h2>
-              <a className="mk-btn mk-btn-ghost" href={`/events?month=${monthParam(next.year, next.month)}`}>Next →</a>
+              <a className="mk-btn mk-btn-ghost" href={`/?month=${monthParam(prev.year, prev.month)}#events`}>← Previous</a>
+              <h3 style={{ margin: 0, fontSize: "1.6rem" }}>{monthTitle(year, month)}</h3>
+              <a className="mk-btn mk-btn-ghost" href={`/?month=${monthParam(next.year, next.month)}#events`}>Next →</a>
             </div>
 
             <div className="mk-cal" role="grid" aria-label={`${monthTitle(year, month)} calendar`}>
@@ -189,7 +170,7 @@ export default async function EventsPage({
 
           {myThisMonth.length > 0 && (
             <div className="mk-card" style={{ marginTop: 22 }}>
-              <h2 style={{ fontSize: "1.5rem" }}>Your meetings</h2>
+              <h3 style={{ fontSize: "1.5rem" }}>Your meetings</h3>
               {myThisMonth.map((occ) => (
                 <article key={occ.key} id={`m-${occ.key}`} className="mk-event">
                   <i className="mk-dot" style={{ background: MEETING_HEX, marginTop: 8 }} aria-hidden="true" />
@@ -210,7 +191,7 @@ export default async function EventsPage({
           )}
 
           <div className="mk-card" style={{ marginTop: 22 }}>
-            <h2 style={{ fontSize: "1.5rem" }}>This month</h2>
+            <h3 style={{ fontSize: "1.5rem" }}>This month</h3>
             {inMonth.length === 0 && <p className="mk-muted">No events scheduled this month. Check back soon.</p>}
             {inMonth.map((e) => (
               <article key={e.id} id={`e-${e.id}`} className="mk-event">
@@ -234,7 +215,7 @@ export default async function EventsPage({
                             Speaker background, agenda and event details for IvyIn members.
                           </div>
                           <p className="mk-locked-note">
-                            Members only. <Link href="/login?next=/events">Log in</Link> to see more info.
+                            Members only. <Link href="/login?next=%2F%23events">Log in</Link> to see more info.
                           </p>
                         </div>
                       );

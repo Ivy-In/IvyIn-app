@@ -48,7 +48,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       ))}
       <div className={`${css.cta} mk-card`}>
         <p>Want a weekly one-on-one with a current student at a top 25 university?</p>
-        <Link className="mk-btn mk-btn-primary" href="/contact">Get in touch</Link>
+        <Link className="mk-btn mk-btn-primary" href="/#contact">Get in touch</Link>
       </div>
     </article>
   );

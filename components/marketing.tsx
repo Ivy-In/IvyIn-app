@@ -1,17 +1,18 @@
 import Link from "next/link";
-import { NavLink } from "@/components/NavLink";
+import { NavLinks } from "@/components/NavLinks";
+import { anchorHref } from "@/lib/anchors";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
 
 const NAV = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/events", label: "Events" },
-  { href: "/services", label: "Services" },
-  { href: "/resources", label: "Resources / FAQ" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#how-it-works", label: "How It Works" },
+  { href: "/#events", label: "Events" },
+  { href: "/#services", label: "Services" },
+  { href: "/#resources", label: "Resources / FAQ" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export async function Header() {
@@ -25,9 +26,7 @@ export async function Header() {
           <img src="/brand/logo-header-light.png" alt="IvyIn" width={1488} height={458} />
         </Link>
         <nav className="mk-links" aria-label="Main">
-          {NAV.map((n) => (
-            <NavLink key={n.href} href={n.href}>{n.label}</NavLink>
-          ))}
+          <NavLinks items={NAV} />
         </nav>
         <div className="mk-auth">
           {ctx ? (
@@ -55,10 +54,7 @@ export function Footer() {
       <div className="mk-wrap mk-footer-grid">
         <span>© {new Date().getFullYear()} IvyIn</span>
         <nav className="mk-links" aria-label="Footer">
-          {NAV.map((n) => (
-            <NavLink key={n.href} href={n.href}>{n.label}</NavLink>
-          ))}
-          <Link href="/login">Log in</Link>
+          <NavLinks items={NAV} trailing={<Link href="/login">Log in</Link>} />
         </nav>
       </div>
     </footer>
@@ -88,7 +84,7 @@ export function Cut({ art, tilt = 1 }: { art: Art; tilt?: 1 | 2 | 3 }) {
 }
 
 function ctaLink(c: { label: string; href: string }, className: string) {
-  return <Link className={className} href={c.href}>{c.label}</Link>;
+  return <Link className={className} href={anchorHref(c.href)}>{c.label}</Link>;
 }
 
 // Renders CMS-driven page content. children appear after the cards and before the closing band.
@@ -99,6 +95,7 @@ export function PageBody({
   art,
   tilt,
   afterHero,
+  heroOnly,
 }: {
   content: PageContent;
   children?: ReactNode;
@@ -106,6 +103,7 @@ export function PageBody({
   art?: Art;
   tilt?: 1 | 2 | 3;
   afterHero?: ReactNode;
+  heroOnly?: boolean;
 }) {
   return (
     <>
@@ -141,6 +139,7 @@ export function PageBody({
 
       {afterHero}
 
+      {!heroOnly && (<>
       {content.sections.length > 0 && (
         <section className="mk-alt">
           <div className="mk-wrap mk-grid">
@@ -165,6 +164,7 @@ export function PageBody({
           </div>
         </section>
       )}
+      </>)}
     </>
   );
 }

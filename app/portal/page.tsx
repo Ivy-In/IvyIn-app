@@ -122,7 +122,7 @@ export default async function PortalHome({
               </div>
             ))}
             <p style={{ marginTop: 12 }}>
-              <Link href="/events">See the full events calendar →</Link>
+              <Link href="/#events">See the full events calendar →</Link>
             </p>
           </div>
         </>

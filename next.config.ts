@@ -7,6 +7,17 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "52mb",
     },
   },
+  // The marketing pages are now sections of the home page. Old links land on the right section.
+  async redirects() {
+    return [
+      { source: "/about", destination: "/#about", permanent: false },
+      { source: "/how-it-works", destination: "/#how-it-works", permanent: false },
+      { source: "/services", destination: "/#services", permanent: false },
+      { source: "/resources", destination: "/#resources", permanent: false },
+      { source: "/contact", destination: "/#contact", permanent: false },
+      { source: "/events", destination: "/#events", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {
