@@ -10,14 +10,26 @@ const FEEDS: Feed[] = [
   { source: "The Washington Post", short: "WaPo", weight: 3, url: "https://feeds.washingtonpost.com/rss/national", filter: true },
   { source: "Los Angeles Times", short: "LAT", weight: 2, url: "https://www.latimes.com/california/rss2.0.xml", filter: true },
   { source: "The Wall Street Journal", short: "WSJ", weight: 3, url: "https://feeds.content.dowjones.io/public/rss/RSSUSnews", filter: true },
-  { source: "Inside Higher Ed", short: "IHE", weight: 1, url: "https://www.insidehighered.com/rss.xml", filter: false },
+  { source: "Inside Higher Ed", short: "IHE", weight: 1, url: "https://www.insidehighered.com/rss.xml", filter: true },
   { source: "Rutgers Today", short: "RU", weight: 1, url: "https://www.rutgers.edu/news/feed", filter: true },
 ];
 
-// Keeps general news feeds to college and admissions stories.
-const STRONG = /\b(admission|admissions|admit|admits|applicants?|applications?|SAT|ACT|FAFSA|financial aid|Common App|early decision|early action|Ivy League|tuition|scholarships?|enrollment)\b/i;
-const NOT_ADMISSIONS = /electoral college/i;
-const TOPIC = /\b(college|colleges|admission|admissions|admit|applicants?|university|universities|SAT|ACT|FAFSA|financial aid|tuition|scholarships?|campus|undergraduates?|Ivy League|Common App|early decision|student loans?)\b/i;
+// Only college and admissions stories are kept, from every feed.
+// Capitalized test names (SAT, ACT, FAFSA, AP) must match exactly so "Final Act" does not count.
+const TESTS = /\b(SAT|ACT|FAFSA|AP)\b/;
+const SCHOOLS = "Harvard|Yale|Princeton|Columbia|Cornell|Brown University|Dartmouth|Penn|Stanford|MIT|Duke|Northwestern|Georgetown|Rutgers|Johns Hopkins|Vanderbilt|Caltech|UCLA|Berkeley|Michigan|NYU";
+const STRONG = new RegExp(`\\b(admission|admissions|admit|admits|admitted|applicants?|financial aid|Common App|early decision|early action|Ivy League|tuition|scholarships?|enrollment|student loans?|university|universities|undergraduates?|freshman|freshmen|${SCHOOLS})\\b`, "i");
+const GENERAL = /\b(college|colleges|campus|campuses|higher education|students?|degree|degrees|graduates?|commencement|professor|professors|dorms?|sorority|fraternity|athletes?)\b/i;
+// Election and politics headlines are dropped unless a college-specific term is also in the headline.
+const POLITICS = /\b(trump|biden|harris|democrat|democrats|democratic|republican|republicans|election|elections|vote|voter|voters|voting|ballot|senate|senator|congress|governor|mayor|candidate|candidates|poll|polls|midterm|midterms|electoral|returns|opinion)\b/i;
+
+export function isCollegeStory(title: string): boolean {
+  const strong = TESTS.test(title) || STRONG.test(title);
+  const general = GENERAL.test(title);
+  if (!strong && !general) return false;
+  if (POLITICS.test(title) && !strong) return false;
+  return true;
+}
 const MAX_AGE_DAYS = 45;
 const DAY = 86400;
 
@@ -73,8 +85,7 @@ async function load(feed: Feed): Promise<NewsItem[]> {
     });
     if (!res.ok) return [];
     const items = parseFeed(await res.text(), feed);
-    const ok = items.filter((i) => !NOT_ADMISSIONS.test(i.title));
-    return feed.filter ? ok.filter((i) => TOPIC.test(i.title)) : ok;
+    return items.filter((i) => isCollegeStory(i.title));
   } catch {
     return [];
   }
@@ -83,7 +94,7 @@ async function load(feed: Feed): Promise<NewsItem[]> {
 // "Biggest story": admissions-specific wording, a major paper, published in the last day or two, and a photo all raise the score.
 function score(i: NewsItem): number {
   const hours = (Date.now() - Date.parse(i.date)) / 3600000;
-  return (STRONG.test(i.title) ? 4 : 1) + i.weight + (hours <= 24 ? 3 : hours <= 48 ? 1 : 0) + (i.image ? 1 : 0);
+  return (TESTS.test(i.title) || STRONG.test(i.title) ? 4 : 1) + i.weight + (hours <= 24 ? 3 : hours <= 48 ? 1 : 0) + (i.image ? 1 : 0);
 }
 
 // The lead story plus the next newest headlines, at most two per paper so one source does not crowd out the rest.
