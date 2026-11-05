@@ -1,7 +1,7 @@
 /* One scrolling page: every section is a band with its own gradient, so the page reads as chapters. */
-.band { position: relative; padding: 56px 0; scroll-margin-top: 84px; overflow: hidden; }
+.band { position: relative; padding: 32px 0; scroll-margin-top: 84px; overflow: hidden; }
 .wrap { position: relative; z-index: 1; max-width: none; margin: 0 auto; padding: 0 28px; }
-@media (max-width: 640px) { .band { padding: 40px 0; } .wrap { padding: 0 16px; } }
+@media (max-width: 640px) { .band { padding: 24px 0; } .wrap { padding: 0 16px; } }
 
 /* Backgrounds are soft glows only. Each one fades to fully transparent before it reaches the band's edge,
    so neighbouring sections blend into the page with no visible seams, lines or steps. */

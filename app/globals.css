@@ -451,7 +451,7 @@ body:has(.mk)::before { display: none; }
 .mk-btn-light:hover { background: var(--deep); box-shadow: none; }
 
 /* Hero: the big poster headline, flush left. */
-.mk-hero { text-align: left; padding: 56px 0 72px; }
+.mk-hero { text-align: left; padding: 40px 0 48px; }
 .mk-hero::before { display: none; }
 .mk .mk-hero { text-align: left; }
 .mk-hero .mk-wrap { max-width: none; padding: 0 28px; }
@@ -522,7 +522,7 @@ body:has(.mk)::before { display: none; }
 @media (max-width: 900px) {
   .mk-cut { display: none; }
   .mk-nav-inner { padding: 14px 16px; }
-  .mk-hero { padding: 36px 0 48px; }
+  .mk-hero { padding: 28px 0 32px; }
   .mk-hero .mk-wrap, .mk-alt .mk-wrap, .mk-band .mk-wrap, .mk-footer .mk-wrap { padding: 0 16px; }
 }
 

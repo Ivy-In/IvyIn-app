@@ -8,14 +8,14 @@
 @media (prefers-reduced-motion: reduce) { .reveal { transition: none; } }
 
 /* Shared */
-.sec { padding: 80px 0; }
+.sec { padding: 48px 0; }
 .wrap { max-width: none; margin: 0 auto; padding: 0 28px; }
 .eyebrow.eyebrow { color: var(--lime); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 14px; margin: 0 0 14px; }
 .h2.h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 5.5vw, 4.5rem); line-height: .98; letter-spacing: -.03em; margin: 0 0 .5em; color: var(--paper); max-width: 16ch; }
 .lead { font-size: 1.25rem; color: var(--paper); max-width: 44ch; margin: 0 0 2em; }
 
 /* Stats band: light, with big numerals */
-.stats { background: var(--lime); color: #114230; padding: 52px 0 44px; }
+.stats { background: var(--lime); color: #114230; padding: 36px 0 32px; }
 .stats .h2.h2, .stats .eyebrow { color: #114230; }
 .statGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0; margin-top: 36px; border-top: 3px solid #114230; }
 .stat { padding: 28px 24px 8px 0; }

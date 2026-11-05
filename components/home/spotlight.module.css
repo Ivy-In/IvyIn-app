@@ -1,4 +1,4 @@
-.spot { position: relative; min-height: 520px; display: grid; place-items: center; padding: 56px 28px; overflow: hidden;
+.spot { position: relative; min-height: 440px; display: grid; place-items: center; padding: 36px 28px; overflow: hidden;
   background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(47, 122, 82, .5) 0%, rgba(47, 122, 82, .2) 45%, rgba(47, 122, 82, 0) 100%); }
 .inner { position: relative; z-index: 2; text-align: center; max-width: 900px; }
 .title.title { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 2.6vw, 2.1rem); letter-spacing: -.02em; line-height: 1.15; margin: 0 auto 8px; color: var(--paper); max-width: 22ch; }
@@ -14,7 +14,7 @@
 .tl { top: 8%; left: 4%; } .tr { top: 14%; right: 4%; } .bl { bottom: 12%; left: 8%; } .br { bottom: 7%; right: 7%; }
 @media (prefers-reduced-motion: no-preference) { .card { animation: floatIn .7s cubic-bezier(.2, 0, 0, 1) both; } }
 @keyframes floatIn { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
-@media (max-width: 900px) { .tl, .tr, .bl, .br { display: none; } .spot { min-height: 480px; padding: 72px 16px; } }
+@media (max-width: 900px) { .tl, .tr, .bl, .br { display: none; } .spot { min-height: 420px; padding: 44px 16px; } }
 .av { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; }
 
 /* Carousel */

@@ -65,7 +65,7 @@ export default async function Home({
       <Spotlight />
 
       <CmsSection id="about" slug="about" eyebrow="About" tone="glow">
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 28 }}>
           <MentorCarousel />
         </div>
       </CmsSection>
