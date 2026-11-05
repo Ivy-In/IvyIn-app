@@ -3,14 +3,15 @@
 .wrap { position: relative; z-index: 1; max-width: none; margin: 0 auto; padding: 0 28px; }
 @media (max-width: 640px) { .band { padding: 64px 0; } .wrap { padding: 0 16px; } }
 
-/* Soft green glow with faint vertical rules, from the new design reference. */
-.glow { background:
-  radial-gradient(60% 60% at 50% 40%, rgba(47, 122, 82, .42), transparent 70%),
-  repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 1px, transparent 1px 120px),
-  linear-gradient(180deg, #0f2a1f 0%, #124030 100%); }
-.deep { background: radial-gradient(90% 70% at 85% 0%, rgba(31, 90, 60, .75), transparent 65%), linear-gradient(180deg, #124030 0%, #0a1f16 100%); }
-.flat { background: linear-gradient(180deg, #0a1f16 0%, #114230 100%); }
-.final { background: radial-gradient(80% 120% at 50% 0%, #1f5a3c, #0a1f16); }
+/* Backgrounds are soft glows only. Each one fades to fully transparent before it reaches the band's edge,
+   so neighbouring sections blend into the page with no visible seams, lines or steps. */
+.glow { background: radial-gradient(ellipse 75% 50% at 50% 50%, rgba(47, 122, 82, .34) 0%, rgba(47, 122, 82, .16) 45%, rgba(47, 122, 82, 0) 100%); }
+.deep { background: radial-gradient(ellipse 70% 48% at 82% 40%, rgba(31, 90, 60, .40) 0%, rgba(31, 90, 60, .18) 50%, rgba(31, 90, 60, 0) 100%); }
+.flat { background: radial-gradient(ellipse 65% 45% at 18% 50%, rgba(35, 165, 102, .14) 0%, rgba(35, 165, 102, .06) 50%, rgba(35, 165, 102, 0) 100%); }
+/* The last band also eases into the footer colour. */
+.final { background:
+  linear-gradient(180deg, rgba(13, 51, 37, 0) 55%, #0d3325 100%),
+  radial-gradient(ellipse 80% 55% at 50% 40%, rgba(47, 122, 82, .38) 0%, rgba(47, 122, 82, .16) 50%, rgba(47, 122, 82, 0) 100%); }
 
 /* Grain on top of gradients, so they don't band. */
 .grain::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
