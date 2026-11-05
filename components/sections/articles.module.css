@@ -1,5 +1,11 @@
-.band { position: relative; padding: 72px 0; color: var(--paper); background: radial-gradient(900px 500px at 15% 0%, rgba(214, 178, 106, .16), transparent 70%), radial-gradient(800px 500px at 100% 100%, rgba(143, 181, 163, .16), transparent 70%), #0e3626; }
-.wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+/* Transparent base, like every other band: soft glows that fade to nothing before the edges, so no seams. */
+.band { position: relative; overflow: hidden; padding: 72px 0; color: var(--paper);
+  background:
+    radial-gradient(ellipse 60% 38% at 12% 42%, rgba(214, 178, 106, .12) 0%, rgba(214, 178, 106, .05) 50%, rgba(214, 178, 106, 0) 100%),
+    radial-gradient(ellipse 65% 38% at 90% 58%, rgba(47, 122, 82, .30) 0%, rgba(47, 122, 82, .12) 50%, rgba(47, 122, 82, 0) 100%); }
+.band::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"); }
+.wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
 .h2.h2 { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4.5vw, 3.2rem); letter-spacing: -.03em; line-height: 1.05; color: var(--paper); }
 .all { padding: 12px 20px; border: 2px solid var(--paper); color: var(--paper); font-weight: 800; text-decoration: none; transition: background-color .2s, color .2s; }

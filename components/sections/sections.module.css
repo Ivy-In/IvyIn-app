@@ -6,12 +6,12 @@
 /* Backgrounds are soft glows only. Each one fades to fully transparent before it reaches the band's edge,
    so neighbouring sections blend into the page with no visible seams, lines or steps. */
 .glow { background: radial-gradient(ellipse 75% 50% at 50% 50%, rgba(47, 122, 82, .34) 0%, rgba(47, 122, 82, .16) 45%, rgba(47, 122, 82, 0) 100%); }
-.deep { background: radial-gradient(ellipse 70% 48% at 82% 40%, rgba(31, 90, 60, .40) 0%, rgba(31, 90, 60, .18) 50%, rgba(31, 90, 60, 0) 100%); }
+.deep { background: radial-gradient(ellipse 70% 40% at 82% 46%, rgba(31, 90, 60, .40) 0%, rgba(31, 90, 60, .18) 50%, rgba(31, 90, 60, 0) 100%); }
 .flat { background: radial-gradient(ellipse 65% 45% at 18% 50%, rgba(35, 165, 102, .14) 0%, rgba(35, 165, 102, .06) 50%, rgba(35, 165, 102, 0) 100%); }
 /* The last band also eases into the footer colour. */
 .final { background:
   linear-gradient(180deg, rgba(13, 51, 37, 0) 55%, #0d3325 100%),
-  radial-gradient(ellipse 80% 55% at 50% 40%, rgba(47, 122, 82, .38) 0%, rgba(47, 122, 82, .16) 50%, rgba(47, 122, 82, 0) 100%); }
+  radial-gradient(ellipse 80% 38% at 50% 45%, rgba(47, 122, 82, .38) 0%, rgba(47, 122, 82, .16) 50%, rgba(47, 122, 82, 0) 100%); }
 
 /* Grain on top of gradients, so they don't band. */
 .grain::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
