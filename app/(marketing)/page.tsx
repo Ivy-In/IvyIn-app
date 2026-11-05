@@ -8,6 +8,8 @@ import { MentorCarousel } from "@/components/home/MentorCarousel";
 import { Testimonials } from "@/components/sections/Extras";
 import { CmsSection } from "@/components/sections/CmsSection";
 import { EventsSection } from "@/components/sections/EventsSection";
+import { HeroVideo } from "@/components/home/HeroVideo";
+import { ArticlesSection } from "@/components/sections/ArticlesSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { getPage } from "@/lib/content";
@@ -48,6 +50,7 @@ export default async function Home({
       </div>
 
       <div id="home" className={css.heroBg}>
+        <HeroVideo />
         <PageBody
           heroOnly
           content={await getPage("home")}
@@ -71,6 +74,7 @@ export default async function Home({
       <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" />
       <Testimonials />
       <FaqSection />
+      <ArticlesSection />
       <ContactSection sent={sp.sent} error={sp.error} />
     </>
   );

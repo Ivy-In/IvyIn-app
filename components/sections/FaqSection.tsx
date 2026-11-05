@@ -1,9 +1,5 @@
-import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { getFaqs } from "@/lib/content";
-import { titleCase } from "@/lib/titlecase";
-import { GUIDES } from "@/lib/guides";
-import { Reveal } from "@/components/home/Reveal";
 import { FaqExplorer } from "./FaqExplorer";
 import { SectionHead } from "./SectionHead";
 import css from "./sections.module.css";
@@ -28,21 +24,6 @@ export async function FaqSection() {
         )}
         <SectionHead eyebrow="Resources / FAQ" title="Frequently Asked Questions" lede="Answers to the questions families ask most." />
         <FaqExplorer faqs={faqs} />
-
-        <Reveal>
-          <h3 className={css.eyebrow} style={{ marginTop: 56 }}>College Admissions Guides</h3>
-        </Reveal>
-        <div className={css.guides}>
-          {GUIDES.map((g, i) => (
-            <Reveal key={g.slug} delay={i * 110}>
-              <Link href={`/guides/${g.slug}`} className={css.guide}>
-                <strong>{titleCase(g.title)}</strong>
-                <span>{g.description}</span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-        <p style={{ marginTop: 20 }}><Link href="/guides">See All Guides →</Link></p>
       </div>
     </section>
   );
