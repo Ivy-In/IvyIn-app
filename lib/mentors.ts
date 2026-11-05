@@ -51,16 +51,16 @@ export const STATS = {
   offers: TEMP_TOP_COLLEGE_OFFERS,
 };
 
-export type Track = "Business and economics" | "Tech and math" | "Humanities and social science" | "Sciences";
-export const TRACKS: Track[] = ["Business and economics", "Tech and math", "Humanities and social science", "Sciences"];
+export type Track = "Business and Economics" | "Tech and Math" | "Humanities and Social Science" | "Sciences";
+export const TRACKS: Track[] = ["Business and Economics", "Tech and Math", "Humanities and Social Science", "Sciences"];
 
 // Groups a major into one of four tracks, for the mentor filter tabs.
 export function trackOf(major: string): Track {
   const m = major.toLowerCase();
-  if (/(finance|econom|business|entrepreneur)/.test(m)) return "Business and economics";
-  if (/(computer|math|symbolic|statistic|data)/.test(m)) return "Tech and math";
+  if (/(finance|econom|business|entrepreneur)/.test(m)) return "Business and Economics";
+  if (/(computer|math|symbolic|statistic|data)/.test(m)) return "Tech and Math";
   if (/(chem|biolog|nutrition|environment)/.test(m)) return "Sciences";
-  return "Humanities and social science";
+  return "Humanities and Social Science";
 }
 
 export const initials = (school: string) =>

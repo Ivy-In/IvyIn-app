@@ -25,7 +25,7 @@ export function StatsAndTicker() {
         <div className={css.wrap}>
           <Reveal>
             <p className={css.eyebrow}>Our mentors</p>
-            <h2 className={css.h2} id="stats-h">Students who just got in, at the schools you want</h2>
+            <h2 className={css.h2} id="stats-h">Students Who Just Got In, at the Schools You Want</h2>
           </Reveal>
           <div className={css.statGrid}>
             <Reveal className={css.stat} delay={0} from="left">
@@ -59,10 +59,10 @@ export function StatsAndTicker() {
 // "Where they study": a card per university and the fields mentors study. Sits inside the About section.
 export function Universities() {
   return (
-    <div style={{ marginTop: 72 }}>
+    <div style={{ marginTop: 48 }}>
           <Reveal>
             <p className={css.eyebrow}>Where they study</p>
-            <h2 className={css.h2}>Every mentor attends a top 25 university</h2>
+            <h2 className={css.h2}>Every Mentor Attends a Top 25 University</h2>
           </Reveal>
           <div className={css.uni}>
             {SCHOOLS.map((s, i) => (

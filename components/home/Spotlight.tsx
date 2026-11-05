@@ -22,12 +22,12 @@ export function Spotlight() {
   return (
     <section className={css.spot} aria-labelledby="spot-h">
       <div className={css.inner}>
-        <h2 id="spot-h" className={css.title}>Meet the mentors who just went through it, and got in</h2>
+        <h2 id="spot-h" className={css.title}>Meet the Mentors Who Just Went Through It, and Got In</h2>
         <p className="sr-only" style={{ position: "absolute", left: -9999 }}>
           Our mentors attend {SCHOOLS.map((s) => s.school).join(", ")}.
         </p>
         <div className={css.big} aria-hidden="true"><span key={school}>{school}</span></div>
-        <Link className="mk-btn mk-btn-ghost" href="/#about">See where all our mentors study</Link>
+        <Link className="mk-btn mk-btn-ghost" href="/#about">See Where All Our Mentors Study</Link>
       </div>
 
       <div aria-hidden="true">

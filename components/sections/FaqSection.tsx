@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { getFaqs } from "@/lib/content";
+import { titleCase } from "@/lib/titlecase";
 import { GUIDES } from "@/lib/guides";
 import { Reveal } from "@/components/home/Reveal";
 import { SectionHead } from "./SectionHead";
@@ -24,7 +25,7 @@ export async function FaqSection() {
             }}
           />
         )}
-        <SectionHead eyebrow="Resources / FAQ" title="Frequently asked questions" lede="Answers to the questions families ask most." />
+        <SectionHead eyebrow="Resources / FAQ" title="Frequently Asked Questions" lede="Answers to the questions families ask most." />
         <div className="mk-faq" style={{ padding: 0 }}>
           {faqs.length === 0 && <p className="mk-muted">Questions are on their way. Reach out in the Contact section below.</p>}
           {faqs.map((f) => (
@@ -38,19 +39,19 @@ export async function FaqSection() {
         </div>
 
         <Reveal>
-          <h3 className={css.eyebrow} style={{ marginTop: 56 }}>College admissions guides</h3>
+          <h3 className={css.eyebrow} style={{ marginTop: 56 }}>College Admissions Guides</h3>
         </Reveal>
         <div className={css.guides}>
           {GUIDES.map((g, i) => (
             <Reveal key={g.slug} delay={i * 110}>
               <Link href={`/guides/${g.slug}`} className={css.guide}>
-                <strong>{g.title}</strong>
+                <strong>{titleCase(g.title)}</strong>
                 <span>{g.description}</span>
               </Link>
             </Reveal>
           ))}
         </div>
-        <p style={{ marginTop: 20 }}><Link href="/guides">See all guides →</Link></p>
+        <p style={{ marginTop: 20 }}><Link href="/guides">See All Guides →</Link></p>
       </div>
     </section>
   );

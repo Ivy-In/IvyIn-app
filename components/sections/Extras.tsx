@@ -5,12 +5,12 @@ import css from "@/components/home/spotlight.module.css";
 import sec from "./sections.module.css";
 
 const FEATURES = [
-  ["01", "Matched to your field", "Your consultant studies what you want to study, so the advice fits your path."],
-  ["02", "A weekly one-hour meeting", "One-on-one, every week, with the same consultant who knows your story."],
-  ["03", "One private place", "Essays, files, messages and deadlines in your own IvyIn portal."],
-  ["04", "Weekly events", "Guest speakers, panels and info sessions open to every student."],
-  ["05", "Prices posted up front", "$1,950 for six months or $3,250 for a year. No surprises."],
-  ["06", "Mentors who just got in", "Current students at top universities, not someone years removed."],
+  ["01", "Matched to Your Field", "Your consultant studies what you want to study, so the advice fits your path."],
+  ["02", "A Weekly One-Hour Meeting", "One-on-one, every week, with the same consultant who knows your story."],
+  ["03", "One Private Place", "Essays, files, messages and deadlines in your own IvyIn portal."],
+  ["04", "Weekly Events", "Guest speakers, panels and info sessions open to every student."],
+  ["05", "Prices Posted Up Front", "$1,950 for six months or $3,250 for a year. No surprises."],
+  ["06", "Mentors Who Just Got In", "Current students at top universities, not someone years removed."],
 ];
 
 // "All in one place": what you get with IvyIn, as a grid. Sits inside the Services section.
@@ -37,7 +37,7 @@ export async function Testimonials() {
       <div className={sec.wrap}>
         <Reveal className={sec.head}>
           <p className={sec.eyebrow}>Stories</p>
-          <h2 className={sec.h2} id="stories-h">In their words</h2>
+          <h2 className={sec.h2} id="stories-h">In Their Words</h2>
         </Reveal>
         <div className={css.rail} tabIndex={0} aria-label="Stories">
           {items.map((t, i) => (
@@ -59,11 +59,11 @@ export function ClosingCta() {
   return (
     <section className={css.closeBand} aria-labelledby="close-h">
       <Reveal>
-        <h2 id="close-h" className={css.closeH}>Ready to meet your mentor?</h2>
+        <h2 id="close-h" className={css.closeH}>Ready to Meet Your Mentor?</h2>
         <p>Book a free intro call, or apply to join our team of mentors.</p>
         <div className={css.closeBtns}>
-          <Link className="mk-btn mk-btn-primary" href="/#contact">Get started</Link>
-          <Link className="mk-btn mk-btn-ghost" href="/apply">Become a consultant</Link>
+          <Link className="mk-btn mk-btn-primary" href="/#contact">Get Started</Link>
+          <Link className="mk-btn mk-btn-ghost" href="/apply">Become a Consultant</Link>
         </div>
       </Reveal>
     </section>

@@ -15,7 +15,7 @@
 .lead { font-size: 1.25rem; color: var(--paper); max-width: 44ch; margin: 0 0 2em; }
 
 /* Stats band: light, with big numerals */
-.stats { background: var(--lime); color: #114230; padding: 72px 0; }
+.stats { background: var(--lime); color: #114230; padding: 52px 0 44px; }
 .stats .h2.h2, .stats .eyebrow { color: #114230; }
 .statGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0; margin-top: 36px; border-top: 3px solid #114230; }
 .stat { padding: 28px 24px 8px 0; }
@@ -26,7 +26,7 @@
 @media (max-width: 640px) { .stat + .stat { border-inline-start: 0; padding-inline-start: 0; border-top: 3px solid #114230; margin-top: 16px; } }
 
 /* Marquee */
-.marq { overflow: hidden; padding: 28px 0 8px; border-block: 2px solid #8fb5a3; margin: 0; }
+.marq { overflow: hidden; padding: 22px 0 6px; border-block: 2px solid #8fb5a3; margin: 0; }
 .row { display: flex; width: max-content; gap: 0; }
 .row + .row { margin-top: 14px; }
 .track { display: flex; flex-shrink: 0; align-items: center; }

@@ -107,7 +107,7 @@ export async function EventsSection({ monthParam: monthQuery }: { monthParam?: s
     <>
       <section id="events" className={`${css.band} ${css.deep}`}>
         <div className={css.wrap}>
-          <SectionHead eyebrow="Events" title="Guest speakers, panels and info sessions" lede="Upcoming events from IvyIn. Times are Eastern (ET)." />
+          <SectionHead eyebrow="Events" title="Guest Speakers, Panels and Info Sessions" lede="Upcoming events from IvyIn. Times are Eastern (ET)." />
           <div className="mk-card" style={{ padding: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 14 }}>
               <a className="mk-btn mk-btn-ghost" href={`/?month=${monthParam(prev.year, prev.month)}#events`}>← Previous</a>

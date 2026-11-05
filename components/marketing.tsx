@@ -2,6 +2,7 @@ import Link from "next/link";
 import { NavLinks } from "@/components/NavLinks";
 import { anchorHref } from "@/lib/anchors";
 import { loadSignature } from "@/lib/mail";
+import { titleCase } from "@/lib/titlecase";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
@@ -32,15 +33,15 @@ export async function Header() {
         <div className="mk-auth">
           {ctx ? (
             <>
-              <Link className="mk-btn mk-btn-primary" href="/portal">My portal</Link>
+              <Link className="mk-btn mk-btn-primary" href="/portal">My Portal</Link>
               <form action="/logout" method="post" style={{ display: "inline" }}>
-                <button className="mk-btn mk-btn-ghost" type="submit">Log out</button>
+                <button className="mk-btn mk-btn-ghost" type="submit">Log Out</button>
               </form>
             </>
           ) : (
             <>
-              <Link className="mk-btn mk-btn-ghost" href="/login">Log in</Link>
-              <Link className="mk-btn mk-btn-primary" href="/signup">Sign up</Link>
+              <Link className="mk-btn mk-btn-ghost" href="/login">Log In</Link>
+              <Link className="mk-btn mk-btn-primary" href="/signup">Sign Up</Link>
             </>
           )}
         </div>
@@ -81,12 +82,12 @@ export async function Footer() {
           </div>
         </nav>
         <nav aria-label="Get involved">
-          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--lime)" }}>Get involved</h2>
+          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--lime)" }}>Get Involved</h2>
           <div style={{ display: "grid", gap: 6 }}>
-            <Link href="/apply">Become a consultant</Link>
-            <Link href="/guides">Admissions guides</Link>
-            <Link href="/signup">Sign up</Link>
-            <Link href="/login">Log in</Link>
+            <Link href="/apply">Become a Consultant</Link>
+            <Link href="/guides">Admissions Guides</Link>
+            <Link href="/signup">Sign Up</Link>
+            <Link href="/login">Log In</Link>
           </div>
         </nav>
       </div>
@@ -120,7 +121,7 @@ export function Cut({ art, tilt = 1 }: { art: Art; tilt?: 1 | 2 | 3 }) {
 }
 
 function ctaLink(c: { label: string; href: string }, className: string) {
-  return <Link className={className} href={anchorHref(c.href)}>{c.label}</Link>;
+  return <Link className={className} href={anchorHref(c.href)}>{titleCase(c.label)}</Link>;
 }
 
 // Renders CMS-driven page content. children appear after the cards and before the closing band.
@@ -153,7 +154,7 @@ export function PageBody({
         )}
         <div className="mk-wrap">
           {content.eyebrow && <div className="mk-eyebrow">{content.eyebrow}</div>}
-          <h1>{content.headline}</h1>
+          <h1>{titleCase(content.headline)}</h1>
           {content.lede && <p className="mk-lede">{content.lede}</p>}
           {pills && (
             <p className="mk-pills">

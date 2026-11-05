@@ -15,12 +15,12 @@ export function ContactSection({ sent, error }: { sent?: string; error?: string 
       <div className={css.wrap}>
         <div className={css.contactGrid}>
           <div>
-            <SectionHead eyebrow="Contact" title="Book a free intro call" lede="Send us a few details and we will reply to arrange a time." />
+            <SectionHead eyebrow="Contact" title="Book a Free Intro Call" lede="Send us a few details and we will reply to arrange a time." />
             <Reveal delay={120}>
               <div className={css.apply}>
-                <h3>Want to be a consultant?</h3>
+                <h3>Want to Be a Consultant?</h3>
                 <p>Opportunities are open now for students at top universities.</p>
-                <Link className="mk-btn mk-btn-primary" href="/apply">Apply now</Link>
+                <Link className="mk-btn mk-btn-primary" href="/apply">Apply Now</Link>
               </div>
             </Reveal>
           </div>
