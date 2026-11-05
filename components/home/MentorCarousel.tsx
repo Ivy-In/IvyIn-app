@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { AVATAR_GRADIENTS, MENTORS, TRACKS, initials, trackOf, type Track } from "@/lib/mentors";
+import { AVATAR_GRADIENTS, MENTORS, TRACKS, personInitials, trackOf, type Track } from "@/lib/mentors";
 import css from "./spotlight.module.css";
 
 // Mentor cards in a sideways carousel, with tabs that filter by field of study.
@@ -26,10 +26,10 @@ export function MentorCarousel() {
       </div>
       <div className={css.rail} ref={rail} tabIndex={0} aria-label={`${list.length} mentors`}>
         {list.map((m, i) => (
-          <article key={`${m.school}-${m.major}-${i}`} className={css.mcard}>
-            <span className={css.avBig} style={{ background: AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length] }}>{initials(m.school)}</span>
-            <h3>{m.school}</h3>
-            <p className={css.meta}>Class of {m.year} &middot; {m.major}</p>
+          <article key={m.name} className={css.mcard}>
+            <span className={css.avBig} style={{ background: AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length] }}>{personInitials(m.name)}</span>
+            <h3>{m.name}</h3>
+            <p className={css.meta}>{m.display ?? m.school} &rsquo;{String(m.year).slice(2)} &middot; {m.major}</p>
             <span className={css.tag}>{m.senior ? "Senior consultant" : "Consultant"}</span>
           </article>
         ))}

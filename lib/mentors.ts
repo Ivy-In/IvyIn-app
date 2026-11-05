@@ -1,33 +1,33 @@
-// Mentor data behind the home page stats. Names, emails and phone numbers are left out on purpose:
-// the public site shows where mentors study, not who they are.
-export type Mentor = { school: string; major: string; year: number; senior?: boolean };
+// Mentor data behind the home page. Names are shown with each mentor's permission.
+// Emails and phone numbers are deliberately not kept here.
+export type Mentor = { name: string; school: string; major: string; year: number; senior?: boolean; display?: string };
 
 export const MENTORS: Mentor[] = [
-  { school: "Cornell", major: "Business", year: 2030, senior: true },
-  { school: "Cornell", major: "Economics and Government", year: 2030, senior: true },
-  { school: "Tufts", major: "Political Science and Government", year: 2030 },
-  { school: "Columbia", major: "Economics and Statistics", year: 2030 },
-  { school: "NYU", major: "Liberal Studies Core", year: 2030 },
-  { school: "UC Berkeley", major: "Computer Science", year: 2030 },
-  { school: "Cornell", major: "Biology and Linguistics", year: 2030 },
-  { school: "NYU", major: "Finance and Data Science", year: 2030 },
-  { school: "Michigan", major: "Linguistics", year: 2030 },
-  { school: "Dartmouth", major: "Economics", year: 2030 },
-  { school: "Bowdoin", major: "Environmental Studies", year: 2030 },
-  { school: "NYU", major: "Economics", year: 2030 },
-  { school: "NYU", major: "Finance", year: 2030 },
-  { school: "UNC Chapel Hill", major: "Finance", year: 2030 },
-  { school: "Cornell", major: "Economics", year: 2030 },
-  { school: "Columbia", major: "Computer Science", year: 2030 },
-  { school: "Babson", major: "Tech Entrepreneurship", year: 2030 },
-  { school: "Stanford", major: "Computer Science and Mathematics", year: 2029 },
-  { school: "USC", major: "Business Administration", year: 2030 },
-  { school: "Middlebury", major: "International Politics and Economics", year: 2030 },
-  { school: "UC Berkeley", major: "Chemistry", year: 2030 },
-  { school: "NYU", major: "Finance", year: 2030 },
-  { school: "Stanford", major: "Symbolic Systems", year: 2030 },
-  { school: "Waterloo", major: "Math", year: 2031 },
-  { school: "Cornell", major: "Nutritional Science", year: 2030 },
+  { name: "Curtis Lee", school: "Cornell", major: "Business", year: 2030, senior: true },
+  { name: "Tommy Li", school: "Cornell", major: "Economics and Government", year: 2030, senior: true },
+  { name: "Anders Gustafson", school: "Tufts", major: "Political Science and Government", year: 2030 },
+  { name: "Annabelle Lei", school: "Columbia", major: "Economics and Statistics", year: 2030 },
+  { name: "Brandon Hu", school: "NYU", major: "Liberal Studies Core", year: 2030 },
+  { name: "Derek Somers", school: "UC Berkeley", major: "Computer Science", year: 2030 },
+  { name: "Eleanor Meyer", school: "Cornell", major: "Biology and Linguistics", year: 2030 },
+  { name: "Erwin Wang", school: "NYU", major: "Finance and Data Science", year: 2030, display: "NYU Stern" },
+  { name: "Evelyn Brown", school: "Michigan", major: "Linguistics", year: 2030 },
+  { name: "Grant Lang", school: "Dartmouth", major: "Economics", year: 2030 },
+  { name: "Hope Kim", school: "Bowdoin", major: "Environmental Studies", year: 2030 },
+  { name: "Jason Yu", school: "NYU", major: "Economics", year: 2030 },
+  { name: "Jason Zhang", school: "NYU", major: "Finance", year: 2030, display: "NYU Stern" },
+  { name: "John Eapen", school: "UNC Chapel Hill", major: "Finance", year: 2030 },
+  { name: "Kaden Lin", school: "Cornell", major: "Economics", year: 2030 },
+  { name: "Ken Zhao", school: "Columbia", major: "Computer Science", year: 2030 },
+  { name: "Leo Tu", school: "Babson", major: "Tech Entrepreneurship", year: 2030 },
+  { name: "Max Lee", school: "Stanford", major: "Computer Science and Mathematics", year: 2029 },
+  { name: "Matt Guo", school: "USC", major: "Business Administration", year: 2030, display: "USC Marshall" },
+  { name: "Matthew Rosebaum", school: "Middlebury", major: "International Politics and Economics", year: 2030 },
+  { name: "Naveen Hernandez", school: "UC Berkeley", major: "Chemistry", year: 2030 },
+  { name: "Ray Xin", school: "NYU", major: "Finance", year: 2030, display: "NYU Stern" },
+  { name: "Ryan Shi", school: "Stanford", major: "Symbolic Systems", year: 2030 },
+  { name: "Simon Wang", school: "Waterloo", major: "Math", year: 2031 },
+  { name: "Yara Aziz", school: "Cornell", major: "Nutritional Science", year: 2030 },
 ];
 
 // Mentors per university, largest first.
@@ -71,3 +71,6 @@ export const AVATAR_GRADIENTS = [
   "linear-gradient(135deg,#3b6fb5,#1a3366)", "linear-gradient(135deg,#a8443b,#5a1f1a)",
   "linear-gradient(135deg,#6b4fa3,#2f1f5a)", "linear-gradient(135deg,#2a8c8c,#124545)",
 ];
+
+export const personInitials = (name: string) =>
+  name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();

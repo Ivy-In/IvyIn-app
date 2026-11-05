@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AVATAR_GRADIENTS, MENTORS, SCHOOLS, initials } from "@/lib/mentors";
+import { AVATAR_GRADIENTS, MENTORS, SCHOOLS, personInitials } from "@/lib/mentors";
 import css from "./spotlight.module.css";
 
 const SLOTS = ["tl", "tr", "bl", "br"] as const;
@@ -36,10 +36,10 @@ export function Spotlight() {
           const m = MENTORS[(base + k * 7) % MENTORS.length];
           return (
             <div key={`${slot}-${school}`} className={`${css.card} ${css[slot]}`} style={{ animationDelay: `${k * 140}ms` }}>
-              <span className={css.av} style={{ background: AVATAR_GRADIENTS[(i + k) % AVATAR_GRADIENTS.length] }}>{initials(m.school)}</span>
+              <span className={css.av} style={{ background: AVATAR_GRADIENTS[(i + k) % AVATAR_GRADIENTS.length] }}>{personInitials(m.name)}</span>
               <span>
-                <strong>Mentor</strong>
-                <small>{m.school} &rsquo;{String(m.year).slice(2)}</small>
+                <strong>{m.name}</strong>
+                <small>{m.display ?? m.school} &rsquo;{String(m.year).slice(2)}</small>
                 <small>{m.major}</small>
               </span>
             </div>
