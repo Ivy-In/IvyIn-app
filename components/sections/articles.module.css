@@ -1,5 +1,5 @@
 /* Transparent base, like every other band: soft glows that fade to nothing before the edges, so no seams. */
-.band { position: relative; overflow: hidden; padding: 72px 0; color: var(--paper);
+.band { position: relative; overflow: hidden; scroll-margin-top: 84px; padding: 72px 0; color: var(--paper);
   background:
     radial-gradient(ellipse 60% 38% at 12% 42%, rgba(214, 178, 106, .12) 0%, rgba(214, 178, 106, .05) 50%, rgba(214, 178, 106, 0) 100%),
     radial-gradient(ellipse 65% 38% at 90% 58%, rgba(47, 122, 82, .30) 0%, rgba(47, 122, 82, .12) 50%, rgba(47, 122, 82, 0) 100%); }
