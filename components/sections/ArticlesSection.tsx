@@ -6,14 +6,15 @@ import { Reveal } from "@/components/home/Reveal";
 import css from "./articles.module.css";
 
 const fmt = (d: string) =>
-  new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "2-digit", year: "numeric", timeZone: "UTC" });
+  new Date(d.slice(0, 10) + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "2-digit", year: "numeric", timeZone: "UTC" });
 
-// Featured IvyIn guide on the left, the latest college headlines from the press on the right (refreshed daily).
-// If no headlines can be loaded, the list falls back to the other guides.
+// Top college story of the day as the featured card, then the next newest headlines with their photos.
+// Headlines refresh daily from public news feeds. If none can be loaded, it falls back to IvyIn's own guides.
 export async function ArticlesSection() {
-  const [lead, ...rest] = [...GUIDES].sort((a, b) => b.updated.localeCompare(a.updated));
-  if (!lead) return null;
-  const news = await getNews(3);
+  const { lead, rest } = await getNews(3);
+  const guides = [...GUIDES].sort((a, b) => b.updated.localeCompare(a.updated));
+  if (!lead && guides.length === 0) return null;
+
   return (
     <section id="guides" className={css.band}>
       <div className={css.wrap}>
@@ -25,29 +26,41 @@ export async function ArticlesSection() {
         </Reveal>
         <div className={css.grid}>
           <Reveal>
-            <Link href={`/guides/${lead.slug}`} className={css.feature}>
-              <span className={css.kicker}>Featured Guide</span>
-              <span className={css.featTitle}>{titleCase(lead.title)}</span>
-              <span className={css.featDesc}>{lead.description}</span>
-              <span className={css.read}>Read the Guide →</span>
-            </Link>
+            {lead ? (
+              <a href={lead.url} target="_blank" rel="noopener noreferrer" className={css.feature}>
+                {lead.image && /* eslint-disable-next-line @next/next/no-img-element */ <img src={lead.image} alt="" className={css.featImg} loading="eager" referrerPolicy="no-referrer" />}
+                <span className={css.kicker}>Top College Story Today · {lead.source}</span>
+                <span className={css.featTitle}>{lead.title}<span className={css.sr}> (opens in a new tab)</span></span>
+                <span className={css.read}>Read at {lead.source} →</span>
+              </a>
+            ) : (
+              <Link href={`/guides/${guides[0].slug}`} className={css.feature}>
+                <span className={css.kicker}>Featured Guide</span>
+                <span className={css.featTitle}>{titleCase(guides[0].title)}</span>
+                <span className={css.featDesc}>{guides[0].description}</span>
+                <span className={css.read}>Read the Guide →</span>
+              </Link>
+            )}
           </Reveal>
           <ul className={css.list}>
-            {news.length > 0
-              ? news.map((n, i) => (
+            {lead
+              ? rest.map((n, i) => (
                   <li key={n.url}>
                     <Reveal delay={(i + 1) * 110}>
                       <a href={n.url} target="_blank" rel="noopener noreferrer" className={css.row}>
-                        <span className={css.thumb} data-n={i % 3} aria-hidden="true">{n.short}</span>
+                        <span className={css.thumb} data-n={i % 3} aria-hidden="true">
+                          {n.short}
+                          {n.image && /* eslint-disable-next-line @next/next/no-img-element */ <img src={n.image} alt="" className={css.thumbImg} loading="lazy" referrerPolicy="no-referrer" />}
+                        </span>
                         <span>
-                          <time className={css.date} dateTime={n.date}>{n.source} · {fmt(n.date.slice(0, 10))}</time>
+                          <time className={css.date} dateTime={n.date}>{n.source} · {fmt(n.date)}</time>
                           <span className={css.rowTitle}>{n.title}<span className={css.sr}> (opens in a new tab)</span></span>
                         </span>
                       </a>
                     </Reveal>
                   </li>
                 ))
-              : rest.slice(0, 3).map((g, i) => (
+              : guides.slice(1, 4).map((g, i) => (
                   <li key={g.slug}>
                     <Reveal delay={(i + 1) * 110}>
                       <Link href={`/guides/${g.slug}`} className={css.row}>

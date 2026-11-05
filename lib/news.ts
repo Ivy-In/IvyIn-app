@@ -1,20 +1,22 @@
 // Latest college and admissions headlines from public RSS feeds, refreshed once a day.
 // Only the headline, source, date and link are used (no article text or images), and every link goes to the publisher.
 // To add or remove a paper, edit FEEDS. A feed that is down or has moved is skipped without breaking the page.
-export type NewsItem = { title: string; url: string; source: string; short: string; date: string };
+export type NewsItem = { title: string; url: string; source: string; short: string; date: string; image?: string; weight: number };
 
-type Feed = { source: string; short: string; url: string; filter: boolean };
+type Feed = { source: string; short: string; url: string; filter: boolean; weight: number };
 
 const FEEDS: Feed[] = [
-  { source: "The New York Times", short: "NYT", url: "https://rss.nytimes.com/services/xml/rss/nyt/Education.xml", filter: true },
-  { source: "The Washington Post", short: "WaPo", url: "https://feeds.washingtonpost.com/rss/national", filter: true },
-  { source: "Los Angeles Times", short: "LAT", url: "https://www.latimes.com/california/rss2.0.xml", filter: true },
-  { source: "The Wall Street Journal", short: "WSJ", url: "https://feeds.content.dowjones.io/public/rss/RSSUSnews", filter: true },
-  { source: "Inside Higher Ed", short: "IHE", url: "https://www.insidehighered.com/rss.xml", filter: false },
-  { source: "Rutgers Today", short: "RU", url: "https://www.rutgers.edu/news/feed", filter: true },
+  { source: "The New York Times", short: "NYT", weight: 3, url: "https://rss.nytimes.com/services/xml/rss/nyt/Education.xml", filter: true },
+  { source: "The Washington Post", short: "WaPo", weight: 3, url: "https://feeds.washingtonpost.com/rss/national", filter: true },
+  { source: "Los Angeles Times", short: "LAT", weight: 2, url: "https://www.latimes.com/california/rss2.0.xml", filter: true },
+  { source: "The Wall Street Journal", short: "WSJ", weight: 3, url: "https://feeds.content.dowjones.io/public/rss/RSSUSnews", filter: true },
+  { source: "Inside Higher Ed", short: "IHE", weight: 1, url: "https://www.insidehighered.com/rss.xml", filter: false },
+  { source: "Rutgers Today", short: "RU", weight: 1, url: "https://www.rutgers.edu/news/feed", filter: true },
 ];
 
 // Keeps general news feeds to college and admissions stories.
+const STRONG = /\b(admission|admissions|admit|admits|applicants?|applications?|SAT|ACT|FAFSA|financial aid|Common App|early decision|early action|Ivy League|tuition|scholarships?|enrollment)\b/i;
+const NOT_ADMISSIONS = /electoral college/i;
 const TOPIC = /\b(college|colleges|admission|admissions|admit|applicants?|university|universities|SAT|ACT|FAFSA|financial aid|tuition|scholarships?|campus|undergraduates?|Ivy League|Common App|early decision|student loans?)\b/i;
 const MAX_AGE_DAYS = 45;
 const DAY = 86400;
@@ -34,8 +36,20 @@ const tag = (block: string, name: string) => {
   return m ? decode(m[1]) : "";
 };
 
+// The picture a feed supplies for a story (media tags, an image enclosure, or an <img> in the summary).
+function imageOf(block: string): string | undefined {
+  const raw = block.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+  const found =
+    raw.match(/<media:content[^>]*url=["']([^"']+)["']/i)?.[1] ??
+    raw.match(/<media:thumbnail[^>]*url=["']([^"']+)["']/i)?.[1] ??
+    raw.match(/<enclosure[^>]*url=["']([^"']+)["'][^>]*type=["']image/i)?.[1] ??
+    raw.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
+  const clean = found?.replace(/&amp;/g, "&");
+  return clean && /^https:\/\//i.test(clean) ? clean : undefined;
+}
+
 // Reads RSS (item) and Atom (entry) feeds.
-export function parseFeed(xml: string, feed: Pick<Feed, "source" | "short">): NewsItem[] {
+export function parseFeed(xml: string, feed: Pick<Feed, "source" | "short" | "weight">): NewsItem[] {
   const blocks = xml.match(/<item[\s>][\s\S]*?<\/item>|<entry[\s>][\s\S]*?<\/entry>/gi) ?? [];
   const out: NewsItem[] = [];
   for (const b of blocks) {
@@ -45,7 +59,7 @@ export function parseFeed(xml: string, feed: Pick<Feed, "source" | "short">): Ne
     const when = tag(b, "pubDate") || tag(b, "published") || tag(b, "updated") || tag(b, "dc:date");
     const t = Date.parse(when);
     if (!title || !/^https?:\/\//i.test(url) || Number.isNaN(t)) continue;
-    out.push({ title, url, source: feed.source, short: feed.short, date: new Date(t).toISOString() });
+    out.push({ title, url, source: feed.source, short: feed.short, weight: feed.weight, date: new Date(t).toISOString(), image: imageOf(b) });
   }
   return out;
 }
@@ -59,25 +73,34 @@ async function load(feed: Feed): Promise<NewsItem[]> {
     });
     if (!res.ok) return [];
     const items = parseFeed(await res.text(), feed);
-    return feed.filter ? items.filter((i) => TOPIC.test(i.title)) : items;
+    const ok = items.filter((i) => !NOT_ADMISSIONS.test(i.title));
+    return feed.filter ? ok.filter((i) => TOPIC.test(i.title)) : ok;
   } catch {
     return [];
   }
 }
 
-// Newest first, one headline per link, at most two per paper so one source does not crowd out the rest.
-export async function getNews(limit = 3): Promise<NewsItem[]> {
+// "Biggest story": admissions-specific wording, a major paper, published in the last day or two, and a photo all raise the score.
+function score(i: NewsItem): number {
+  const hours = (Date.now() - Date.parse(i.date)) / 3600000;
+  return (STRONG.test(i.title) ? 4 : 1) + i.weight + (hours <= 24 ? 3 : hours <= 48 ? 1 : 0) + (i.image ? 1 : 0);
+}
+
+// The lead story plus the next newest headlines, at most two per paper so one source does not crowd out the rest.
+export async function getNews(restCount = 3): Promise<{ lead?: NewsItem; rest: NewsItem[] }> {
   const all = (await Promise.all(FEEDS.map(load))).flat();
-  const cutoff = Date.now() - MAX_AGE_DAYS * DAY * 1000;
-  const seen = new Set<string>();
-  const perSource: Record<string, number> = {};
-  const picked: NewsItem[] = [];
-  for (const i of all.filter((x) => Date.parse(x.date) >= cutoff && Date.parse(x.date) <= Date.now() + DAY * 1000).sort((a, b) => b.date.localeCompare(a.date))) {
-    if (seen.has(i.url) || (perSource[i.source] ?? 0) >= 2) continue;
-    seen.add(i.url);
+  const now = Date.now();
+  const fresh = all.filter((x) => Date.parse(x.date) >= now - MAX_AGE_DAYS * DAY * 1000 && Date.parse(x.date) <= now + DAY * 1000);
+  const uniq = [...new Map(fresh.map((x) => [x.url, x])).values()];
+  if (uniq.length === 0) return { rest: [] };
+  const lead = [...uniq].sort((a, b) => score(b) - score(a) || b.date.localeCompare(a.date))[0];
+  const perSource: Record<string, number> = { [lead.source]: 1 };
+  const rest: NewsItem[] = [];
+  for (const i of uniq.filter((x) => x.url !== lead.url).sort((a, b) => b.date.localeCompare(a.date))) {
+    if ((perSource[i.source] ?? 0) >= 2) continue;
     perSource[i.source] = (perSource[i.source] ?? 0) + 1;
-    picked.push(i);
-    if (picked.length >= limit) break;
+    rest.push(i);
+    if (rest.length >= restCount) break;
   }
-  return picked;
+  return { lead, rest };
 }
