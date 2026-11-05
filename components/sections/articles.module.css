@@ -41,3 +41,4 @@
 .thumbImg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .feature .featTitle { text-wrap: balance; }
 @media (max-width: 640px) { .band { padding: 24px 0; } }
+.headRow { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; }

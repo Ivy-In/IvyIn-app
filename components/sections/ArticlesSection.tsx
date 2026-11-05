@@ -4,6 +4,7 @@ import { getNews } from "@/lib/news";
 import { titleCase } from "@/lib/titlecase";
 import { Reveal } from "@/components/home/Reveal";
 import css from "./articles.module.css";
+import sc from "./sections.module.css";
 
 const fmt = (d: string) =>
   new Date(d.slice(0, 10) + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "2-digit", year: "numeric", timeZone: "UTC" });
@@ -17,10 +18,13 @@ export async function ArticlesSection() {
 
   return (
     <section id="guides" className={css.band}>
-      <div className={css.wrap}>
-        <Reveal>
-          <div className={css.head}>
-            <h2 className={css.h2}>Articles &amp; News</h2>
+      <div className={sc.wrap}>
+        <Reveal className={sc.head}>
+          <div className={css.headRow}>
+            <div>
+              <p className={sc.eyebrow}>Resources / News</p>
+              <h2 className={sc.h2}>Articles &amp; News</h2>
+            </div>
             <Link href="/guides" className={css.all}>Explore All Guides</Link>
           </div>
         </Reveal>
