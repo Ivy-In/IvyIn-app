@@ -54,13 +54,26 @@ export const STATS = {
 export type Track = "Business and Economics" | "Tech and Math" | "Humanities and Social Science" | "Sciences";
 export const TRACKS: Track[] = ["Business and Economics", "Tech and Math", "Humanities and Social Science", "Sciences"];
 
-// Groups a major into one of four tracks, for the mentor filter tabs.
-export function trackOf(major: string): Track {
+// Which of the four tracks a single major belongs to.
+function trackOfOne(major: string): Track {
   const m = major.toLowerCase();
   if (/(finance|econom|business|entrepreneur)/.test(m)) return "Business and Economics";
   if (/(computer|math|symbolic|statistic|data)/.test(m)) return "Tech and Math";
   if (/(chem|biolog|nutrition|environment)/.test(m)) return "Sciences";
   return "Humanities and Social Science";
+}
+
+// A double major ("Economics and Statistics") counts in every track it touches, so it shows under each tab.
+// Majors whose official name contains "and" are kept whole.
+const SINGLE_MAJORS_WITH_AND = ["political science and government"];
+export function tracksOf(major: string): Track[] {
+  if (SINGLE_MAJORS_WITH_AND.includes(major.toLowerCase())) return [trackOfOne(major)];
+  return [...new Set(major.split(/\s+and\s+/i).map(trackOfOne))];
+}
+
+// The first track, for anything that needs just one.
+export function trackOf(major: string): Track {
+  return tracksOf(major)[0];
 }
 
 export const initials = (school: string) =>

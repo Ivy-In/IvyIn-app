@@ -1,13 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
-import { AVATAR_GRADIENTS, MENTORS, TRACKS, personInitials, trackOf, type Track } from "@/lib/mentors";
+import { AVATAR_GRADIENTS, MENTORS, TRACKS, personInitials, tracksOf, type Track } from "@/lib/mentors";
 import css from "./spotlight.module.css";
 
 // Mentor cards in a sideways carousel, with tabs that filter by field of study.
 export function MentorCarousel() {
   const [tab, setTab] = useState<Track | "All">("All");
   const rail = useRef<HTMLDivElement>(null);
-  const list = MENTORS.filter((m) => tab === "All" || trackOf(m.major) === tab);
+  const list = MENTORS.filter((m) => tab === "All" || tracksOf(m.major).includes(tab));
   const step = (dir: 1 | -1) => {
     const el = rail.current;
     if (!el) return;
