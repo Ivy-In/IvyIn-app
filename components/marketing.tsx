@@ -15,7 +15,6 @@ const NAV = [
   { href: "/#events", label: "Events" },
   { href: "/#services", label: "Services" },
   { href: "/#resources", label: "Resources / FAQ" },
-  { href: "/#guides", label: "Articles & News" },
   { href: "/#contact", label: "Contact" },
 ];
 
