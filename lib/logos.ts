@@ -8,12 +8,12 @@ export const LOGOS: { slug: string; name: string }[] = [
   ["unc", "UNC Chapel Hill"], ["usc", "USC"], ["georgia-tech", "Georgia Tech"], ["ucsd", "UC San Diego"], ["boston-college", "Boston College"],
   ["nyu", "NYU"], ["tufts", "Tufts"], ["boston-university", "Boston University"], ["ucdavis", "UC Davis"], ["wake-forest", "Wake Forest"],
   ["uci", "UC Irvine"], ["florida", "Florida"], ["illinois", "Illinois"], ["texas", "UT Austin"], ["wisconsin", "Wisconsin"],
-  ["waterloo", "Waterloo"], ["ubc", "UBC"], ["toronto", "Toronto"], ["mcgill", "McGill"], ["western", "Western"], ["ivey", "Ivey"],
+  ["babson", "Babson"], ["middlebury", "Middlebury"], ["bowdoin", "Bowdoin"], ["waterloo", "Waterloo"], ["ubc", "UBC"], ["toronto", "Toronto"], ["mcgill", "McGill"], ["western", "Western"], ["ivey", "Ivey"],
 ].map(([slug, name]) => ({ slug, name }));
 
 const BY_SCHOOL: Record<string, string> = {
   Columbia: "columbia", Cornell: "cornell", Dartmouth: "dartmouth", Michigan: "michigan", NYU: "nyu", Stanford: "stanford",
-  Tufts: "tufts", "UC Berkeley": "berkeley", "UNC Chapel Hill": "unc", USC: "usc", Waterloo: "waterloo",
+  Tufts: "tufts", Babson: "babson", Middlebury: "middlebury", Bowdoin: "bowdoin", "UC Berkeley": "berkeley", "UNC Chapel Hill": "unc", USC: "usc", Waterloo: "waterloo",
 };
 
 // The logo for a mentor's school, or null when we don't have one.
