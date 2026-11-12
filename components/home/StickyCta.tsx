@@ -17,7 +17,7 @@ export function StickyCta() {
   }, []);
   return (
     <a className="mk-btn mk-btn-primary fx-sticky" href="/#contact" data-show={show} tabIndex={show ? 0 : -1} aria-hidden={!show}>
-      Book a free intro call
+      Claim the December Sprint
     </a>
   );
 }

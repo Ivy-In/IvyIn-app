@@ -1,0 +1,18 @@
+.deal { position: relative; display: grid; grid-template-columns: minmax(260px, 5fr) 7fr; gap: 0; margin-bottom: 28px; background: var(--ultra); color: var(--porcelain); overflow: hidden; }
+.main { padding: 36px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; border-right: 3px solid var(--carbon); }
+.tag { margin: 0; padding: 4px 12px; background: var(--porcelain); color: var(--carbon); font: 800 13px var(--font-sans); letter-spacing: .1em; text-transform: uppercase; }
+.name.name { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 3.4vw, 2.8rem); letter-spacing: -.03em; line-height: 1; color: var(--porcelain); }
+.price { margin: 0; display: flex; align-items: flex-end; gap: 16px; }
+.price b { font-family: var(--display); font-weight: 800; font-size: clamp(3.6rem, 8vw, 6.5rem); letter-spacing: -.05em; line-height: .85; }
+.price span { font: 700 14px/1.35 var(--font-sans); letter-spacing: .06em; text-transform: uppercase; padding-bottom: 6px; }
+.points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: repeat(3, 1fr); }
+.points li { display: grid; grid-template-columns: 52px 1fr; column-gap: 12px; align-content: center; padding: 20px 32px; }
+.points li + li { border-top: 3px solid var(--carbon); }
+.n { grid-row: span 2; font: 800 1.1rem var(--display); opacity: .75; padding-top: 2px; }
+.points strong { font-family: var(--display); font-weight: 800; font-size: clamp(1.15rem, 2vw, 1.6rem); letter-spacing: -.02em; line-height: 1.1; }
+.body { font-size: 1rem; opacity: .92; margin-top: 4px; }
+@media (max-width: 860px) {
+  .deal { grid-template-columns: 1fr; }
+  .main { border-right: 0; border-bottom: 3px solid var(--carbon); padding: 28px 22px; }
+  .points li { padding: 18px 22px; }
+}

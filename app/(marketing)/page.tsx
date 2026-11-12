@@ -6,6 +6,7 @@ import { StatsAndTicker } from "@/components/home/HomeSections";
 import { StickyCta } from "@/components/home/StickyCta";
 import { MentorCarousel } from "@/components/home/MentorCarousel";
 import { Testimonials } from "@/components/sections/Extras";
+import { SprintDeal } from "@/components/sections/SprintDeal";
 import { CmsSection } from "@/components/sections/CmsSection";
 import { EventsSection } from "@/components/sections/EventsSection";
 import { ScrollFX } from "@/components/home/ScrollFX";
@@ -65,7 +66,7 @@ export default async function Home({
       <StatsAndTicker />
 
       <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
-      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" />
+      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" skipFirst lead={<SprintDeal />} />
       <CmsSection id="about" slug="about" eyebrow="About" tone="glow">
         <div style={{ marginTop: 28 }}>
           <MentorCarousel />
