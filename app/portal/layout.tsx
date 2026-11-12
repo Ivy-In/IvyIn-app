@@ -15,6 +15,11 @@ export default async function PortalLayout({ children }: { children: React.React
   // Staff must complete a second factor before seeing any client data.
   if (ctx.isStaff && ctx.aal !== "aal2") redirect("/mfa");
 
+  // Students with a live private site get a quick link to it in the menu.
+  const { data: site } = ctx.isStaff
+    ? { data: null }
+    : await ctx.supabase.from("student_sites").select("subdomain, status").eq("client_id", ctx.user.id).maybeSingle();
+
   // Notification bubbles: new items since staff last opened the Activity page.
   const unread = ctx.isStaff ? await getUnread(ctx.supabase, ctx.user.id) : null;
 
@@ -33,6 +38,7 @@ export default async function PortalLayout({ children }: { children: React.React
             {ctx.isStaff && <NavLink href="/portal/activity">Activity<Bubble n={unread?.total ?? 0} /></NavLink>}
             <NavLink href="/portal/messages">Messages{unread && <Bubble n={unread.counts.message} />}</NavLink>
             <NavLink href="/portal/files">Files{unread && <Bubble n={unread.counts.file} />}</NavLink>
+            {site?.status === "active" && <NavLink href={`/site/${site.subdomain}`}>My site</NavLink>}
             {ctx.isStaff && <NavLink href="/portal/students">Students{unread && <Bubble n={unread.counts.signup} />}</NavLink>}
             {ctx.isStaff && <NavLink href="/portal/sites">Sites</NavLink>}
             {ctx.role === "admin" && <NavLink href="/admin">Admin</NavLink>}
