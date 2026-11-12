@@ -6,6 +6,7 @@ import { titleCase } from "@/lib/titlecase";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
+import { HeroOrbit } from "@/components/home/HeroOrbit";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -147,12 +148,7 @@ export function PageBody({
     <>
       <section className="mk-hero">
         {art && !pills && <Cut art={art} tilt={tilt} />}
-        {pills && (
-          <div className="mk-cut" aria-hidden="true">
-            <svg viewBox="0 0 100 100"><path d="M50 8C70 30 70 55 50 70 30 55 30 30 50 8Z" /><path d="M12 38C38 36 56 52 52 76 26 78 10 62 12 38Z" /><path d="M88 38C62 36 44 52 48 76 74 78 90 62 88 38Z" /></svg>
-            <i />
-          </div>
-        )}
+        {pills && <HeroOrbit />}
         <div className="mk-wrap">
           {content.eyebrow && <div className="mk-eyebrow">{content.eyebrow}</div>}
           <h1>{titleCase(content.headline)}</h1>

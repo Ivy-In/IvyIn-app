@@ -1,0 +1,39 @@
+/* Overrides the old tilted panel that .mk-cut gives. Doubled selectors beat the global rules. */
+.orbit.orbit { right: 3vw; top: 56px; width: min(38vw, 520px); height: auto; aspect-ratio: 1; background: none; transform: none; container-type: inline-size; }
+.orbit.orbit svg { position: static; inset: auto; width: 100%; height: 100%; fill: #114230; }
+
+.glow { position: absolute; inset: -8%; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(232, 242, 168, .20) 0%, rgba(120, 190, 150, .14) 38%, rgba(120, 190, 150, 0) 70%); }
+
+.ring { position: absolute; left: 50%; top: 50%; width: calc(var(--r) * 2cqw); height: calc(var(--r) * 2cqw); translate: -50% -50%; }
+.track { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed rgba(169, 205, 184, .38); }
+.spin { position: absolute; inset: 0; }
+.node { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform: rotate(var(--a)) translateX(calc(var(--r) * 1cqw)); }
+
+.chip { position: absolute; left: 0; top: 0; translate: -50% -50%; rotate: calc(var(--a) * -1); display: flex; align-items: center; gap: 1.2cqw; padding: .9cqw 2.4cqw .9cqw .9cqw; background: var(--paper); color: #114230; font: 800 2.6cqw/1 var(--font-sans); white-space: nowrap; }
+.chip[data-big="false"] { padding: .7cqw; background: none; }
+.chip b { flex: none; display: grid; place-items: center; width: 5.6cqw; height: 5.6cqw; border-radius: 50%; color: #fff; font-size: 2cqw; font-weight: 800; }
+.chip[data-big="false"] b { width: 6.4cqw; height: 6.4cqw; }
+.ring:nth-of-type(2) .chip { background: #a9cdb8; }
+.ring:nth-of-type(3) .chip { background: var(--lime); }
+
+.core { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 22cqw; height: 22cqw; border-radius: 50%; display: grid; place-items: center; align-content: center; gap: .4cqw;
+  background: radial-gradient(circle at 35% 30%, #f6fcd0 0%, var(--lime) 60%, #cfe28a 100%); color: #114230; }
+.orbit.orbit .core svg { width: 9cqw; height: 9cqw; }
+.core span { font: 800 2.6cqw/1 var(--font-sans); letter-spacing: .02em; }
+.core::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--lime); opacity: 0; }
+
+.stat { position: absolute; right: -2%; bottom: -3%; display: grid; grid-template-columns: auto auto; gap: .3cqw 1.6cqw; align-items: baseline; padding: 2cqw 3cqw; background: #114230; color: var(--paper); border: 2px solid #a9cdb8; }
+.stat strong { font-family: var(--display); font-size: 6cqw; line-height: 1; color: var(--lime); text-align: right; }
+.stat span { font: 700 2.4cqw/1.2 var(--font-sans); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .spin { animation: spin var(--d) linear infinite var(--dir); }
+  .chip { animation: counter var(--d) linear infinite var(--dir); }
+  .core::before { animation: ping 3.2s cubic-bezier(.2, 0, 0, 1) infinite; }
+  .glow { animation: breathe 7s ease-in-out infinite; }
+}
+@keyframes spin { to { rotate: 360deg; } }
+@keyframes counter { to { rotate: calc(var(--a) * -1 - 360deg); } }
+@keyframes ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
+@keyframes breathe { 0%, 100% { opacity: .8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
