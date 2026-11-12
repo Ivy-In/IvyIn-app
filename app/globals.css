@@ -828,3 +828,15 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .mk-cal-sum::-webkit-details-marker { display: none; }
 .mk-cal-sum::after { content: "+"; }
 details[open] > .mk-cal-sum::after { content: "\2212"; }
+
+/* The hero map runs behind the text across the whole hero. Text stays clickable; empty areas pass hover through to the pins. */
+@media (min-width: 901px) {
+  .mk-hero:has(> [data-orbit]) { min-height: 660px; }
+  .mk-hero:has(> [data-orbit]) > .mk-wrap { pointer-events: none; }
+  .mk-hero:has(> [data-orbit]) > .mk-wrap :is(a, button, h1, p, input, textarea, select, label) { pointer-events: auto; }
+}
+
+/* A soft carbon scrim keeps the headline readable where the map runs under it. */
+@media (min-width: 901px) {
+  .mk-hero:has(> [data-orbit])::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(23, 25, 29, .92) 0%, rgba(23, 25, 29, .6) 30%, rgba(23, 25, 29, 0) 55%); }
+}

@@ -1,11 +1,11 @@
 /* Positioned like the old orbit; doubled selectors beat the global .mk-cut rules. */
-.map.map { right: 3vw; top: 64px; width: min(46vw, 660px); height: auto; aspect-ratio: 1000 / 656; background: none; transform: none; container-type: inline-size; }
+.map.map { left: 18%; right: auto; top: -4px; width: 82%; height: auto; aspect-ratio: 1000 / 560; background: none; transform: none; container-type: inline-size; z-index: 0; pointer-events: none; }
 .land { position: absolute; inset: 0; width: 100%; height: 100%; }
-.map.map .land { position: absolute; inset: 0; width: 100%; height: 100%; fill: rgba(232, 235, 237, 0.34); }
+.map.map .land { position: absolute; inset: 0; width: 100%; height: 100%; fill: rgba(232, 235, 237, 0.3); -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.4), #000 55%); mask-image: linear-gradient(90deg, rgba(0,0,0,.4), #000 55%); }
 
 .pins { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
 .pins li { position: absolute; width: 0; height: 0; }
-.pin { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; padding: 0; border: 2px solid var(--porcelain); background: var(--carbon); cursor: pointer; transition: transform .25s cubic-bezier(.2, 0, 0, 1), background-color .2s; }
+.pin { pointer-events: auto; position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; padding: 0; border: 2px solid var(--porcelain); background: var(--carbon); cursor: pointer; transition: transform .25s cubic-bezier(.2, 0, 0, 1), background-color .2s; }
 .pin[data-mentor="true"] { background: var(--ultra); }
 .pin:hover, .pin:focus-visible { transform: scale(1.5); }
 .pin:focus-visible { outline: 3px solid var(--porcelain); outline-offset: 3px; }
@@ -33,7 +33,7 @@
 .map.map .legend i { position: static; left: auto; right: auto; bottom: auto; height: 11px; width: 11px; background: transparent; }
 .map.map .legend i[data-k="m"] { background: var(--ultra); }
 @media (max-width: 900px) {
-  .map.map { display: block; position: relative; right: auto; top: auto; width: calc(100% - 40px); margin: 20px auto 34px; }
+  .map.map { display: block; position: relative; left: auto; right: auto; top: auto; width: calc(100% - 40px); margin: 20px auto 34px; pointer-events: auto; }
   .tag img { height: 24px; }
   .count { display: none; }
   .legend { bottom: -9%; }
