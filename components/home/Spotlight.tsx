@@ -22,12 +22,12 @@ export function Spotlight() {
   return (
     <section className={css.spot} aria-labelledby="spot-h">
       <div className={css.inner}>
-        <h2 id="spot-h" className={css.title}>Meet the Mentors Who Just Went Through It, and Got In</h2>
+        <h2 id="spot-h" className={css.title}>Where Our Mentors Study</h2>
         <p className="sr-only" style={{ position: "absolute", left: -9999 }}>
           Our mentors attend {SCHOOLS.map((s) => s.school).join(", ")}.
         </p>
-        <div className={css.big} style={{ "--len": school.length } as React.CSSProperties} aria-hidden="true"><span key={school}>{school}</span></div>
-        <Link className="mk-btn mk-btn-ghost" href="/#about">See Where All Our Mentors Study</Link>
+        <div className={css.big} data-skew="" style={{ "--len": school.length } as React.CSSProperties} aria-hidden="true"><span key={school}>{school}</span></div>
+        <Link className="mk-btn mk-btn-ghost" href="/#about">See All Mentors</Link>
       </div>
 
       <div aria-hidden="true">
@@ -35,7 +35,7 @@ export function Spotlight() {
           // The first card is from the school on screen; the others are other mentors, so the corners differ.
           const m = MENTORS[(base + k * 7) % MENTORS.length];
           return (
-            <div key={`${slot}-${school}`} className={`${css.card} ${css[slot]}`} style={{ animationDelay: `${k * 140}ms` }}>
+            <div key={`${slot}-${school}`} className={`${css.card} ${css[slot]}`} style={{ animationDelay: `${k * 140}ms` }} data-drift={[0.12, -0.1, 0.08, -0.14][k]}>
               <span className={css.av} style={{ background: AVATAR_GRADIENTS[(i + k) % AVATAR_GRADIENTS.length] }}>{personInitials(m.name)}</span>
               <span>
                 <strong>{m.name}</strong>

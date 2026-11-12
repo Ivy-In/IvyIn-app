@@ -12,7 +12,7 @@ const LEAF = "M50 8C70 30 70 55 50 70 30 55 30 30 50 8ZM12 38C38 36 56 52 52 76 
 
 export function HeroOrbit() {
   return (
-    <div className={`mk-cut ${css.orbit}`} aria-hidden="true">
+    <div className={`mk-cut ${css.orbit}`} data-orbit="" aria-hidden="true">
       <div className={css.glow} />
       {RINGS.map((ring, ri) => (
         <div key={ri} className={css.ring} style={{ "--r": ring.r, "--d": `${ring.secs}s`, "--dir": ri % 2 ? "reverse" : "normal" } as React.CSSProperties}>

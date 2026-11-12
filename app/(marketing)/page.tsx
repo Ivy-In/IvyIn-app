@@ -8,6 +8,7 @@ import { MentorCarousel } from "@/components/home/MentorCarousel";
 import { Testimonials } from "@/components/sections/Extras";
 import { CmsSection } from "@/components/sections/CmsSection";
 import { EventsSection } from "@/components/sections/EventsSection";
+import { ScrollFX } from "@/components/home/ScrollFX";
 import { HeroVideo } from "@/components/home/HeroVideo";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -41,6 +42,7 @@ export default async function Home({
           description: "America's Premier College Consulting Group. Private, one-on-one college application help from advisors who recently went through the process.",
         }}
       />
+      <ScrollFX />
       <div className="mk-banner">
         <p>
           Opportunities open now for consultants.{" "}

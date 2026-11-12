@@ -72,3 +72,14 @@
 @keyframes swap { from { transform: translateY(40%); opacity: 0; } to { transform: none; opacity: 1; } }
 .per { font-weight: 700; color: var(--paper); opacity: .85; }
 .save { margin: 0; color: #d6b26a; font-weight: 700; min-height: 1.5em; }
+
+/* Signal-lime hints */
+.eyebrow.eyebrow::before { content: ""; display: inline-block; width: 9px; height: 9px; background: #c8f23a; margin-right: 10px; vertical-align: .05em; }
+.card { position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 3px; background: #c8f23a; transform: scaleX(0); transform-origin: left; transition: transform .6s cubic-bezier(.2, 0, 0, 1); }
+.card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(200, 242, 58, .16), transparent 70%); }
+.card:hover::after { opacity: 1; }
+.card[data-active]::before, .card:hover::before { transform: scaleX(1); }
+.card[data-active] { border-color: #c8f23a; }
+.card p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { .card::before { transition: none; } }

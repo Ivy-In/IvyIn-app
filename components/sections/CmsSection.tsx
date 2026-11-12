@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getPage, type PageContent } from "@/lib/content";
 import { anchorHref } from "@/lib/anchors";
 import { Reveal } from "@/components/home/Reveal";
+import { Words } from "@/components/home/Words";
 import { PricingToggle } from "./PricingToggle";
 import { titleCase } from "@/lib/titlecase";
 import css from "./sections.module.css";
@@ -53,18 +54,17 @@ export function CmsView({
       <div className={css.wrap}>
         <Reveal className={css.head}>
           <p className={css.eyebrow}>{c.eyebrow ?? eyebrow}</p>
-          <h2 className={css.h2} id={`${id}-h`}>{titleCase(c.headline)}</h2>
-          {c.lede && <p className={css.lead}>{c.lede}</p>}
+          <h2 className={css.h2} id={`${id}-h`}><Words text={titleCase(c.headline)} accent /></h2>
         </Reveal>
 
         {items.length > 0 && (
-          <div className={css.cards} data-n3={items.length % 3} data-n2={items.length % 2}>
+          <div className={css.cards} data-n3={items.length % 3} data-n2={items.length % 2} data-steps={id === "how-it-works" ? "" : undefined}>
             {items.map((it, i) => (
-              <Reveal key={i} delay={(i % 3) * 110} from="up">
+              <Reveal key={i} delay={(i % 3) * 110} from="tilt">
                 {"pricing" in it ? (
                   <PricingToggle {...it.pricing} />
                 ) : (
-                  <div className={css.card}>
+                  <div className={css.card} data-glow="">
                     <h3 className={css.cardTitle}>{titleCase(it.title)}</h3>
                     <p>{it.body}</p>
                   </div>

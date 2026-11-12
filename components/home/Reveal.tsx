@@ -6,7 +6,7 @@ import css from "./home.module.css";
 // reduced motion) and is only hidden after mount if it starts below the fold.
 export function Reveal({
   children, className = "", delay = 0, from = "up",
-}: { children: ReactNode; className?: string; delay?: number; from?: "up" | "left" | "right"; }) {
+}: { children: ReactNode; className?: string; delay?: number; from?: "up" | "left" | "right" | "tilt"; }) {
   const ref = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"show" | "hide" | "in">("show");
 

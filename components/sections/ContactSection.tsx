@@ -14,7 +14,7 @@ export function ContactSection({ sent, error }: { sent?: string; error?: string 
       <div className={css.wrap}>
         <div className={css.contactGrid}>
           <div>
-            <SectionHead eyebrow="Contact" title="Book a Free Intro Call" lede="Send us a few details and we will reply to arrange a time." />
+            <SectionHead eyebrow="Contact" title="Book a Free Intro Call" />
           </div>
           <Reveal from="right">
             <div className={css.formCard}>

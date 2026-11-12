@@ -55,7 +55,6 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
         </div>
         <div className={`${css.ask} ${css.askSide}`}>
           <strong>Still Have a Question?</strong>
-          <p>Send it to us and we will reply.</p>
           <Link className="mk-btn mk-btn-primary" href="/#contact">Ask Us</Link>
         </div>
       </aside>

@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
 import { HeroOrbit } from "@/components/home/HeroOrbit";
+import { Words } from "@/components/home/Words";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -150,7 +151,7 @@ export function PageBody({
         {pills && <HeroOrbit />}
         <div className="mk-wrap">
           {content.eyebrow && <div className="mk-eyebrow">{content.eyebrow}</div>}
-          <h1>{titleCase(content.headline)}</h1>
+          <h1 data-hero-h1={pills ? "" : undefined}>{pills ? <Words text={titleCase(content.headline)} /> : titleCase(content.headline)}</h1>
           {content.lede && <p className="mk-lede">{content.lede}</p>}
           {pills && (
             <p className="mk-pills">

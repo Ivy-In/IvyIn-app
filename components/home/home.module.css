@@ -87,3 +87,8 @@
 .heroBg::before { content: ""; position: absolute; inset: 0; opacity: .6; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"); }
 .heroBg > section { position: relative; z-index: 1; }
+
+/* Cards tip up out of the page: perspective, scale and blur settle as they arrive. */
+.reveal { transition-property: opacity, transform, filter; }
+.reveal[data-state="hide"].from_tilt { transform: perspective(1000px) translateY(70px) rotateX(16deg) scale(.93); filter: blur(8px); transform-origin: 50% 100%; }
+.reveal[data-state="in"] { filter: none; }
