@@ -60,6 +60,7 @@ export function FaqExplorer({ faqs, footer }: { faqs: Faq[]; footer?: ReactNode 
           <strong>Still Have a Question?</strong>
           <Link className="mk-btn mk-btn-primary" href="/#contact">Ask Us</Link>
         </div>
+        {footer && <div className={`${css.foot} ${css.footSide}`}>{footer}</div>}
       </aside>
 
       <div className={css.list} role="tabpanel">
@@ -91,7 +92,7 @@ export function FaqExplorer({ faqs, footer }: { faqs: Faq[]; footer?: ReactNode 
         {!searching && !all && list.length > 4 && (
           <button type="button" className="mk-btn mk-btn-ghost" onClick={() => setAll(true)}>Show all {list.length} questions</button>
         )}
-        {footer && <div className={css.foot}>{footer}</div>}
+        {footer && <div className={`${css.foot} ${css.footBelow}`}>{footer}</div>}
         <div className={`${css.ask} ${css.askBelow}`}>
           <strong>Still Have a Question?</strong>
           <Link className="mk-btn mk-btn-primary" href="/#contact">Ask Us</Link>
