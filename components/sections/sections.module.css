@@ -112,3 +112,4 @@
 .formGrid textarea, .formGrid input { display: block; }
 .formGrid .wide:last-child { line-height: 0; }
 .formGrid .wide:last-child button { line-height: 1.2; }
+.formGrid .wide:last-child button { padding: var(--g) !important; line-height: 1 !important; }
