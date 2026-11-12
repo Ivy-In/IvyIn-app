@@ -38,7 +38,11 @@ export default async function PortalLayout({ children }: { children: React.React
             {ctx.isStaff && <NavLink href="/portal/activity">Activity<Bubble n={unread?.total ?? 0} /></NavLink>}
             <NavLink href="/portal/messages">Messages{unread && <Bubble n={unread.counts.message} />}</NavLink>
             <NavLink href="/portal/files">Files{unread && <Bubble n={unread.counts.file} />}</NavLink>
-            {site?.status === "active" && <NavLink href={`/site/${site.subdomain}`}>My site</NavLink>}
+            {site && (site.status === "active" ? (
+              <NavLink href={`/site/${site.subdomain}`}><span className="site-dot on" aria-hidden="true" />My site<span className="sr-only"> (active)</span></NavLink>
+            ) : (
+              <span className="navlike" title="Your site is not active yet"><span className="site-dot off" aria-hidden="true" />My site<span className="sr-only"> (not active)</span></span>
+            ))}
             {ctx.isStaff && <NavLink href="/portal/students">Students{unread && <Bubble n={unread.counts.signup} />}</NavLink>}
             {ctx.isStaff && <NavLink href="/portal/sites">Sites</NavLink>}
             {ctx.role === "admin" && <NavLink href="/admin">Admin</NavLink>}

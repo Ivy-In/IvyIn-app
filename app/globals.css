@@ -841,6 +841,9 @@ details[open] > .mk-cal-sum::after { content: "\2212"; }
   .mk-hero:has(> [data-orbit])::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(23, 25, 29, .92) 0%, rgba(23, 25, 29, .6) 30%, rgba(23, 25, 29, 0) 55%); }
 }
 .mk-brand img.mk-brand img, .mk-brand img { height: 46px; width: auto; }
-/* "My site" is a side door, not a main section: keep it quieter than the rest of the menu. */
-.portal-nav a[href^="/site/"] { color: rgba(232, 235, 237, 0.55); font-weight: 600; }
-.portal-nav a[href^="/site/"]:hover { color: var(--porcelain); }
+/* "My site" status dot. Green and red are a deliberate exception to the three-color palette: they read as live / not live at a glance. */
+.portal-nav .site-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: middle; position: relative; top: -1px; }
+.portal-nav .site-dot.on { background: #22C55E; box-shadow: 0 0 8px rgba(34, 197, 94, 0.7); }
+.portal-nav .site-dot.off { background: #EF4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.6); }
+.portal-nav .navlike { padding: 6px 12px; font-weight: 700; color: var(--paper); cursor: default; }
+.portal-nav .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
