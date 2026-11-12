@@ -99,3 +99,16 @@
 .h2wide.h2wide { max-width: none; font-size: clamp(2rem, 5vw, 3.8rem); }
 .formGrid .wide:has(textarea) { margin-top: 14px; }
 .formGrid .wide:has(textarea) label { margin: 0 0 14px !important; }
+
+/* One spacing unit for the whole contact card: edges, columns, rows, label to field. */
+.formCard { --g: 16px; padding: var(--g) !important; }
+.formGrid { gap: var(--g) !important; }
+.formGrid .wide:has(textarea), .formGrid .wide:last-child { margin-top: 0 !important; }
+.formGrid label { margin: 0 0 var(--g) !important; line-height: 1 !important; }
+.formGrid > div { margin-bottom: 0 !important; }
+.formGrid input, .formGrid textarea { padding: 12px var(--g) !important; }
+.formGrid .wide:last-child button { display: block; }
+.formGrid .wide:has(textarea) label { margin: 0 0 var(--g) !important; }
+.formGrid textarea, .formGrid input { display: block; }
+.formGrid .wide:last-child { line-height: 0; }
+.formGrid .wide:last-child button { line-height: 1.2; }
