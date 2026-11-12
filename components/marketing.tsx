@@ -6,7 +6,7 @@ import { titleCase } from "@/lib/titlecase";
 import type { ReactNode } from "react";
 import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
-import { HeroOrbit } from "@/components/home/HeroOrbit";
+import { HeroMap } from "@/components/home/HeroMap";
 import { Words } from "@/components/home/Words";
 
 const NAV = [
@@ -147,7 +147,7 @@ export function PageBody({
     <>
       <section className="mk-hero">
         {art && !pills && <Cut art={art} tilt={tilt} />}
-        {pills && <HeroOrbit />}
+        {pills && <HeroMap />}
         <div className="mk-wrap">
           {content.eyebrow && <div className="mk-eyebrow">{content.eyebrow}</div>}
           <h1 data-hero-h1={pills ? "" : undefined}>{pills ? <Words text={titleCase(content.headline)} /> : titleCase(content.headline)}</h1>
