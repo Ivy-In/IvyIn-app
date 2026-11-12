@@ -108,7 +108,7 @@ export async function EventsSection({ monthParam: monthQuery }: { monthParam?: s
     <>
       <section id="events" className={`${css.band} ${css.deep}`}>
         <div className={css.wrap}>
-          <SectionHead eyebrow="Events" title="Guest Speakers, Panels and Info Sessions" lede="Upcoming events from IvyIn. Times are Eastern (ET)." />
+          <SectionHead eyebrow="Events" title="Guest Speakers, Panels, and Info Sessions" lede="Upcoming events from IvyIn. Times are Eastern (ET)." />
           <details open={!!monthQuery}>
             <summary className="mk-cal-sum">View the full calendar</summary>
           <div className="mk-card" style={{ padding: 20 }}>
