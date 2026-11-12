@@ -5,7 +5,7 @@
 /* The name is sized to fit the width, so long names (UC Berkeley, UNC Chapel Hill, Dartmouth) are never cut off. */
 .big { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, calc((100cqw - 56px) / (var(--len, 8) * .68)), 11rem); line-height: 1.05; padding-bottom: .1em; letter-spacing: -.04em; color: var(--paper); margin: 12px 0 28px; min-height: 1.1em; overflow: hidden; white-space: nowrap; }
 .big span { display: inline-block; }
-.logo { display: block; height: 56px; width: auto; max-width: 220px; margin: 14px auto 0; object-fit: contain; }
+.logo { display: block; height: 76px; width: auto; margin: 14px auto 0; object-fit: contain; }
 @media (prefers-reduced-motion: no-preference) { .logo { animation: rise .7s cubic-bezier(.2, 0, 0, 1) both; } }
 @media (prefers-reduced-motion: no-preference) { .big span { animation: rise .7s cubic-bezier(.2, 0, 0, 1) both; } }
 @keyframes rise { from { transform: translateY(70%); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -30,7 +30,7 @@
 .mcard { flex: 0 0 min(280px, 78vw); scroll-snap-align: start; border: 2px solid rgba(232, 235, 237, 0.4); padding: 24px; background: linear-gradient(160deg, rgba(232, 235, 237, 0.08), rgba(232, 235, 237, 0.02)); transition: border-color .25s, transform .3s cubic-bezier(.2, 0, 0, 1); }
 @media (hover: hover) { .mcard:hover { border-color: var(--ultra); transform: translateY(-5px); } }
 .mcard { position: relative; }
-.schoolLogo { position: absolute; top: 24px; right: 24px; height: 26px; max-width: 110px; width: auto; object-fit: contain; opacity: .8; }
+.schoolLogo { position: absolute; top: 14px; right: 14px; height: 40px; width: auto; object-fit: contain; opacity: .85; }
 .avBig { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 1.2rem; color: var(--porcelain); margin-bottom: 16px; }
 .mcard h3.mcard h3, .mcard h3 { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; margin: 0 0 6px; color: var(--paper); }
 .meta { margin: 0 0 14px; color: var(--porcelain); font-weight: 700; font-size: .98rem; }

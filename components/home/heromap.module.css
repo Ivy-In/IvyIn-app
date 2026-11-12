@@ -16,10 +16,10 @@
 }
 @keyframes ping { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
 
-.tag { position: absolute; z-index: 3; translate: -50% calc(-100% - 20px); padding: 10px 16px; background: var(--ultra); pointer-events: none; display: grid; place-items: center; }
+.tag { position: absolute; z-index: 3; translate: -50% calc(-100% - 20px); padding: 2px 8px; background: var(--ultra); pointer-events: none; display: grid; place-items: center; }
 .tag[data-side="left"] { translate: -12% calc(-100% - 20px); }
 .tag[data-side="right"] { translate: -88% calc(-100% - 20px); }
-.tag img { display: block; height: 30px; width: auto; max-width: 150px; object-fit: contain; }
+.tag img { display: block; height: 46px; width: auto; }
 @media (prefers-reduced-motion: no-preference) { .tag { animation: pop .35s cubic-bezier(.2, 0, 0, 1) both; } }
 @keyframes pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
@@ -34,7 +34,7 @@
 .map.map .legend i[data-k="m"] { background: var(--ultra); }
 @media (max-width: 900px) {
   .map.map { display: block; position: relative; left: auto; right: auto; top: auto; width: calc(100% - 40px); margin: 20px auto 34px; pointer-events: auto; }
-  .tag img { height: 24px; }
+  .tag img { height: 36px; }
   .count { display: none; }
   .legend { bottom: -9%; }
 }
