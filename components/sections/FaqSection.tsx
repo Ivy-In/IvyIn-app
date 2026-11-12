@@ -23,11 +23,8 @@ export async function FaqSection() {
             }}
           />
         )}
-        <SectionHead eyebrow="Resources / FAQ" title="Frequently Asked Questions" lede="Answers to the questions families ask most." />
-        <FaqExplorer faqs={faqs} />
-        <p style={{ margin: "32px 0 0" }}>
-          <Link className="mk-btn mk-btn-ghost" href="/guides">Read Our College Admissions Guides</Link>
-        </p>
+        <SectionHead eyebrow="Resources / FAQ" title="Frequently Asked Questions" wide lede="Answers to the questions families ask most." />
+        <FaqExplorer faqs={faqs} footer={<Link className="mk-btn mk-btn-ghost" href="/guides">Read Our College Admissions Guides</Link>} />
       </div>
     </section>
   );

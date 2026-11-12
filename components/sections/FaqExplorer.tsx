@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useState, type ReactNode } from "react";
 import css from "./faq.module.css";
 
 type Faq = { question: string; answer: string };
@@ -16,7 +16,7 @@ function topicOf(q: string): Topic {
 }
 
 // Questions grouped into topic tabs, with search and a one-at-a-time accordion.
-export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
+export function FaqExplorer({ faqs, footer }: { faqs: Faq[]; footer?: ReactNode }) {
   const uid = useId();
   const [topic, setTopic] = useState<Topic>("Getting Started");
   const [query, setQuery] = useState("");
@@ -91,6 +91,7 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
         {!searching && !all && list.length > 4 && (
           <button type="button" className="mk-btn mk-btn-ghost" onClick={() => setAll(true)}>Show all {list.length} questions</button>
         )}
+        {footer && <div className={css.foot}>{footer}</div>}
         <div className={`${css.ask} ${css.askBelow}`}>
           <strong>Still Have a Question?</strong>
           <Link className="mk-btn mk-btn-primary" href="/#contact">Ask Us</Link>

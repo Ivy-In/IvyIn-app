@@ -50,3 +50,6 @@
 
 .askBelow { display: none; margin-top: 8px; }
 @media (max-width: 860px) { .askSide { display: none; } .askBelow { display: grid; } }
+
+.foot { margin-top: 6px; }
+.wrap { gap: 28px 48px; }
