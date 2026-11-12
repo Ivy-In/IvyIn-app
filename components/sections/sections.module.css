@@ -97,3 +97,4 @@
 @media (max-width: 640px) { .formGrid { grid-template-columns: 1fr; } .formGrid > div { margin-bottom: 14px; } }
 
 .h2wide.h2wide { max-width: none; font-size: clamp(2rem, 5vw, 3.8rem); }
+.formGrid .wide:has(textarea) { margin-top: 18px; }
