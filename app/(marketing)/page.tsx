@@ -66,7 +66,7 @@ export default async function Home({
       <StatsAndTicker />
 
       <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
-      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" skipFirst lead={<SprintDeal />} />
+      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" headline="Packages" noEyebrow lead={<SprintDeal />} />
       <CmsSection id="about" slug="about" eyebrow="About" tone="glow">
         <div style={{ marginTop: 28 }}>
           <MentorCarousel />

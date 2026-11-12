@@ -40,21 +40,21 @@ function withPricing(cards: Card[]): { items: (Card | { pricing: { title: string
 
 // A section whose words come from the CMS (About, How It Works, Services), so admins can still edit them.
 export async function CmsSection({
-  id, slug, eyebrow, tone = "flat", children, lead, skipFirst,
-}: { id: string; slug: string; eyebrow: string; tone?: Tone; children?: React.ReactNode; lead?: React.ReactNode; skipFirst?: boolean }) {
-  return <CmsView id={id} eyebrow={eyebrow} tone={tone} c={await getPage(slug)} lead={lead} skipFirst={skipFirst}>{children}</CmsView>;
+  id, slug, eyebrow, tone = "flat", children, lead, headline, noEyebrow,
+}: { id: string; slug: string; eyebrow: string; tone?: Tone; children?: React.ReactNode; lead?: React.ReactNode; headline?: string; noEyebrow?: boolean }) {
+  return <CmsView id={id} eyebrow={eyebrow} tone={tone} c={await getPage(slug)} lead={lead} headline={headline} noEyebrow={noEyebrow}>{children}</CmsView>;
 }
 
 export function CmsView({
-  id, c, eyebrow, tone = "flat", children, lead, skipFirst,
-}: { id: string; c: PageContent; eyebrow: string; tone?: Tone; children?: React.ReactNode; lead?: React.ReactNode; skipFirst?: boolean }) {
-  const items = withPricing(skipFirst ? c.sections.slice(1) : c.sections).items;
+  id, c, eyebrow, tone = "flat", children, lead, headline, noEyebrow,
+}: { id: string; c: PageContent; eyebrow: string; tone?: Tone; children?: React.ReactNode; lead?: React.ReactNode; headline?: string; noEyebrow?: boolean }) {
+  const items = withPricing(c.sections).items;
   return (
     <section id={id} className={`${css.band} ${css[tone]} ${css.grain}`} aria-labelledby={`${id}-h`}>
       <div className={css.wrap}>
         <Reveal className={css.head}>
-          <p className={css.eyebrow}>{c.eyebrow ?? eyebrow}</p>
-          <h2 className={css.h2} id={`${id}-h`}><Words text={titleCase(c.headline)} accent /></h2>
+          {!noEyebrow && <p className={css.eyebrow}>{c.eyebrow ?? eyebrow}</p>}
+          <h2 className={css.h2} id={`${id}-h`}><Words text={titleCase(headline ?? c.headline)} accent /></h2>
         </Reveal>
 
         {lead}
