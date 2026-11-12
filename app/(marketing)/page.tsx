@@ -9,7 +9,6 @@ import { Testimonials } from "@/components/sections/Extras";
 import { CmsSection } from "@/components/sections/CmsSection";
 import { EventsSection } from "@/components/sections/EventsSection";
 import { ScrollFX } from "@/components/home/ScrollFX";
-import { MagnetLines } from "@/components/home/MagnetLines";
 import { HeroVideo } from "@/components/home/HeroVideo";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -52,7 +51,6 @@ export default async function Home({
       </div>
 
       <div id="home" className={css.heroBg}>
-        <MagnetLines />
         <HeroVideo />
         <PageBody
           heroOnly
