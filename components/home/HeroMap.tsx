@@ -2,7 +2,6 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { LOGOS } from "@/lib/logos";
 import { MAP_DOTS, MAP_H, MAP_PINS, MAP_W } from "@/lib/mapdata";
-import { STATS } from "@/lib/mentors";
 import css from "./heromap.module.css";
 
 // Schools where IvyIn mentors study. Everything else on the map is another top school we know well.
@@ -54,13 +53,6 @@ export function HeroMap() {
         <img src={`/logos/${active.slug}.png`} alt="" />
       </div>
 
-      <p className={css.legend} aria-hidden="true">
-        <span><i data-k="m" /> Our mentors</span>
-        <span><i data-k="o" /> More top schools</span>
-      </p>
-      <div className={css.count} aria-hidden="true">
-        <b>{STATS.mentors}</b> mentors <b>{STATS.universities}</b> universities
-      </div>
     </div>
   );
 }

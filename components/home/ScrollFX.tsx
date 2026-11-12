@@ -36,7 +36,7 @@ export function ScrollFX() {
       if (heroEl) {
         const p = clamp(y / (heroEl.offsetHeight * 0.85));
         if (heroH1) { heroH1.style.translate = `0 ${y * 0.16}px`; heroH1.style.opacity = String(1 - p * 0.75); }
-        if (orbit) { orbit.style.rotate = `${y * 0.05}deg`; orbit.style.scale = String(1 - p * 0.18); orbit.style.opacity = String(1 - p * 0.6); }
+        if (orbit) { orbit.style.scale = String(1 - p * 0.18); orbit.style.opacity = String(1 - p * 0.6); }
       }
 
       for (const w of wipes) {
