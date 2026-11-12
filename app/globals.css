@@ -34,7 +34,7 @@
   --flag: rgba(36, 76, 255, 0.16);
 
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-sans: "Nunito", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-sans: "Space Grotesk", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
@@ -205,7 +205,7 @@ td, th { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--lin
    ===================================================================== */
 .mk {
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-sans: "Nunito", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-sans: "Space Grotesk", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   font-family: var(--font-sans); color: var(--ink); background: transparent; line-height: 1.6;
 }
 .mk * { box-sizing: border-box; }
@@ -733,7 +733,7 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
 .confirm-row .btn.ghost:hover{background: var(--ultra);color: var(--porcelain)}
 
 /* Consultant application */
-.mk-banner{background: var(--ultra);color: var(--porcelain);text-align:center;padding:9px 16px;font:700 15px/1.4 var(--font-sans, "Nunito", sans-serif)}
+.mk-banner{background: var(--ultra);color: var(--porcelain);text-align:center;padding:9px 16px;font:700 15px/1.4 var(--font-sans, "Space Grotesk", sans-serif)}
 .mk-banner p{margin:0}
 .mk-banner a{color:var(--carbon);text-decoration:underline;text-underline-offset:3px;font-weight:800;margin-inline-start:6px}
 .mk-banner a:hover{text-decoration-thickness:3px}
