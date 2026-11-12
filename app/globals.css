@@ -818,3 +818,13 @@ th, td, .mk-cal-day { font-variant-numeric: tabular-nums; }
   [data-skew] { will-change: transform; }
   [data-wipe] { will-change: clip-path; }
 }
+
+/* Persistent next step */
+.fx-sticky { position: fixed; right: 20px; bottom: 20px; z-index: 90; box-shadow: 0 10px 30px rgba(23, 25, 29, .5); opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity .3s, transform .3s; }
+.fx-sticky[data-show="true"] { opacity: 1; transform: none; pointer-events: auto; }
+@media (max-width: 640px) { .fx-sticky { left: 16px; right: 16px; text-align: center; bottom: 14px; } }
+@media (prefers-reduced-motion: reduce) { .fx-sticky { transition: opacity .2s; transform: none; } }
+.mk-cal-sum { cursor: pointer; font: 800 1.1rem var(--font-sans); padding: 14px 18px; border: 2px solid rgba(232, 235, 237, 0.4); list-style: none; display: flex; justify-content: space-between; margin-bottom: 14px; }
+.mk-cal-sum::-webkit-details-marker { display: none; }
+.mk-cal-sum::after { content: "+"; }
+details[open] > .mk-cal-sum::after { content: "\2212"; }

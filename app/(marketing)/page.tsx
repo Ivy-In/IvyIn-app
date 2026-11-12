@@ -3,7 +3,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { PageBody } from "@/components/marketing";
 import { StatsAndTicker } from "@/components/home/HomeSections";
-import { Spotlight } from "@/components/home/Spotlight";
+import { StickyCta } from "@/components/home/StickyCta";
 import { MentorCarousel } from "@/components/home/MentorCarousel";
 import { Testimonials } from "@/components/sections/Extras";
 import { CmsSection } from "@/components/sections/CmsSection";
@@ -65,18 +65,18 @@ export default async function Home({
         />
       </div>
       <StatsAndTicker />
-      <Spotlight />
 
+      <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
+      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" />
       <CmsSection id="about" slug="about" eyebrow="About" tone="glow">
         <div style={{ marginTop: 28 }}>
           <MentorCarousel />
         </div>
       </CmsSection>
-      <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
-      <EventsSection monthParam={sp.month} />
-      <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" />
       <Testimonials />
+      <EventsSection monthParam={sp.month} />
       <FaqSection />
+      <StickyCta />
       <ContactSection sent={sp.sent} error={sp.error} />
     </>
   );

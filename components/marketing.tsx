@@ -10,11 +10,10 @@ import { HeroOrbit } from "@/components/home/HeroOrbit";
 import { Words } from "@/components/home/Words";
 
 const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/#about", label: "About" },
   { href: "/#how-it-works", label: "How It Works" },
-  { href: "/#events", label: "Events" },
   { href: "/#services", label: "Services" },
+  { href: "/#about", label: "Mentors" },
+  { href: "/#events", label: "Events" },
   { href: "/#resources", label: "Resources / FAQ" },
   { href: "/#contact", label: "Contact" },
 ];

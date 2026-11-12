@@ -21,6 +21,7 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
   const [topic, setTopic] = useState<Topic>("Getting Started");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const [all, setAll] = useState(false);
 
   const withTopic = useMemo(() => faqs.map((f) => ({ ...f, topic: topicOf(f.question) })), [faqs]);
   const counts = useMemo(() => Object.fromEntries(TOPICS.map((t) => [t, withTopic.filter((f) => f.topic === t).length])) as Record<Topic, number>, [withTopic]);
@@ -29,6 +30,8 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
   const list = searching
     ? withTopic.filter((f) => f.question.toLowerCase().includes(q) || f.answer.toLowerCase().includes(q))
     : withTopic.filter((f) => f.topic === topic);
+
+  const shown = searching || all ? list : list.slice(0, 4);
 
   if (faqs.length === 0) return <p className="mk-muted">Questions are on their way. Reach out in the Contact section below.</p>;
 
@@ -46,7 +49,7 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
               role="tab"
               aria-selected={!searching && topic === t}
               className={css.topic}
-              onClick={() => { setTopic(t); setQuery(""); setOpen(null); }}
+              onClick={() => { setTopic(t); setQuery(""); setOpen(null); setAll(false); }}
             >
               <span>{t}</span>
               <span className={css.count}>{counts[t]}</span>
@@ -64,7 +67,7 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
         {list.length === 0 && (
           <p className={css.empty}>No questions match that. <Link href="/#contact">Ask us directly.</Link></p>
         )}
-        {list.map((f, i) => {
+        {shown.map((f, i) => {
           const id = `${uid}-${i}`;
           const isOpen = open === f.question;
           return (
@@ -85,6 +88,9 @@ export function FaqExplorer({ faqs }: { faqs: Faq[] }) {
             </div>
           );
         })}
+        {!searching && !all && list.length > 4 && (
+          <button type="button" className="mk-btn mk-btn-ghost" onClick={() => setAll(true)}>Show all {list.length} questions</button>
+        )}
         <div className={`${css.ask} ${css.askBelow}`}>
           <strong>Still Have a Question?</strong>
           <Link className="mk-btn mk-btn-primary" href="/#contact">Ask Us</Link>
