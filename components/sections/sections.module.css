@@ -81,5 +81,4 @@
 .card:hover::after { opacity: 1; }
 .card[data-active]::before, .card:hover::before { transform: scaleX(1); }
 .card[data-active] { border-color: var(--ultra); }
-.card p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .card::before { transition: none; } }
