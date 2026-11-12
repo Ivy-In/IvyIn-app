@@ -31,7 +31,7 @@
 .closing p { margin: 0; color: var(--porcelain); font-size: 1.1rem; max-width: 46ch; }
 
 /* Contact */
-.formCard { border: 2px solid rgba(232, 235, 237, 0.4); background: rgba(23, 25, 29, 0.55); backdrop-filter: blur(8px); padding: 24px 28px 28px; }
+.formCard { border: 2px solid rgba(232, 235, 237, 0.4); background: rgba(23, 25, 29, 0.55); backdrop-filter: blur(8px); padding: 24px 28px 28px; margin-top: 24px; }
 .apply { margin-top: 28px; padding: 22px 24px; border: 2px solid var(--ultra); }
 .apply h3 { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; margin: 0 0 6px; color: var(--paper); }
 .apply p { margin: 0 0 14px; color: var(--paper); }
@@ -82,8 +82,10 @@
 @media (prefers-reduced-motion: reduce) { .card::before { transition: none; } }
 
 /* Contact: heading and offer on one row, then a compact two-column form. */
-.contactTop { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 8px; }
-.offer { display: grid; gap: 2px; padding: 14px 20px; background: var(--ultra); color: var(--porcelain) !important; text-decoration: none; margin-bottom: 6px; }
+.contactTop { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 0; }
+.contactTop > * { margin-bottom: 0 !important; }
+.contactTop .h2 { margin-bottom: 0; }
+.offer { display: grid; gap: 2px; padding: 14px 20px; background: var(--ultra); color: var(--porcelain) !important; text-decoration: none; margin-bottom: 0; flex-shrink: 0; }
 .offer b { font-family: var(--display); font-weight: 800; font-size: 1.25rem; letter-spacing: -.02em; }
 .offer span { font: 700 13px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; }
 .offer:hover { background: var(--porcelain); color: var(--carbon) !important; }
