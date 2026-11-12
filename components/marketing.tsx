@@ -71,20 +71,20 @@ export async function Footer() {
           <p style={{ margin: "0 0 16px", maxWidth: "28ch" }}>{sig.tagline}</p>
           <div style={{ display: "flex", gap: 10 }}>
             {socials.map(([label, href, icon]) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} style={{ display: "inline-grid", placeItems: "center", width: 40, height: 40, border: "2px solid #8fb5a3", color: "var(--paper)" }}>
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} style={{ display: "inline-grid", placeItems: "center", width: 40, height: 40, border: "2px solid rgba(232, 235, 237, 0.4)", color: "var(--paper)" }}>
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">{icon}</svg>
               </a>
             ))}
           </div>
         </div>
         <nav aria-label="Explore">
-          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--lime)" }}>Explore</h2>
+          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--porcelain)" }}>Explore</h2>
           <div style={{ display: "grid", gap: 6 }}>
             {NAV.map((n) => <Link key={n.href} href={n.href}>{n.label}</Link>)}
           </div>
         </nav>
         <nav aria-label="Get involved">
-          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--lime)" }}>Get Involved</h2>
+          <h2 style={{ fontSize: "1rem", marginBottom: 10, color: "var(--porcelain)" }}>Get Involved</h2>
           <div style={{ display: "grid", gap: 6 }}>
             <Link href="/apply">Become a Consultant</Link>
             <Link href="/guides">Admissions Guides</Link>
@@ -93,7 +93,7 @@ export async function Footer() {
           </div>
         </nav>
       </div>
-      <div className="mk-wrap" style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid rgba(255,255,255,.18)" }}>
+      <div className="mk-wrap" style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid rgba(232, 235, 237, 0.18)" }}>
         <span>© {new Date().getFullYear()} IvyIn</span>
       </div>
     </footer>

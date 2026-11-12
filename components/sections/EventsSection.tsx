@@ -31,7 +31,8 @@ type Info = { description: string | null; more_info_url: string | null };
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MAX_CHIPS_PER_DAY = 3;
 // Meetings use their own color, so they never look like public events.
-const MEETING_HEX = "#b5562b";
+const MEETING_HEX = "#BEC1C3";
+const MEETING_INK = "#17191D";
 
 export async function EventsSection({ monthParam: monthQuery }: { monthParam?: string }) {
 
@@ -126,12 +127,14 @@ export async function EventsSection({ monthParam: monthQuery }: { monthParam?: s
                     title: occ.meeting.title,
                     href: `#m-${occ.key}`,
                     hex: MEETING_HEX,
+                    ink: MEETING_INK,
                   })),
                   ...(byDay[c.key] ?? []).map((e) => ({
                     key: e.id,
                     title: e.title,
                     href: `#e-${e.id}`,
                     hex: EVENT_COLORS[e.color].hex,
+                    ink: EVENT_COLORS[e.color].ink,
                   })),
                 ];
                 const shown = chips.slice(0, MAX_CHIPS_PER_DAY);
@@ -140,7 +143,7 @@ export async function EventsSection({ monthParam: monthQuery }: { monthParam?: s
                   <div key={c.key} className={`mk-cal-cell${c.inMonth ? "" : " out"}`} role="gridcell">
                     <span className="mk-cal-day">{c.day}</span>
                     {shown.map((chip) => (
-                      <a key={chip.key} className="mk-chip" href={chip.href} title={chip.title} style={{ background: chip.hex }}>
+                      <a key={chip.key} className="mk-chip" href={chip.href} title={chip.title} style={{ background: chip.hex, color: chip.ink }}>
                         {chip.title}
                       </a>
                     ))}

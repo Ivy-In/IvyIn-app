@@ -8,8 +8,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 // type "setting", slug "email-signature". Optional `signoff` (for example "IvyIn Hiring Team")
 // is printed directly above the logo.
 
-const PRIMARY = "#114230";
-const SECONDARY = "#55786a";
+const PRIMARY = "#244CFF";
+const SECONDARY = "#17191D";
 const BASE = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ivy-in.com").replace(/\/+$/, "");
 
 export type Signature = { tagline: string; website: string; instagram: string; linkedin: string; whatsapp: string };
@@ -57,13 +57,13 @@ export function buildEmail(text: string, sig: Signature, signoff?: string) {
   const paragraphs = text
     .trim()
     .split(/\n{2,}/)
-    .map((p) => `<p style="margin:0 0 16px;${font};font-size:15px;line-height:1.6;color:#1b2b24">${esc(p).replace(/\n/g, "<br>")}</p>`)
+    .map((p) => `<p style="margin:0 0 16px;${font};font-size:15px;line-height:1.6;color:#17191D">${esc(p).replace(/\n/g, "<br>")}</p>`)
     .join("");
 
   const icon = (href: string, name: string, label: string) =>
     `<a href="${esc(href)}" style="text-decoration:none;display:inline-block;margin-right:14px"><img src="${BASE}/brand/email-${name}.png" width="26" height="26" alt="${label}" style="display:block;border:0"></a>`;
 
-  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#ffffff">
+  const html = `<!doctype html><html><body style="margin:0;padding:24px;background:#E8EBED">
 <div style="max-width:560px">
 ${paragraphs}
 ${signoff ? `<p style="margin:8px 0 18px;${font};font-size:15px;font-weight:bold;color:${PRIMARY}">${esc(signoff)}</p>` : ""}

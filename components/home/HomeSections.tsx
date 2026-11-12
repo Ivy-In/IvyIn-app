@@ -2,6 +2,7 @@ import { STATS } from "@/lib/mentors";
 import { Reveal } from "./Reveal";
 import { CountUp } from "./CountUp";
 import { Words } from "./Words";
+import { LogoWall } from "./LogoWall";
 import css from "./home.module.css";
 
 // Stats band directly under the hero. All numbers come from lib/mentors.ts.
@@ -34,7 +35,7 @@ export function StatsAndTicker() {
           </div>
         </div>
       </section>
-
+      <LogoWall />
     </>
   );
 }

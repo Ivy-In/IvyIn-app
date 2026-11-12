@@ -44,7 +44,7 @@ export default async function Dashboard() {
       <h1>Dashboard</h1>
 
       {level !== "ok" && (
-        <div className="card" style={{ borderColor: level === "critical" ? "var(--danger)" : "#c9b44a" }}>
+        <div className="card" style={{ borderColor: level === "critical" ? "var(--danger)" : "var(--ultra)" }}>
           <strong>{level === "critical" ? "Storage is nearly full." : "Storage is getting full."}</strong>{" "}
           Using {(bytes / GB).toFixed(1)} GB of the 50 GB plan. Delete files you no longer need on the Files page.
         </div>
@@ -64,7 +64,7 @@ export default async function Dashboard() {
         <h3>Activity, last 14 days</h3>
         <div role="img" aria-label={`Activity per day over the last 14 days: ${daily.join(", ")}`} style={{ display: "flex", alignItems: "flex-end", gap: 6, height: 90 }}>
           {daily.map((n, i) => (
-            <div key={i} title={`${n} on ${new Date(now - (13 - i) * DAY).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`} style={{ flex: 1, height: `${Math.max(4, (n / peak) * 100)}%`, background: n ? "var(--lime, #e8f2a8)" : "rgba(255,255,255,.18)" }} />
+            <div key={i} title={`${n} on ${new Date(now - (13 - i) * DAY).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`} style={{ flex: 1, height: `${Math.max(4, (n / peak) * 100)}%`, background: n ? "var(--ultra)" : "rgba(232, 235, 237, 0.18)" }} />
           ))}
         </div>
         <p className="muted" style={{ marginTop: 10 }}>
@@ -76,8 +76,8 @@ export default async function Dashboard() {
         <div className="card">
           <h3>Storage</h3>
           <p className="muted">{(bytes / GB).toFixed(2)} GB of 50 GB ({files.count ?? 0} files)</p>
-          <div style={{ background: "rgba(0,0,0,.28)", borderRadius: 0, height: 10, overflow: "hidden" }}>
-            <div style={{ width: `${pct}%`, background: level === "ok" ? "var(--lime, #e8f2a8)" : "#c9824a", height: "100%" }} />
+          <div style={{ background: "rgba(23, 25, 29, 0.28)", borderRadius: 0, height: 10, overflow: "hidden" }}>
+            <div style={{ width: `${pct}%`, background: level === "ok" ? "var(--ultra)" : "var(--ultra)", height: "100%" }} />
           </div>
           <p className="muted" style={{ marginTop: 10 }}>
             Alerts at 40 GB and 45 GB. Deleted files are removed from storage by the nightly job,

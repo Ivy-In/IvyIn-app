@@ -1,4 +1,5 @@
 "use client";
+import { logoFor } from "@/lib/logos";
 import { useRef, useState } from "react";
 import { AVATAR_GRADIENTS, MENTORS, TRACKS, personInitials, tracksOf, type Track } from "@/lib/mentors";
 import css from "./spotlight.module.css";
@@ -27,6 +28,7 @@ export function MentorCarousel() {
       <div className={css.rail} ref={rail} tabIndex={0} aria-label={`${list.length} mentors`}>
         {list.map((m, i) => (
           <article key={m.name} className={css.mcard}>
+            {logoFor(m.school) && /* eslint-disable-next-line @next/next/no-img-element */ <img className={css.schoolLogo} src={logoFor(m.school)!.src} alt={m.school} loading="lazy" />}
             <span className={css.avBig} style={{ background: AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length] }}>{personInitials(m.name)}</span>
             <h3>{m.name}</h3>
             <p className={css.meta}>{m.display ?? m.school} &rsquo;{String(m.year).slice(2)} &middot; {m.major}</p>

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { logoFor } from "@/lib/logos";
 import { AVATAR_GRADIENTS, MENTORS, SCHOOLS, personInitials } from "@/lib/mentors";
 import css from "./spotlight.module.css";
 
@@ -26,6 +27,10 @@ export function Spotlight() {
         <p className="sr-only" style={{ position: "absolute", left: -9999 }}>
           Our mentors attend {SCHOOLS.map((s) => s.school).join(", ")}.
         </p>
+        {logoFor(school) && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={`l-${school}`} className={css.logo} src={logoFor(school)!.src} alt="" />
+        )}
         <div className={css.big} data-skew="" style={{ "--len": school.length } as React.CSSProperties} aria-hidden="true"><span key={school}>{school}</span></div>
         <Link className="mk-btn mk-btn-ghost" href="/#about">See All Mentors</Link>
       </div>

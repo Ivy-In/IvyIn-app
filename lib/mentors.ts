@@ -80,9 +80,9 @@ export const initials = (school: string) =>
   school.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
 export const AVATAR_GRADIENTS = [
-  "linear-gradient(135deg,#2f7a52,#0f2a1f)", "linear-gradient(135deg,#d6b26a,#7a5c11)",
-  "linear-gradient(135deg,#3b6fb5,#1a3366)", "linear-gradient(135deg,#a8443b,#5a1f1a)",
-  "linear-gradient(135deg,#6b4fa3,#2f1f5a)", "linear-gradient(135deg,#2a8c8c,#124545)",
+  "linear-gradient(135deg,#244CFF,#17191D)", "linear-gradient(135deg,#1E3599,#17191D)",
+  "linear-gradient(135deg,#244CFF,#1E3599)", "linear-gradient(135deg,#17191D,#244CFF)",
+  "linear-gradient(135deg,#4B4D51,#17191D)", "linear-gradient(135deg,#244CFF,#4B4D51)",
 ];
 
 export const personInitials = (name: string) =>

@@ -2,11 +2,11 @@
 // and the database stores them in UTC.
 
 export const EVENT_COLORS = {
-  sage: { label: "Sage", hex: "#3f7a5e" },
-  teal: { label: "Teal", hex: "#2f6f73" },
-  amber: { label: "Amber", hex: "#8a5a00" },
-  plum: { label: "Plum", hex: "#6b3f6e" },
-  slate: { label: "Slate", hex: "#4a5a66" },
+  sage: { label: "Ultramarine", hex: "#244CFF", ink: "#E8EBED" },
+  teal: { label: "Deep blue", hex: "#1E3599", ink: "#E8EBED" },
+  amber: { label: "Porcelain", hex: "#E8EBED", ink: "#17191D" },
+  plum: { label: "Grey", hex: "#94979A", ink: "#17191D" },
+  slate: { label: "Charcoal", hex: "#4B4D51", ink: "#E8EBED" },
 } as const;
 
 export type EventColor = keyof typeof EVENT_COLORS;
