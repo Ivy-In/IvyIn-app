@@ -841,3 +841,6 @@ details[open] > .mk-cal-sum::after { content: "\2212"; }
   .mk-hero:has(> [data-orbit])::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(23, 25, 29, .92) 0%, rgba(23, 25, 29, .6) 30%, rgba(23, 25, 29, 0) 55%); }
 }
 .mk-brand img.mk-brand img, .mk-brand img { height: 46px; width: auto; }
+/* "My site" is a side door, not a main section: keep it quieter than the rest of the menu. */
+.portal-nav a[href^="/site/"] { color: rgba(232, 235, 237, 0.55); font-weight: 600; }
+.portal-nav a[href^="/site/"]:hover { color: var(--porcelain); }
