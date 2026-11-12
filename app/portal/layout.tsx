@@ -25,7 +25,7 @@ export default async function PortalLayout({ children }: { children: React.React
         <div className="wrap">
           <Link href="/" className="mk-brand" aria-label="IvyIn home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-header-light.png" alt="IvyIn" width={1488} height={458} />
+            <img src="/brand/logo-header-light.png" alt="IvyIn" width={1240} height={458} />
           </Link>
           {ctx.isStaff && <span className="badge">{ctx.role}</span>}
           <nav className="portal-nav">

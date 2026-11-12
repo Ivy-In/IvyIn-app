@@ -26,7 +26,7 @@ export async function Header() {
       <div className="mk-wrap mk-nav-inner">
         <Link href="/" className="mk-brand" aria-label="IvyIn home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo-header-light.png" alt="IvyIn" width={1488} height={458} />
+          <img src="/brand/logo-header-light.png" alt="IvyIn" width={1240} height={458} />
         </Link>
         <nav className="mk-links" aria-label="Main">
           <NavLinks items={NAV} />
@@ -66,7 +66,7 @@ export async function Footer() {
       <div className="mk-wrap" style={{ display: "grid", gap: "32px 48px", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", alignItems: "start" }}>
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo-header-light.png" alt="IvyIn" width={160} height={49} style={{ height: "auto", marginBottom: 12 }} />
+          <img src="/brand/logo-header-light.png" alt="IvyIn" width={133} height={49} style={{ height: "auto", marginBottom: 12 }} />
           <p style={{ margin: "0 0 16px", maxWidth: "28ch" }}>{sig.tagline}</p>
           <div style={{ display: "flex", gap: 10 }}>
             {socials.map(([label, href, icon]) => (
