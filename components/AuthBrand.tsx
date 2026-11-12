@@ -5,7 +5,7 @@ export function AuthBrand() {
   return (
     <Link href="/" className="mk-brand auth-brand" aria-label="IvyIn home">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/brand/logo-header-light.png" alt="IvyIn" width={727} height={344} />
+      <img src="/brand/logo-header-light.png" alt="IvyIn" width={768} height={304} />
     </Link>
   );
 }

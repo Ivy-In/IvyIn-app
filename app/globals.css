@@ -840,4 +840,4 @@ details[open] > .mk-cal-sum::after { content: "\2212"; }
 @media (min-width: 901px) {
   .mk-hero:has(> [data-orbit])::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(23, 25, 29, .92) 0%, rgba(23, 25, 29, .6) 30%, rgba(23, 25, 29, 0) 55%); }
 }
-.mk-brand img.mk-brand img, .mk-brand img { height: 54px; width: auto; }
+.mk-brand img.mk-brand img, .mk-brand img { height: 46px; width: auto; }

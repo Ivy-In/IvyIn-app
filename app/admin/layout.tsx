@@ -32,7 +32,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="wrap">
           <Link href="/" className="mk-brand" aria-label="IvyIn home">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-header-light.png" alt="IvyIn" width={727} height={344} />
+            <img src="/brand/logo-header-light.png" alt="IvyIn" width={768} height={304} />
           </Link>
           <span className="badge">admin</span>
           <nav className="portal-nav" aria-label="Admin">
