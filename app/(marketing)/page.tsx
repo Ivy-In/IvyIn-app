@@ -13,6 +13,7 @@ import { ScrollFX } from "@/components/home/ScrollFX";
 import { HeroVideo } from "@/components/home/HeroVideo";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { KineticType } from "@/components/reel/KineticType";
 import { getPage } from "@/lib/content";
 import css from "@/components/home/home.module.css";
 
@@ -66,6 +67,7 @@ export default async function Home({
       <StatsAndTicker />
 
       <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
+      <KineticType />
       <CmsSection id="services" slug="services" eyebrow="Services" tone="glow" headline="All-in-One Packages" noEyebrow lead={<SprintDeal />} />
       <CmsSection id="about" slug="about" eyebrow="About" tone="glow">
         <div style={{ marginTop: 28 }}>

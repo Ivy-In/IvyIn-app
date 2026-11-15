@@ -92,3 +92,60 @@
 .reveal { transition-property: opacity, transform, filter; }
 .reveal[data-state="hide"].from_tilt { transform: perspective(1000px) translateY(70px) rotateX(16deg) scale(.93); filter: blur(8px); transform-origin: 50% 100%; }
 .reveal[data-state="in"] { filter: none; }
+
+/* Reel title card: the hero wrapper is ultramarine, with the dot grid. */
+.heroBg { background: var(--ultra); }
+.heroBg::before { display: none; }
+
+/* ==== Reel dashboard (scene 7): a porcelain analytics panel on carbon ==== */
+.stats.stats { background: none; color: var(--carbon); padding: 56px 0 28px; }
+.dash { position: relative; background: var(--porcelain); color: var(--carbon); border-radius: 32px; padding: 28px 32px 32px; box-shadow: 0 40px 100px -40px rgba(0, 0, 0, .7); overflow: hidden; }
+.dash :global(.rl-label) { color: rgba(23, 25, 29, 0.66); }
+.dashTop { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(23, 25, 29, 0.12); margin-bottom: 22px; }
+.dashH.dashH { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 5vw, 4.2rem); line-height: .95; letter-spacing: -.035em; text-transform: uppercase; color: var(--carbon); margin: 0 0 26px; max-width: 18ch; }
+.dashH :global(.fx-acc) > span, .dashH span { color: inherit; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(23, 25, 29, 0.12); border-bottom: 1px solid rgba(23, 25, 29, 0.12); }
+.kpis > div { display: grid; gap: 10px; align-content: start; padding: 20px 20px 22px 0; }
+.kpis > div + div { padding-left: 20px; border-left: 1px solid rgba(23, 25, 29, 0.12); }
+.kpis b { font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 6.2vw, 5.6rem); line-height: .85; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.charts { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 32px; margin-top: 26px; }
+.charts figure { margin: 0; display: grid; gap: 16px; align-content: start; }
+.note { margin: 0; font-size: .95rem; color: rgba(23, 25, 29, 0.72); }
+
+/* Bars: light grid lines, no heavy axes, tallest bar in ultramarine. */
+.barRow { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 12px; height: 220px; align-items: end;
+  background-image: linear-gradient(rgba(23, 25, 29, 0.09) 1px, transparent 1px); background-size: 100% 25%; padding-top: 6px; }
+.bar { display: grid; grid-template-rows: 1fr auto; gap: 8px; height: 100%; min-width: 0; }
+.bar i { position: relative; align-self: end; height: var(--h); background: rgba(23, 25, 29, 0.82); border-radius: 8px 8px 2px 2px; transform-origin: 50% 100%; }
+.bar[data-top] i { background: var(--ultra); }
+.bar em { position: absolute; left: 50%; top: -1.6em; translate: -50% 0; font: 700 13px var(--mono); font-style: normal; color: var(--carbon); }
+.bar span { font: 500 11px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: rgba(23, 25, 29, 0.7); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Donut fills radially. */
+.ring { position: relative; width: min(220px, 100%); aspect-ratio: 1; display: grid; place-items: center; }
+.ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.ringTrack { fill: none; stroke: rgba(23, 25, 29, 0.1); stroke-width: 12; }
+.ringFill { fill: none; stroke: var(--ultra); stroke-width: 12; stroke-linecap: round; stroke-dasharray: var(--c); stroke-dashoffset: var(--o); }
+.ring b { font-family: var(--display); font-weight: 400; font-size: clamp(2.4rem, 4vw, 3.4rem); letter-spacing: -.04em; }
+
+/* Entrance: waits until scrolled in (data-wait), then plays (data-in). */
+@media (prefers-reduced-motion: no-preference) {
+  .dash[data-wait]:not([data-in]) .bar i { transform: scaleY(0); }
+  .dash[data-wait]:not([data-in]) .ringFill { stroke-dashoffset: var(--c); }
+  .dash[data-wait]:not([data-in]) .kpis > div { opacity: 0; transform: translateY(18px); }
+  .bar i { transition: transform .9s var(--snap) calc(var(--i) * 70ms + .25s); }
+  .ringFill { transition: stroke-dashoffset 1.4s var(--snap) .5s; }
+  .kpis > div { transition: opacity .6s var(--snap), transform .8s var(--snap); }
+  .kpis > div:nth-child(2) { transition-delay: .08s; } .kpis > div:nth-child(3) { transition-delay: .16s; } .kpis > div:nth-child(4) { transition-delay: .24s; }
+}
+
+@media (max-width: 860px) {
+  .dash { padding: 22px 20px 24px; border-radius: 24px; }
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .kpis > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .kpis > div:nth-child(n+3) { border-top: 1px solid rgba(23, 25, 29, 0.12); }
+  .charts { grid-template-columns: 1fr; }
+  .barRow { height: 180px; gap: 6px; }
+  .bar span { font-size: 9px; }
+  .dashTop span:last-child { display: none; }
+}

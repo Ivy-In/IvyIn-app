@@ -1,0 +1,289 @@
+/* ==========================================================================
+   REEL LAYER
+   The motion-showreel look: dot grids, corner crosshairs, mono technical
+   labels, pill buttons, frosted large-radius panels, snappy easing.
+   Colors stay porcelain / carbon / ultramarine (ultramarine plays the
+   reel's orange). Loaded after globals.css, so it wins on equal selectors.
+   ========================================================================== */
+
+:root {
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --snap: cubic-bezier(.16, 1, .3, 1);       /* starts fast, brakes hard */
+  --snap-in: cubic-bezier(.7, 0, .84, 0);    /* hard ease-in for wipes */
+  --r-xl: 32px;
+  --r-lg: 24px;
+  --r-md: 16px;
+  --dot: rgba(232, 235, 237, 0.09);
+  --frost: rgba(232, 235, 237, 0.06);
+  --frost-line: rgba(232, 235, 237, 0.14);
+  --frost-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(232, 235, 237, 0.12);
+}
+
+/* The precise dot grid from the reel's first frame, behind every page. */
+html { background-color: var(--carbon); }
+body {
+  background-color: var(--carbon);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  background-attachment: fixed;
+}
+body::before { display: none !important; }
+::selection { background: var(--ultra); color: var(--porcelain); }
+
+/* --- Technical label: mono, caps, wide tracking ----------------------- */
+.rl-label {
+  font: 500 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(232, 235, 237, 0.72);
+}
+
+/* --- Corner crosshairs: <span class="rl-x tl"></span> etc. ---------- */
+.rl-x { position: absolute; width: 18px; height: 18px; pointer-events: none; z-index: 2; }
+.rl-x::before, .rl-x::after { content: ""; position: absolute; background: currentColor; }
+.rl-x::before { left: 8px; top: 0; width: 2px; height: 18px; }
+.rl-x::after { top: 8px; left: 0; height: 2px; width: 18px; }
+.rl-x.tl { top: 18px; left: 18px; } .rl-x.tr { top: 18px; right: 18px; }
+.rl-x.bl { bottom: 18px; left: 18px; } .rl-x.br { bottom: 18px; right: 18px; }
+.rl-corner { position: absolute; z-index: 2; }
+.rl-corner.tl { top: 22px; left: 46px; } .rl-corner.tr { top: 22px; right: 46px; text-align: right; }
+.rl-corner.bl { bottom: 22px; left: 46px; } .rl-corner.br { bottom: 22px; right: 46px; text-align: right; }
+
+/* --- Buttons become pills with a chevron, like the reel's "Render >" -- */
+.mk-btn, .mk .mk-btn, .btn {
+  border-radius: 999px !important; font-family: var(--font-sans) !important; font-weight: 700 !important;
+  letter-spacing: -.005em; transition: transform .45s var(--snap), background-color .2s, color .2s, border-color .2s, box-shadow .45s var(--snap) !important;
+}
+.mk-btn-primary, .mk .mk-btn-primary { background: var(--ultra); color: var(--porcelain); }
+.mk-btn-primary::after, .rl-chev::after { content: "›"; display: inline-block; margin-left: .5em; font-weight: 700; transform: translateY(-.04em); transition: transform .45s var(--snap); }
+.mk-btn-primary:hover::after, .rl-chev:hover::after { transform: translate(4px, -.04em); }
+.mk-btn-primary:hover { background: var(--porcelain); color: var(--carbon); box-shadow: 0 14px 40px -12px rgba(36, 76, 255, .9); }
+.mk-btn-ghost, .mk .mk-btn-ghost { border-width: 1.5px !important; }
+@media (hover: hover) {
+  .mk-btn:hover, .btn:hover { transform: translateY(-2px); }
+}
+.mk-btn:not(:disabled):active, .btn:not(:disabled):active { transform: scale(.96) !important; }
+
+/* --- Inputs: soft radius, frosted -------------------------------------- */
+input, textarea, select { border-radius: 14px !important; }
+.mk-form input, .mk-form textarea { border-radius: 14px !important; }
+
+/* --- Banner: a mono ticker strip --------------------------------------- */
+.mk-banner p, .mk-banner p a { color: var(--porcelain) !important; }
+.mk-banner p { font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: .12em; text-transform: uppercase; }
+
+/* --- Nav: frosted carbon bar, pill links ------------------------------- */
+.mk-nav { background: rgba(23, 25, 29, 0.78) !important; -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); border-bottom: 1px solid var(--frost-line) !important; }
+.mk-links a { border-radius: 999px !important; transition: background-color .2s, box-shadow .45s var(--snap); }
+@media (hover: hover) { .mk-links a:hover { background: rgba(232, 235, 237, 0.08) !important; } }
+.mk-links a[aria-current="page"] { background: rgba(232, 235, 237, 0.1) !important; box-shadow: inset 0 0 0 1px var(--frost-line) !important; }
+
+/* --- Section heads: the technical label row ---------------------------- */
+.rl-head { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; }
+.rl-head::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--frost-line), transparent); }
+
+/* --- Reveal timing: everything rides the snap curve -------------------- */
+[data-reveal], .fx-w > span { transition-timing-function: var(--snap) !important; }
+
+/* --- Footer is drawn by its own component (gooey band) ---------------- */
+
+/* ==========================================================================
+   APP PAGES: portal, admin, login, sign-up
+   ========================================================================== */
+header.top { padding: 12px 16px 0 !important; }
+header.top .wrap {
+  border-radius: 999px !important; background: rgba(23, 25, 29, 0.72) !important;
+  border: 1px solid var(--frost-line) !important; box-shadow: var(--frost-shadow) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%);
+}
+main.wrap > h1, .wrap > h1:first-child {
+  font-family: "Archivo Black", "Arial Black", sans-serif !important; font-weight: 400 !important;
+  font-size: clamp(2rem, 5vw, 3.6rem) !important; line-height: .95 !important; letter-spacing: -.035em !important;
+  text-transform: uppercase; margin: 28px 0 18px !important;
+}
+.wrap h2 { font-family: "Archivo Black", "Arial Black", sans-serif; font-weight: 400; letter-spacing: -.02em; }
+.wrap h3 { font-family: var(--font-sans); font-weight: 700; letter-spacing: -.01em; }
+
+.card {
+  position: relative; border-radius: var(--r-lg) !important;
+  background: linear-gradient(160deg, rgba(232, 235, 237, 0.075), rgba(232, 235, 237, 0.03)) !important;
+  border: 1px solid var(--frost-line) !important; box-shadow: var(--frost-shadow) !important;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+.card > h3:first-child, .card > h2:first-child {
+  font: 500 12px/1.2 var(--mono) !important; letter-spacing: .14em !important; text-transform: uppercase;
+  color: rgba(232, 235, 237, 0.72) !important; margin: 0 0 14px !important;
+}
+.card > h3:first-child::before, .card > h2:first-child::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; background: var(--ultra); margin-right: 10px; vertical-align: 1px;
+}
+
+.btn { padding: 11px 22px !important; background: var(--ultra) !important; color: var(--porcelain) !important; border: 0 !important; box-shadow: none !important; }
+.btn:hover { background: var(--porcelain) !important; color: var(--carbon) !important; }
+.btn.ghost { background: transparent !important; border: 1.5px solid rgba(232, 235, 237, 0.5) !important; color: var(--porcelain) !important; }
+.btn.ghost:hover { background: var(--porcelain) !important; color: var(--carbon) !important; }
+
+.tabs { border-radius: 999px !important; }
+.tab { border-radius: 999px !important; font-family: var(--mono) !important; font-size: 12px !important; letter-spacing: .12em; text-transform: uppercase; }
+.tab.on { background: var(--ultra) !important; box-shadow: none !important; color: var(--porcelain) !important; }
+
+.badge { border-radius: 999px !important; font-family: var(--mono) !important; font-size: 11px !important; letter-spacing: .1em; text-transform: uppercase; }
+
+table { border-collapse: separate; border-spacing: 0; }
+th { font: 500 11px/1.2 var(--mono) !important; letter-spacing: .14em; text-transform: uppercase; color: rgba(232, 235, 237, 0.62) !important; }
+
+/* Login / sign-up: the form sits in a frosted "modal" on the dot grid. */
+.auth-card, form.card { border-radius: var(--r-xl) !important; }
+
+/* ==========================================================================
+   Reduced motion: no movement, no blur transitions.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .mk-btn, .btn, .mk-links a { transition: background-color .2s, color .2s !important; }
+  .mk-btn-primary::after, .rl-chev::after { transition: none; }
+}
+
+/* ==========================================================================
+   INTRO: dot grid + spinner, then the light burst and collapse (≈1.5s)
+   ========================================================================== */
+.rl-intro {
+  position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; pointer-events: none;
+  background-color: var(--carbon);
+  background-image: radial-gradient(rgba(232, 235, 237, 0.2) 1px, transparent 1.4px);
+  background-size: 22px 22px; background-position: center;
+  animation: rl-collapse .5s var(--snap-in) 1.02s forwards;
+}
+.rl-intro-spin { display: grid; justify-items: center; gap: 14px; color: var(--porcelain); animation: rl-fade .18s linear .8s forwards; }
+.rl-intro-spin svg { animation: rl-spin .9s linear infinite; }
+.rl-intro-spin i { width: 5px; height: 5px; background: var(--porcelain); border-radius: 50%; }
+.rl-intro-burst {
+  position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px; transform: scaleX(0); opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--ultra) 18%, #9fb3ff 42%, var(--porcelain) 50%, #9fb3ff 58%, var(--ultra) 82%, transparent);
+  box-shadow: 0 0 24px 6px rgba(36, 76, 255, .85), 0 0 80px 20px rgba(36, 76, 255, .45);
+  animation: rl-burst .3s var(--snap-in) .78s forwards;
+}
+@keyframes rl-spin { to { transform: rotate(360deg); } }
+@keyframes rl-fade { to { opacity: 0; transform: scale(.6); } }
+@keyframes rl-burst { from { opacity: 1; } to { opacity: 1; transform: scaleX(1); } }
+@keyframes rl-collapse {
+  0% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(50% 0 50% 0); visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) { .rl-intro { display: none !important; } }
+
+/* ==========================================================================
+   HERO: the ultramarine title card ("NAME." + subtitle + crosshairs)
+   Porcelain text on ultramarine is 4.9:1; carbon text there would fail, so
+   carbon is used only for fills (chips, dots, the full stop).
+   ========================================================================== */
+.mk .mk-hero.rl-title {
+  position: relative; overflow: hidden; color: var(--porcelain);
+  background-color: var(--ultra);
+  background-image: radial-gradient(rgba(23, 25, 29, 0.22) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  padding: 84px 0 92px; margin: 0;
+}
+.rl-title .rl-x { color: var(--porcelain); }
+.rl-title .rl-label { color: rgba(232, 235, 237, 0.86); }
+.rl-title > .mk-wrap { position: relative; z-index: 1; padding: 0 46px !important; }
+.mk .rl-title .mk-eyebrow { font: 500 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+
+/* The wordmark, set as big as the screen allows. */
+.rl-wordmark {
+  margin: 0 0 .1em; font: 700 clamp(4.2rem, 11.5vw, 11rem)/.8 var(--font-sans); letter-spacing: -.065em;
+  color: var(--porcelain); white-space: nowrap; user-select: none;
+}
+.rl-wordmark b { display: inline-block; width: .17em; height: .17em; margin-left: .05em; background: var(--carbon); vertical-align: baseline; }
+.mk .rl-title h1 {
+  font-family: var(--display) !important; font-size: clamp(1.7rem, 3.6vw, 3.1rem) !important; line-height: 1.02 !important;
+  letter-spacing: -.03em !important; max-width: 21ch !important; margin: 0 0 .55em !important;
+  color: var(--porcelain) !important; -webkit-text-fill-color: var(--porcelain) !important;
+}
+.mk .rl-title .mk-lede { color: var(--porcelain) !important; font-size: 1.2rem !important; max-width: 40ch !important; opacity: .95; }
+.mk .rl-title p.mk-pills { font-size: 1.15rem !important; max-width: 44ch !important; color: var(--porcelain) !important; }
+.rl-title .mk-pill { border-radius: 999px !important; padding: 3px 14px 5px !important; background: var(--carbon) !important; color: var(--porcelain) !important; }
+.rl-title .mk-pill.p2 { background: var(--porcelain) !important; color: var(--carbon) !important; }
+.rl-title .mk-pill.p1, .rl-title .mk-pill.p3 { background: rgba(23, 25, 29, 0.45) !important; }
+.rl-title .mk-btn-primary { background: var(--carbon) !important; color: var(--porcelain) !important; }
+.rl-title .mk-btn-primary:hover { background: var(--porcelain) !important; color: var(--carbon) !important; box-shadow: 0 16px 40px -14px rgba(23, 25, 29, .9) !important; }
+.rl-title .mk-btn-ghost { border-color: var(--porcelain) !important; color: var(--porcelain) !important; background: transparent !important; }
+.rl-title .mk-btn-ghost:hover { background: var(--porcelain) !important; color: var(--carbon) !important; }
+.rl-title .mk-cut:not([data-orbit]) { background: var(--carbon) !important; }
+.rl-title .mk-cut[data-orbit] { background: none !important; }
+
+/* The map: carbon dots on ultramarine, porcelain pins. */
+.mk-hero.rl-title:has(> [data-orbit])::after { background: linear-gradient(90deg, rgba(36, 76, 255, .94) 0%, rgba(36, 76, 255, .7) 30%, rgba(36, 76, 255, 0) 56%) !important; }
+
+@media (max-width: 900px) {
+  .mk .mk-hero.rl-title { padding: 64px 0 72px; }
+  .rl-title > .mk-wrap { padding: 0 22px !important; }
+  .rl-title .rl-corner { display: none; }
+  .rl-x.tl, .rl-x.tr { top: 12px; } .rl-x.bl, .rl-x.br { bottom: 12px; }
+  .rl-x.tl, .rl-x.bl { left: 12px; } .rl-x.tr, .rl-x.br { right: 12px; }
+}
+
+/* Sticky offer: a carbon pill so it reads on both ultramarine and carbon sections. */
+.mk .fx-sticky { background: var(--carbon) !important; color: var(--porcelain) !important; box-shadow: inset 0 0 0 1.5px rgba(232, 235, 237, .5), 0 18px 40px -14px rgba(0, 0, 0, .8) !important; }
+.mk .fx-sticky:hover { background: var(--porcelain) !important; color: var(--carbon) !important; }
+
+/* ==========================================================================
+   FOOTER: ultramarine band with the gooey blob (scene 12)
+   ========================================================================== */
+.mk-footer.rl-foot {
+  position: relative; overflow: hidden; isolation: isolate; color: var(--porcelain) !important;
+  background-color: var(--ultra) !important; border-top: 0 !important; padding: 72px 0 40px !important;
+  background-image: radial-gradient(rgba(23, 25, 29, 0.2) 1px, transparent 1.5px) !important; background-size: 22px 22px !important;
+}
+.rl-foot .rl-x { color: var(--porcelain); }
+.rl-foot > .mk-wrap { position: relative; z-index: 1; }
+.rl-foot, .rl-foot p, .rl-foot a, .rl-foot h2, .rl-foot span { color: var(--porcelain) !important; }
+.rl-foot h2 { font: 500 12px/1.2 var(--mono) !important; letter-spacing: .14em !important; text-transform: uppercase; }
+.rl-foot nav a { text-decoration: none; font-weight: 600; }
+.rl-foot nav a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.rl-foot a[aria-label] { border-radius: 999px !important; border-color: rgba(232, 235, 237, 0.6) !important; transition: background-color .2s, color .2s; }
+.rl-foot a[aria-label]:hover { background: var(--porcelain); color: var(--carbon) !important; }
+.rl-foot .rl-label { color: rgba(232, 235, 237, 0.9) !important; }
+.rl-foot .mk-wrap:last-of-type { border-top-color: rgba(232, 235, 237, 0.35) !important; }
+.rl-goo { position: absolute; z-index: 0; right: -90px; bottom: -150px; width: min(540px, 56vw); height: auto; }
+.rl-goo circle { transform-box: view-box; }
+@media (prefers-reduced-motion: no-preference) {
+  .rl-goo .g1 { animation: goo1 9s ease-in-out infinite alternate; }
+  .rl-goo .g2 { animation: goo2 7s ease-in-out infinite alternate; }
+  .rl-goo .g3 { animation: goo3 8s ease-in-out infinite alternate; }
+  .rl-goo .g4 { animation: goo4 6s ease-in-out infinite alternate; }
+  .rl-goo [class^="d"] { animation: drop 5s ease-in-out infinite alternate; }
+  .rl-goo .d1 { animation-duration: 6.2s; animation-delay: -1s; } .rl-goo .d2 { animation-duration: 4.4s; animation-delay: -2s; }
+  .rl-goo .d3 { animation-duration: 5.6s; animation-delay: -3s; } .rl-goo .d4 { animation-duration: 6.8s; animation-delay: -.5s; }
+  .rl-goo .d5 { animation-duration: 4.8s; animation-delay: -2.5s; } .rl-goo .d6 { animation-duration: 5.2s; animation-delay: -4s; }
+}
+@keyframes goo1 { to { transform: translate(-18px, 14px) scale(1.06); } }
+@keyframes goo2 { to { transform: translate(46px, 40px); } }
+@keyframes goo3 { to { transform: translate(-52px, -30px); } }
+@keyframes goo4 { to { transform: translate(-20px, 70px); } }
+@keyframes drop { 0% { transform: translate(0, 0); } 50% { transform: translate(14px, -18px); } 100% { transform: translate(-16px, 12px); } }
+@media (max-width: 760px) { .rl-goo { width: 90vw; right: -40vw; bottom: -30vw; opacity: .9; } }
+
+/* ==========================================================================
+   Marketing leftovers: calendar, cards, chips
+   ========================================================================== */
+.mk .mk-card { border-radius: var(--r-lg) !important; border: 1px solid var(--frost-line) !important;
+  background: linear-gradient(160deg, rgba(232, 235, 237, 0.075), rgba(232, 235, 237, 0.025)) !important;
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--frost-shadow) !important; }
+.mk .mk-card > h2:first-child, .mk .mk-card > h3:first-child { font: 500 12px/1.2 var(--mono) !important; letter-spacing: .14em !important; text-transform: uppercase; color: rgba(232, 235, 237, 0.72) !important; }
+.mk-cal-sum { border-radius: 999px !important; border-width: 1px !important; border-color: rgba(232, 235, 237, 0.24) !important; padding: 14px 22px !important; font-weight: 700 !important; }
+.mk-cal { border-radius: var(--r-md) !important; overflow: hidden; }
+.mk-cal-dow { font-family: var(--mono) !important; font-weight: 500 !important; }
+.mk-chip { border-radius: 999px !important; }
+.mk-locked { border-radius: var(--r-md); overflow: hidden; }
+
+/* Mentor filters scroll sideways on phones instead of wrapping into tall pills. */
+@media (max-width: 700px) {
+  .mk [role="tablist"][aria-label="Filter mentors by field"] { flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; margin-inline: -16px; padding-inline: 16px; }
+  .mk [role="tablist"][aria-label="Filter mentors by field"] > * { flex: none; white-space: nowrap; }
+}
+
+/* Log in, sign up, MFA: a frosted "modal" with a heavy uppercase title. */
+main.wrap > .card { border-radius: var(--r-xl) !important; padding: 30px 30px 26px !important; }
+main.wrap > .card > h1:first-child {
+  font-family: "Archivo Black", "Arial Black", sans-serif !important; font-weight: 400 !important; text-transform: uppercase;
+  font-size: clamp(1.8rem, 7vw, 2.5rem) !important; line-height: .95 !important; letter-spacing: -.035em !important; margin: 0 0 18px !important;
+}
+.auth-brand { display: inline-block; }

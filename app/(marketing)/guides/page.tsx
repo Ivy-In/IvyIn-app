@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { GUIDES } from "@/lib/guides";
 import css from "./guides.module.css";
+import { TitleFrame } from "@/components/reel/TitleFrame";
 
 export const metadata: Metadata = {
   title: "College Admissions Guides",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 export default function Guides() {
   return (
     <>
-      <section className="mk-hero">
+      <section className="mk-hero rl-title">
+        <TitleFrame label="Guides" />
         <div className="mk-wrap">
           <div className="mk-eyebrow">Guides</div>
           <h1>College admissions, explained</h1>

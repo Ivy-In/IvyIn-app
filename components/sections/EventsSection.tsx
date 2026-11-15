@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ParticleFlow } from "@/components/reel/ParticleFlow";
 import { SectionHead } from "./SectionHead";
 import css from "./sections.module.css";
 import { createClient } from "@/lib/supabase/server";
@@ -107,6 +108,7 @@ export async function EventsSection({ monthParam: monthQuery }: { monthParam?: s
   return (
     <>
       <section id="events" className={`${css.band} ${css.deep}`}>
+        <ParticleFlow />
         <div className={css.wrap}>
           <SectionHead eyebrow="Events" title="Guest Speakers, Panels, and Info Sessions" lede="Upcoming events from IvyIn. Times are Eastern (ET)." />
           <details open={!!monthQuery}>

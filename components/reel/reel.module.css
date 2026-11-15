@@ -1,0 +1,55 @@
+/* ==== Kinetic type (scene 6) ==== */
+.kinetic { position: relative; overflow: hidden; padding: 28px 0; background: var(--carbon); border-block: 1px solid rgba(232, 235, 237, 0.08); user-select: none; }
+.krow { overflow: hidden; line-height: .92; }
+.ktrack { display: flex; width: max-content; }
+.khalf { display: flex; flex: none; }
+.khalf span {
+  padding-right: .35em; font: 400 clamp(3rem, 8.4vw, 7.6rem)/.92 var(--display); letter-spacing: -.03em; text-transform: uppercase;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(232, 235, 237, 0.26);
+}
+.kcenter { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+.kword {
+  font: 400 clamp(3.4rem, 10vw, 9.4rem)/.9 var(--display); letter-spacing: -.035em; text-transform: uppercase;
+  color: var(--porcelain); background: var(--ultra); padding: .02em .16em .06em; border-radius: .12em;
+  box-shadow: 0 30px 80px -20px rgba(36, 76, 255, .8);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .krow[data-dir="l"] .ktrack { animation: k-left 38s linear infinite; }
+  .krow[data-dir="r"] .ktrack { animation: k-right 44s linear infinite; }
+  .kword { animation: k-hit .9s var(--snap) both; }
+  .khalf span { animation: k-pulse .9s ease-out infinite; }
+}
+@keyframes k-left { to { transform: translateX(-50%); } }
+@keyframes k-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes k-hit {
+  0% { transform: scale(1.35) rotate(-4deg); opacity: 0; }
+  14% { transform: scale(.94) rotate(1.5deg); opacity: 1; }
+  30% { transform: scale(1.02) rotate(-.5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes k-pulse { 0% { -webkit-text-stroke-color: rgba(232, 235, 237, 0.5); } 60%, 100% { -webkit-text-stroke-color: rgba(232, 235, 237, 0.22); } }
+@media (max-width: 700px) { .kinetic { padding: 18px 0; } }
+
+/* ==== Cube wave (scene 4) ==== */
+.cubes { position: absolute; inset: 0; overflow: hidden;
+  background: radial-gradient(60% 55% at 50% 60%, rgba(36, 76, 255, 0.28), transparent 70%), var(--carbon); }
+.cubeCanvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; opacity: 0; transition: opacity 1.2s ease; }
+.cubes[data-live] .cubeCanvas { opacity: 1; }
+
+/* ==== 2D canvas scenes: they sit behind a section's content ==== */
+.fx { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0; }
+.flow { opacity: .55; -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 70%, transparent); mask-image: linear-gradient(180deg, transparent, #000 18%, #000 70%, transparent); }
+.tunnel { left: auto; right: -6%; top: -4%; width: min(720px, 60vw); height: min(720px, 60vw); opacity: .5;
+  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent); mask-image: radial-gradient(closest-side, #000 55%, transparent); }
+@media (max-width: 760px) { .tunnel { width: 120vw; height: 120vw; right: -40vw; top: -10vw; opacity: .3; } }
+
+/* ==== Pulsing orb (scene 11): an ultramarine glow with a dark eclipse core ==== */
+.orb { position: absolute; z-index: 0; pointer-events: none; right: -8vw; top: 50%; width: min(760px, 70vw); aspect-ratio: 1; translate: 0 -50%; border-radius: 50%;
+  background:
+    radial-gradient(circle, #0b0c0e 0 27%, transparent 27.5%),
+    radial-gradient(circle, rgba(232, 235, 237, .9) 26%, rgba(120, 146, 255, .9) 29%, rgba(36, 76, 255, .85) 34%, rgba(36, 76, 255, .35) 48%, rgba(36, 76, 255, 0) 70%);
+  filter: saturate(1.1); }
+.orb::after { content: ""; position: absolute; inset: 22%; border-radius: 50%; box-shadow: 0 0 120px 40px rgba(36, 76, 255, .35); }
+@media (prefers-reduced-motion: no-preference) { .orb { animation: beat 1.6s cubic-bezier(.3, 0, .2, 1) infinite; } }
+@keyframes beat { 0%, 100% { transform: scale(1); opacity: .85; } 12% { transform: scale(1.05); opacity: 1; } 24% { transform: scale(.99); } 36% { transform: scale(1.03); opacity: .95; } }
+@media (max-width: 760px) { .orb { width: 120vw; right: -60vw; opacity: .5; } }

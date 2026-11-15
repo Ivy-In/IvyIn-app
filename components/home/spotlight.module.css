@@ -63,3 +63,15 @@
   .tabs .tab { width: 100%; padding: 12px 10px; text-align: center; line-height: 1.25; display: flex; align-items: center; justify-content: center; }
   .tabs .tab:first-child { grid-column: 1 / -1; }
 }
+
+/* ==== Reel layer: pills and frosted rounded mentor cards ==== */
+.tab { border-radius: 999px; border-width: 1px; border-color: rgba(232, 235, 237, 0.24); transition: background-color .2s, border-color .2s; }
+.tab[aria-selected="true"] { border-color: var(--ultra); }
+.mcard { border-radius: 24px; border-width: 1px; border-color: rgba(232, 235, 237, 0.14);
+  background: linear-gradient(160deg, rgba(232, 235, 237, 0.08), rgba(232, 235, 237, 0.025));
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .8), inset 0 1px 0 rgba(232, 235, 237, 0.1);
+  transition: transform .5s var(--snap), border-color .2s; }
+@media (hover: hover) { .mcard:hover { transform: translateY(-6px); border-color: rgba(36, 76, 255, 0.7); } }
+.tag { border-radius: 999px; font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+.meta { font-weight: 600; }
+.arrows button { border-radius: 50%; border-width: 1px; border-color: rgba(232, 235, 237, 0.3); }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DotTunnel } from "@/components/reel/DotTunnel";
 import { JsonLd } from "@/components/JsonLd";
 import { getFaqs } from "@/lib/content";
 import { FaqExplorer } from "./FaqExplorer";
@@ -9,6 +10,7 @@ export async function FaqSection() {
   const faqs = await getFaqs();
   return (
     <section id="resources" className={`${css.band} ${css.flat} ${css.grain}`}>
+      <DotTunnel />
       <div className={css.wrap}>
         {faqs.length > 0 && (
           <JsonLd

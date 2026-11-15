@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TitleFrame } from "@/components/reel/TitleFrame";
 
 export const metadata: Metadata = { title: "Application received", robots: { index: false, follow: false } };
 
 export default function Thanks() {
   return (
-    <section className="mk-hero">
+    <section className="mk-hero rl-title">
+        <TitleFrame label="Careers" />
       <div className="mk-wrap">
         <div className="mk-eyebrow">Application received</div>
         <h1>Thank you for applying to be an IvyIn consultant!</h1>

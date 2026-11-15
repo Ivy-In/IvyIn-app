@@ -1,4 +1,5 @@
 import { sendInquiry } from "@/app/(marketing)/contact/actions";
+import { Orb } from "@/components/reel/Orb";
 import { Reveal } from "@/components/home/Reveal";
 import { SectionHead } from "./SectionHead";
 import css from "./sections.module.css";
@@ -11,6 +12,7 @@ const ERRORS: Record<string, string> = {
 export function ContactSection({ sent, error }: { sent?: string; error?: string }) {
   return (
     <section id="contact" className={`${css.band} ${css.final} ${css.grain}`}>
+      <Orb />
       <div className={css.wrap}>
         <div className={css.contactTop}>
           <SectionHead eyebrow="Contact" title="Get Started" />

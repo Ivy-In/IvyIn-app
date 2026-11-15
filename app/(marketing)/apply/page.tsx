@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ApplyForm } from "./ApplyForm";
+import { TitleFrame } from "@/components/reel/TitleFrame";
 
 export const metadata: Metadata = {
   title: "Apply to be a consultant",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 export default function Apply() {
   return (
     <>
-      <section className="mk-hero">
+      <section className="mk-hero rl-title">
+        <TitleFrame label="Careers" />
         <div className="mk-wrap">
           <div className="mk-eyebrow">Careers</div>
           <h1>Apply to be an IvyIn consultant</h1>

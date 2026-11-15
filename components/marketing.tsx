@@ -8,6 +8,8 @@ import type { PageContent } from "@/lib/content";
 import { getContext } from "@/lib/auth";
 import { HeroMap } from "@/components/home/HeroMap";
 import { Words } from "@/components/home/Words";
+import { GooBlob } from "@/components/reel/GooBlob";
+import { TitleFrame } from "@/components/reel/TitleFrame";
 
 const NAV = [
   { href: "/#how-it-works", label: "How It Works" },
@@ -62,7 +64,9 @@ export async function Footer() {
   const sig = await loadSignature();
   const socials = [["Instagram", sig.instagram, ICONS.instagram], ["LinkedIn", sig.linkedin, ICONS.linkedin], ["WhatsApp", sig.whatsapp, ICONS.whatsapp]] as const;
   return (
-    <footer className="mk-footer">
+    <footer className="mk-footer rl-foot">
+      <GooBlob />
+      <span className="rl-x tl" aria-hidden="true" /><span className="rl-x tr" aria-hidden="true" />
       <div className="mk-wrap" style={{ display: "grid", gap: "32px 48px", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", alignItems: "start" }}>
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,7 +97,7 @@ export async function Footer() {
         </nav>
       </div>
       <div className="mk-wrap" style={{ marginTop: 32, paddingTop: 20, borderTop: "1px solid rgba(232, 235, 237, 0.18)" }}>
-        <span>© {new Date().getFullYear()} IvyIn</span>
+        <span className="rl-label">© {new Date().getFullYear()} IvyIn &middot; College consulting from students who just got in</span>
       </div>
     </footer>
   );
@@ -145,10 +149,12 @@ export function PageBody({
 }) {
   return (
     <>
-      <section className="mk-hero">
+      <section className="mk-hero rl-title" data-home={pills ? "" : undefined}>
+        <TitleFrame label={content.eyebrow ?? "College consulting"} />
         {art && !pills && <Cut art={art} tilt={tilt} />}
         {pills && <HeroMap />}
         <div className="mk-wrap">
+          {pills && <p className="rl-wordmark" aria-hidden="true">ivyin<b /></p>}
           {content.eyebrow && <div className="mk-eyebrow">{content.eyebrow}</div>}
           <h1 data-hero-h1={pills ? "" : undefined}>{pills ? <Words text={titleCase(content.headline)} /> : titleCase(content.headline)}</h1>
           {content.lede && <p className="mk-lede">{content.lede}</p>}

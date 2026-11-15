@@ -1,18 +1,49 @@
-.deal { position: relative; display: grid; grid-template-columns: minmax(260px, 5fr) 7fr; gap: 0; margin-bottom: 28px; background: var(--ultra); color: var(--porcelain); overflow: hidden; }
-.main { padding: 36px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; border-right: 3px solid var(--carbon); }
-.tag { margin: 0; padding: 4px 12px; background: var(--porcelain); color: var(--carbon); font: 800 13px var(--font-sans); letter-spacing: .1em; text-transform: uppercase; }
-.name.name { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 3.4vw, 2.8rem); letter-spacing: -.03em; line-height: 1; color: var(--porcelain); }
-.price { margin: 0; display: flex; align-items: flex-end; gap: 16px; }
-.price b { font-family: var(--display); font-weight: 800; font-size: clamp(3.6rem, 8vw, 6.5rem); letter-spacing: -.05em; line-height: .85; }
-.price span { font: 700 14px/1.35 var(--font-sans); letter-spacing: .06em; text-transform: uppercase; padding-bottom: 6px; }
-.points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: repeat(3, 1fr); }
-.points li { display: grid; grid-template-columns: 52px 1fr; column-gap: 12px; align-content: center; padding: 20px 32px; }
-.points li + li { border-top: 3px solid var(--carbon); }
-.n { grid-row: span 2; font: 800 1.1rem var(--display); opacity: .75; padding-top: 2px; }
-.points strong { font-family: var(--display); font-weight: 800; font-size: clamp(1.15rem, 2vw, 1.6rem); letter-spacing: -.02em; line-height: 1.1; }
-.body { font-size: 1rem; opacity: .92; margin-top: 4px; }
-@media (max-width: 860px) {
-  .deal { grid-template-columns: 1fr; }
-  .main { border-right: 0; border-bottom: 3px solid var(--carbon); padding: 28px 22px; }
-  .points li { padding: 18px 22px; }
+/* The December Sprint as the reel's "Render queue" panel (scene 10) floating over the cube wave (scene 4). */
+.stage { position: relative; margin: 0 -28px 32px; padding: 96px 28px; min-height: 640px; display: grid; place-items: center; color: var(--porcelain); overflow: hidden; isolation: isolate; }
+.stage > :global(.rl-x) { color: rgba(232, 235, 237, 0.7); }
+.stage > div:not(:first-child) { position: relative; z-index: 1; width: 100%; display: grid; place-items: center; }
+
+.modal {
+  position: relative; width: min(560px, 100%); padding: 28px 28px 24px; border-radius: 32px; color: var(--carbon);
+  background: linear-gradient(160deg, rgba(232, 235, 237, 0.97), rgba(232, 235, 237, 0.9));
+  -webkit-backdrop-filter: blur(24px) saturate(140%); backdrop-filter: blur(24px) saturate(140%);
+  box-shadow: 0 50px 120px -30px rgba(0, 0, 0, .85), 0 2px 0 rgba(255, 255, 255, .6) inset, 0 0 0 1px rgba(232, 235, 237, .4);
+}
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tag { padding: 5px 12px; border-radius: 999px; background: var(--ultra); color: var(--porcelain); font: 700 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.when { font: 500 12px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(23, 25, 29, 0.7); }
+.name.name { margin: 18px 0 14px; font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 4.2vw, 2.9rem); line-height: .95; letter-spacing: -.035em; color: var(--carbon); }
+
+.rows { list-style: none; margin: 0; padding: 0; }
+.rows li { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 18px; padding: 16px 0; border-top: 1px solid rgba(23, 25, 29, 0.12); }
+.rows strong { display: block; font: 700 1.08rem/1.25 var(--font-sans); color: var(--carbon); }
+.rows li span:not(.toggle):not(.sr) { display: block; margin-top: 3px; font-size: .95rem; line-height: 1.45; color: rgba(23, 25, 29, 0.74); }
+.rows li div > span { display: block; margin-top: 3px; font-size: .95rem; line-height: 1.45; color: rgba(23, 25, 29, 0.74); }
+
+/* A switch, set to on. It shows the item is included; it is not a control. */
+.toggle { position: relative; width: 48px; height: 28px; border-radius: 999px; background: var(--ultra); flex: none; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25); }
+.toggle i { position: absolute; top: 3px; left: 23px; width: 22px; height: 22px; border-radius: 50%; background: var(--porcelain); box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
+@media (prefers-reduced-motion: no-preference) {
+  .toggle i { animation: flip .7s var(--snap) both; }
+  .rows li:nth-child(2) .toggle i { animation-delay: .12s; }
+  .rows li:nth-child(3) .toggle i { animation-delay: .24s; }
+}
+@keyframes flip { from { left: 3px; } to { left: 23px; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 18px; border-top: 1px solid rgba(23, 25, 29, 0.12); }
+.price { margin: 0; display: flex; align-items: baseline; gap: 10px; }
+.price b { font-family: var(--display); font-weight: 400; font-size: clamp(2.4rem, 5vw, 3.2rem); letter-spacing: -.045em; line-height: 1; color: var(--carbon); }
+.price span { font: 500 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(23, 25, 29, 0.7); }
+.go { display: inline-flex; align-items: center; gap: .5em; padding: 14px 24px; border-radius: 999px; background: var(--carbon); color: var(--porcelain) !important; font: 700 16px var(--font-sans); text-decoration: none; transition: transform .45s var(--snap), background-color .2s; }
+.go::after { content: "›"; transition: transform .45s var(--snap); }
+.go:hover { background: var(--ultra); }
+.go:hover::after { transform: translateX(4px); }
+.go:active { transform: scale(.96); }
+
+@media (max-width: 700px) {
+  .stage { margin: 0 -28px 24px; padding: 64px 16px; min-height: 0; }
+  .modal { padding: 22px 20px 20px; border-radius: 26px; }
+  .foot { flex-direction: column; align-items: stretch; }
+  .go { justify-content: center; }
 }

@@ -38,3 +38,11 @@
   .count { display: none; }
   .legend { bottom: -9%; }
 }
+
+/* Reel title card: carbon dots and porcelain pins on ultramarine. */
+.map.map .land { fill: rgba(23, 25, 29, 0.42); }
+.pin { border-color: var(--carbon); background: var(--porcelain); border-radius: 0; }
+.pin[data-mentor="true"] { background: var(--carbon); border-color: var(--porcelain); }
+.pin[data-active="true"] { background: var(--porcelain); border-color: var(--carbon); }
+.pin[data-active="true"]::after { border-color: var(--porcelain); }
+.tag { background: var(--carbon); border-radius: 10px; padding: 4px 10px; box-shadow: 0 16px 40px -16px rgba(23, 25, 29, .9); }
