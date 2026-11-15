@@ -40,7 +40,7 @@
 }
 
 /* Reel title card: carbon dots and porcelain pins on ultramarine. */
-.map.map .land { fill: rgba(23, 25, 29, 0.42); }
+.map.map .land { fill: rgba(23, 25, 29, 0.78); -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.55), #000 40%); mask-image: linear-gradient(90deg, rgba(0,0,0,.55), #000 40%); }
 .pin { border-color: var(--carbon); background: var(--porcelain); border-radius: 0; }
 .pin[data-mentor="true"] { background: var(--carbon); border-color: var(--porcelain); }
 .pin[data-active="true"] { background: var(--porcelain); border-color: var(--carbon); }

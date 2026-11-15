@@ -210,7 +210,7 @@ th { font: 500 11px/1.2 var(--mono) !important; letter-spacing: .14em; text-tran
 .rl-title .mk-cut[data-orbit] { background: none !important; }
 
 /* The map: carbon dots on ultramarine, porcelain pins. */
-.mk-hero.rl-title:has(> [data-orbit])::after { background: linear-gradient(90deg, rgba(36, 76, 255, .94) 0%, rgba(36, 76, 255, .7) 30%, rgba(36, 76, 255, 0) 56%) !important; }
+.mk-hero.rl-title:has(> [data-orbit])::after { background: linear-gradient(90deg, rgba(36, 76, 255, .7) 0%, rgba(36, 76, 255, .35) 26%, rgba(36, 76, 255, 0) 44%) !important; }
 
 @media (max-width: 900px) {
   .mk .mk-hero.rl-title { padding: 64px 0 72px; }
