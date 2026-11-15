@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { PageBody } from "@/components/marketing";
-import { StatsAndTicker } from "@/components/home/HomeSections";
+import { LogoWall } from "@/components/home/LogoWall";
 import { StickyCta } from "@/components/home/StickyCta";
 import { MentorCarousel } from "@/components/home/MentorCarousel";
 import { Testimonials } from "@/components/sections/Extras";
@@ -64,7 +64,7 @@ export default async function Home({
           }}
         />
       </div>
-      <StatsAndTicker />
+      <LogoWall />
 
       <CmsSection id="how-it-works" slug="how-it-works" eyebrow="How it works" tone="flat" />
       <KineticType />
