@@ -188,7 +188,7 @@ th { font: 500 11px/1.2 var(--mono) !important; letter-spacing: .14em; text-tran
 
 /* The wordmark, set as big as the screen allows. */
 .rl-wordmark {
-  margin: 0 0 .1em; font: 700 clamp(4.2rem, 11.5vw, 11rem)/.8 var(--font-sans); letter-spacing: -.065em;
+  margin: 0 0 .1em; font: 700 clamp(5.4rem, 17vw, 17rem)/.8 var(--font-sans); letter-spacing: -.065em;
   color: var(--porcelain); white-space: nowrap; user-select: none;
 }
 .rl-wordmark b { display: inline-block; width: .17em; height: .17em; margin-left: .05em; background: var(--carbon); vertical-align: baseline; }
