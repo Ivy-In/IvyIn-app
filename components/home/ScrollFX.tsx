@@ -15,7 +15,8 @@ export function ScrollFX() {
     const drift = q("[data-drift]").map((el) => ({ el, f: Number(el.dataset.drift), sec: el.closest("section") as HTMLElement | null }));
     const wipes = q("[data-wipe]");
     const skews = q("[data-skew]");
-    const heroH1 = document.querySelector<HTMLElement>("[data-hero-h1]");
+    // The whole hero text block (wordmark, headline, lede, pills, buttons) moves as one, so nothing overlaps.
+    const heroH1 = document.querySelector<HTMLElement>("[data-hero-h1]")?.closest<HTMLElement>(".mk-wrap") ?? null;
     const orbit = document.querySelector<HTMLElement>("[data-orbit]");
     const heroEl = document.getElementById("home");
 
