@@ -287,3 +287,7 @@ main.wrap > .card > h1:first-child {
   font-size: clamp(1.8rem, 7vw, 2.5rem) !important; line-height: .95 !important; letter-spacing: -.035em !important; margin: 0 0 18px !important;
 }
 .auth-brand { display: inline-block; }
+
+/* Anchor jumps (e.g. "Claim the sprint" to #contact) stop below the sticky header instead of under it. */
+section[id] { scroll-margin-top: 170px; }
+@media (min-width: 900px) { section[id] { scroll-margin-top: 110px; } }

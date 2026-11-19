@@ -18,7 +18,7 @@ const DEFAULTS: Signature = {
   tagline: "America's Premier College Consulting Group",
   website: BASE,
   instagram: "https://www.instagram.com/",
-  linkedin: "https://www.linkedin.com/",
+  linkedin: "https://www.linkedin.com/company/ivyin-college-consulting/",
   whatsapp: "https://wa.me/",
 };
 
